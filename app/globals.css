@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ─── HOLD DESIGN SYSTEM — TOKEN LAYER ───────────────────────────────────── */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* COLORES DE MARCA (Pantone / Manual HOLD 2025) */
+  --color-star-white:       #FAFFFA;
+  --color-black:            #1D1D1B;
+  --color-pantone-420:      #C7C9C7;
+  --color-pantone-486:      #E96951;
+  --color-pantone-warm-red: #F9423A;
+  --color-pantone-243:      #EBBDD9;
+  --color-pantone-285:      #0072CE;
+
+  /* TIPOGRAFÍA */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── CUSTOM PROPERTIES SEMÁNTICAS ────────────────────────────────────────── */
+
+:root {
+  --bg:        #FAFFFA;
+  --fg:        #1D1D1B;
+  --muted:     rgba(29, 29, 27, 0.55);
+  --hairline:  rgba(29, 29, 27, 0.14);
+  --surface:   rgba(29, 29, 27, 0.04);
+  --surface-2: rgba(29, 29, 27, 0.07);
+  --accent:    #E96951;
+  --accent-fg: #fff;
+
+  /* Bordes — 0px por defecto (marca cuadrada y estructurada) */
+  --r-sm:   0px;
+  --r-md:   0px;
+  --r-pill: 0px;
+
+  /* Espaciado */
+  --pad-card:  28px;
+  --pad-btn-y: 14px;
+  --pad-btn-x: 24px;
+  --gap-sect:  120px;
+  --gap-block: 48px;
+  --gutter:    48px;
+  --max:       1440px;
+
+  /* Motion — curva principal del sistema */
+  --ease-hold: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ─── BASE ─────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100svh;
+  overflow-x: hidden;
+}
+
+/* ─── REVEAL ON SCROLL ─────────────────────────────────────────────────────── */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s var(--ease-hold),
+    transform 0.9s var(--ease-hold);
+}
+
+[data-reveal].in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal-delay="0.1"] { transition-delay: 0.1s; }
+[data-reveal-delay="0.2"] { transition-delay: 0.2s; }
+[data-reveal-delay="0.3"] { transition-delay: 0.3s; }
+[data-reveal-delay="0.4"] { transition-delay: 0.4s; }
+[data-reveal-delay="0.5"] { transition-delay: 0.5s; }
+
+/* ─── SECTION LAYOUT HELPER ────────────────────────────────────────────────── */
+
+.section-container {
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-block: var(--gap-sect);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter:    24px;
+    --gap-sect:  80px;
+    --gap-block: 32px;
+  }
 }
