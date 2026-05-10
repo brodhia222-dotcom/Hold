@@ -1,0 +1,150 @@
+/* HOLD ServiciosIntro — Section 2 del HeroScrollStack.
+   Pantalla completa centrada con header gigante + 3 dots de servicios. */
+
+.hold-servicios-intro {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: clamp(48px, 8vh, 96px);
+  padding-inline: var(--gutter, 48px);
+  background: var(--bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hold-servicios-intro__eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.hold-servicios-intro__title {
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--fg);
+  margin: 0 0 24px;
+  max-width: 16ch;
+}
+
+.hold-servicios-intro__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hold-servicios-intro__sub {
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--muted);
+  max-width: 52ch;
+  margin: 0 0 56px;
+  line-height: 1.55;
+}
+
+.hold-servicios-intro__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.hold-servicios-intro__item {
+  --service-color: var(--fg);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  transition:
+    color var(--dur-base) var(--ease-hold),
+    border-color var(--dur-base) var(--ease-hold);
+}
+
+.hold-servicios-intro__item-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--service-color);
+  flex-shrink: 0;
+  transition: width var(--dur-base) var(--ease-hold);
+}
+
+.hold-servicios-intro__item-num {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-right: 10px;
+  transition: color var(--dur-base) var(--ease-hold);
+}
+
+.hold-servicios-intro__item:hover {
+  color: var(--service-color);
+  border-color: var(--service-color);
+}
+
+.hold-servicios-intro__item:hover .hold-servicios-intro__item-dot {
+  width: 28px;
+}
+
+.hold-servicios-intro__item:hover .hold-servicios-intro__item-num {
+  color: var(--service-color);
+}
+
+.hold-servicios-intro__hint {
+  margin-top: 56px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hold-servicios-intro__hint-line {
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+}
+
+@media (max-width: 768px) {
+  .hold-servicios-intro__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+  }
+  .hold-servicios-intro__item {
+    justify-content: flex-start;
+    padding: 16px 20px;
+    border: 1px solid var(--hairline);
+  }
+  .hold-servicios-intro__sub {
+    margin-bottom: 40px;
+  }
+  .hold-servicios-intro__hint {
+    margin-top: 40px;
+  }
+}

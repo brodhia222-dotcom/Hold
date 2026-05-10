@@ -1,0 +1,56 @@
+/* HOLD HeroScrollStack — wrapper de dos secciones sticky con scale + rotate.
+   Section 1 (Hero) sticky en top, scale 1→0.86, rotate 0→-3°.
+   Section 2 (Intro) entra desde abajo, scale 0.92→1, rotate 3°→0°. */
+
+.hold-stack {
+  position: relative;
+  height: 200vh;
+}
+
+.hold-stack__a {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 1;
+  will-change: transform;
+  transform-origin: 50% 50%;
+}
+
+.hold-stack__b {
+  position: relative;
+  height: 100vh;
+  z-index: 2;
+  will-change: transform;
+  transform-origin: 50% 50%;
+}
+
+/* En mobile el rotate marea — uso solo scale leve. */
+@media (max-width: 768px) {
+  .hold-stack {
+    height: auto;
+  }
+  .hold-stack__a {
+    position: relative;
+    height: auto;
+    transform: none !important;
+  }
+  .hold-stack__b {
+    height: auto;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hold-stack {
+    height: auto;
+  }
+  .hold-stack__a {
+    position: relative;
+    height: auto;
+    transform: none !important;
+  }
+  .hold-stack__b {
+    height: auto;
+    transform: none !important;
+  }
+}

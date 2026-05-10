@@ -2,7 +2,9 @@
 
 .hold-servicios {
   position: relative;
-  padding-block: var(--gap-sect, 120px);
+  /* Padding-top más chico porque ya viene de ServiciosIntro + MarqueeBand */
+  padding-top: 48px;
+  padding-bottom: var(--gap-sect, 120px);
   padding-inline: var(--gutter, 48px);
   background: var(--bg);
 }
@@ -10,10 +12,6 @@
 .hold-servicios__inner {
   max-width: var(--max, 1440px);
   margin-inline: auto;
-}
-
-.hold-servicios__header {
-  margin-bottom: 64px;
 }
 
 .hold-servicios__grid {

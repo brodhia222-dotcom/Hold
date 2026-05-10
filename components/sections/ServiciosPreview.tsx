@@ -1,4 +1,3 @@
-import { SectionHeader } from "@/components/ui/SectionHeader"
 import { ServiceCard } from "@/components/sections/ServiceCard"
 import { servicios } from "@/data/content"
 import "./servicios-preview.css"
@@ -9,19 +8,15 @@ const MEDIA_LABELS: Record<string, string> = {
   performance: "Captura de dashboard / data",
 }
 
+/**
+ * Grid de las 3 cards de servicio.
+ * El header (eyebrow + título + intro) vive en ServiciosIntro
+ * (Section 2 del HeroScrollStack), no se duplica acá.
+ */
 export function ServiciosPreview() {
   return (
-    <section className="hold-servicios" id="servicios" aria-label="Servicios">
+    <section className="hold-servicios" aria-label="Detalle de servicios">
       <div className="hold-servicios__inner">
-        <div className="hold-servicios__header" data-reveal>
-          <SectionHeader
-            numero="01"
-            eyebrow="Servicios"
-            titulo="Tres formas de sostener tu marca."
-            intro="Cada servicio con su color, su lógica y un equipo dedicado."
-          />
-        </div>
-
         <div className="hold-servicios__grid">
           {servicios.map((s) => (
             <ServiceCard
