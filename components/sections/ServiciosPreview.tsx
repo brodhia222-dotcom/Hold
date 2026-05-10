@@ -10,8 +10,6 @@ const MEDIA_LABELS: Record<string, string> = {
 }
 
 export function ServiciosPreview() {
-  const [academy, redes, performance] = servicios
-
   return (
     <section className="hold-servicios" id="servicios" aria-label="Servicios">
       <div className="hold-servicios__inner">
@@ -20,34 +18,18 @@ export function ServiciosPreview() {
             numero="01"
             eyebrow="Servicios"
             titulo="Tres formas de sostener tu marca."
-            intro="Cada servicio con su color, su lógica y un equipo dedicado. Elegí por dónde te suena empezar."
+            intro="Cada servicio con su color, su lógica y un equipo dedicado."
           />
         </div>
 
         <div className="hold-servicios__grid">
-          <div className="hold-servicios__feature">
+          {servicios.map((s) => (
             <ServiceCard
-              servicio={academy}
-              variant="feature"
-              mediaLabel={MEDIA_LABELS.academy}
+              key={s.slug}
+              servicio={s}
+              mediaLabel={MEDIA_LABELS[s.slug] ?? "Imagen / Video"}
             />
-          </div>
-
-          <div className="hold-servicios__split-a">
-            <ServiceCard
-              servicio={redes}
-              variant="reverse"
-              mediaLabel={MEDIA_LABELS["redes-sociales"]}
-            />
-          </div>
-
-          <div className="hold-servicios__split-b">
-            <ServiceCard
-              servicio={performance}
-              variant="default"
-              mediaLabel={MEDIA_LABELS.performance}
-            />
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,6 +1,4 @@
-/* HOLD ServiciosPreview — layout asimétrico del DS:
-   "El primero rompe la grilla y ocupa toda la fila;
-    los otros dos comparten línea pero con proporciones invertidas." */
+/* HOLD ServiciosPreview — 3 cards iguales en grid 3-col (post-feedback). */
 
 .hold-servicios {
   position: relative;
@@ -20,39 +18,26 @@
 
 .hold-servicios__grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 32px;
-}
-
-/* Row 1 — Academy ocupa toda la grilla */
-.hold-servicios__feature {
-  grid-column: 1 / -1;
-}
-
-/* Row 2 — Redes 7 col + Performance 5 col (proporciones invertidas) */
-.hold-servicios__split-a {
-  grid-column: 1 / span 7;
-}
-
-.hold-servicios__split-b {
-  grid-column: 8 / span 5;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
 }
 
 @media (max-width: 1024px) {
-  .hold-servicios__split-a,
-  .hold-servicios__split-b {
-    grid-column: 1 / -1;
+  .hold-servicios__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .hold-servicios {
-    padding-block: var(--gap-sect, 80px);
+    padding-block: 80px;
+  }
+  .hold-servicios__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   .hold-servicios__header {
     margin-bottom: 40px;
-  }
-  .hold-servicios__grid {
-    gap: 16px;
   }
 }

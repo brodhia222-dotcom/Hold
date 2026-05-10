@@ -7,34 +7,30 @@ import "./service-card.css"
 
 type Props = {
   servicio: Servicio
-  /** Variant del layout asimétrico:
-   *  - feature: full-width, body izq + media der grande (Academy)
-   *  - reverse: media izq + body der (Redes)
-   *  - default: body izq + media der (Performance) */
-  variant?: "feature" | "reverse" | "default"
   /** Etiqueta inferior en la media (ej. "Foto del aula / clase en vivo") */
   mediaLabel?: string
   className?: string
 }
 
+/**
+ * Card compacta vertical: media (4:3 con hatch del color) arriba,
+ * body (eyebrow + título + tagline + CTA) abajo. Hover llena la card del
+ * color del servicio (wipe vertical 0.5s).
+ */
 export function ServiceCard({
   servicio,
-  variant = "default",
   mediaLabel = "Imagen / Video",
   className,
 }: Props) {
   const styleVars = { "--service-color": servicio.acento } as CSSProperties
 
   return (
-    <article
-      className={cn(
-        "hold-service-card",
-        variant === "feature" && "hold-service-card--feature",
-        variant === "reverse" && "hold-service-card--reverse",
-        className,
-      )}
+    <Link
+      href={servicio.href}
+      className={cn("hold-service-card", className)}
       style={styleVars}
       data-reveal
+      aria-label={`Ver ${servicio.nombre}`}
     >
       <div className="hold-service-card__media" aria-hidden>
         <span className="hold-service-card__media-num">{servicio.numero}</span>
@@ -42,10 +38,6 @@ export function ServiceCard({
       </div>
 
       <div className="hold-service-card__body">
-        <span className="hold-service-card__num" aria-hidden>
-          {servicio.numero}
-        </span>
-
         <span className="hold-service-card__eyebrow">
           <span className="hold-service-card__eyebrow-dot" aria-hidden />
           {servicio.eyebrow}
@@ -55,25 +47,13 @@ export function ServiceCard({
 
         <p className="hold-service-card__sub">{servicio.tagline}</p>
 
-        <p className="hold-service-card__desc">{servicio.descripcion}</p>
-
-        <ul className="hold-service-card__items">
-          {servicio.items.slice(0, 4).map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-
-        <Link
-          href={servicio.href}
-          className="hold-service-card__cta"
-          aria-label={`Ver ${servicio.nombre}`}
-        >
-          <span>Quiero saber más</span>
+        <span className="hold-service-card__cta">
+          Quiero saber más
           <span className="hold-service-card__cta-arrow">
-            <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden />
+            <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden />
           </span>
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   )
 }

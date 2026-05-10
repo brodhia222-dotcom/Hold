@@ -2,7 +2,6 @@ import { HeroHome } from "@/components/sections/HeroHome"
 import { ServiciosPreview } from "@/components/sections/ServiciosPreview"
 import { NosotrosPreview } from "@/components/sections/NosotrosPreview"
 import { ClientesPreview } from "@/components/sections/ClientesPreview"
-import { BandaCTA } from "@/components/sections/BandaCTA"
 import { MarqueeBand } from "@/components/effects/MarqueeBand"
 
 const MARQUEE_TOP = [
@@ -36,7 +35,6 @@ export default function Home() {
         separatorColor="#E96951"
       />
       <ClientesPreview />
-      <BandaCTA />
     </>
   )
 }
