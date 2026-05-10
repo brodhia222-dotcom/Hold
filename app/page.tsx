@@ -16,7 +16,6 @@ const MARQUEE_TOP = [
 
 const MARQUEE_MID = [
   "Sostener sin perder la esencia",
-  "Buenos Aires · 2025",
   "Marcas con propósito",
   "Equipo dedicado",
 ] as const
