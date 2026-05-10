@@ -2,6 +2,9 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
+import { SmoothScroll } from "@/components/effects/SmoothScroll"
+import { RevealOnScroll } from "@/components/effects/RevealOnScroll"
+import { PageTransition } from "@/components/effects/PageTransition"
 import "./globals.css"
 
 const inter = Inter({
@@ -38,9 +41,11 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <body>
+        <SmoothScroll />
+        <RevealOnScroll />
         <Header />
         <div className="hold-page" style={{ paddingTop: "var(--hold-header-h, 72px)" }}>
-          {children}
+          <PageTransition>{children}</PageTransition>
         </div>
         <Footer />
       </body>

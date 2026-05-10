@@ -1,0 +1,84 @@
+/* HOLD MarqueeBand — banda full-bleed entre secciones.
+   Editorial++: tipografía oversized, negro sobre crudo, separadores ●.
+   Loop seamless gracias a duplicar la track. */
+
+.hold-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--fg);
+  border-bottom: 1px solid var(--fg);
+  background: var(--bg);
+  color: var(--fg);
+  isolation: isolate;
+}
+
+.hold-marquee--invert {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+.hold-marquee__viewport {
+  display: flex;
+  width: max-content;
+  animation: hold-marquee-loop var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+.hold-marquee:hover .hold-marquee__viewport {
+  animation-play-state: paused;
+}
+
+.hold-marquee__track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--marquee-gap, 48px);
+  padding: var(--marquee-pad, 32px) 24px;
+}
+
+.hold-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--marquee-gap, 48px);
+  font-size: clamp(28px, 4.5vw, 56px);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.hold-marquee__item--em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hold-marquee__sep {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--marquee-sep, var(--c-pantone-486, #E96951));
+  flex-shrink: 0;
+}
+
+@keyframes hold-marquee-loop {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 768px) {
+  .hold-marquee__track {
+    padding: 24px 16px;
+    gap: 32px;
+  }
+  .hold-marquee__item {
+    gap: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hold-marquee__viewport {
+    animation: none;
+  }
+}
