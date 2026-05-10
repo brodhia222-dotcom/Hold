@@ -1,0 +1,277 @@
+/* HOLD ServiceCard — usado en ServiciosPreview con layout asimétrico.
+   Editorial++: hover con color masivo del servicio (no outline). */
+
+.hold-service-card {
+  --service-color: var(--fg);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    border-color var(--dur-base) var(--ease-hold),
+    transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card:hover {
+  border-color: var(--service-color);
+  transform: translateY(-4px);
+}
+
+.hold-service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--service-color);
+  transform: translateY(101%);
+  transition: transform var(--dur-slow) var(--ease-hold);
+  z-index: 0;
+}
+
+.hold-service-card:hover::before {
+  transform: translateY(0);
+}
+
+.hold-service-card__media,
+.hold-service-card__body {
+  position: relative;
+  z-index: 1;
+  transition: color var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card:hover .hold-service-card__body {
+  color: #fff;
+}
+
+.hold-service-card:hover .hold-service-card__sub,
+.hold-service-card:hover .hold-service-card__desc {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hold-service-card:hover .hold-service-card__items li {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.hold-service-card:hover .hold-service-card__cta {
+  color: #fff;
+}
+
+.hold-service-card:hover .hold-service-card__num {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Media */
+.hold-service-card__media {
+  background: var(--service-color);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0 12px,
+    transparent 12px 24px
+  );
+  min-height: 320px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hold-service-card__media-num {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.hold-service-card__media-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  align-self: flex-end;
+  text-align: right;
+  max-width: 60%;
+}
+
+/* Body */
+.hold-service-card__body {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--fg);
+}
+
+.hold-service-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--service-color);
+}
+
+.hold-service-card:hover .hold-service-card__eyebrow {
+  color: #fff;
+}
+
+.hold-service-card__eyebrow-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+}
+
+.hold-service-card__num {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  font-size: clamp(64px, 6vw, 96px);
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--hairline);
+  z-index: 0;
+  pointer-events: none;
+  transition: color var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card__title {
+  font-size: clamp(36px, 4.5vw, 64px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.hold-service-card__sub {
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+}
+
+.hold-service-card__desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  max-width: 48ch;
+}
+
+.hold-service-card__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hold-service-card__items li {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--hairline);
+  color: var(--fg);
+  transition:
+    border-color var(--dur-base) var(--ease-hold),
+    color var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card__cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--fg);
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  transition: color var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card__cta-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition: transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card:hover .hold-service-card__cta-arrow {
+  transform: translateX(6px);
+}
+
+/* Variante --feature: el primer servicio rompe la grilla, full width.
+   La media va al lado, el body con más respiración.            */
+.hold-service-card--feature {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.hold-service-card--feature .hold-service-card__media {
+  min-height: 480px;
+  order: 2;
+}
+
+.hold-service-card--feature .hold-service-card__body {
+  order: 1;
+  padding: 56px;
+  gap: 32px;
+}
+
+.hold-service-card--feature .hold-service-card__title {
+  font-size: clamp(52px, 7vw, 96px);
+}
+
+/* Variante --reverse: media a la izquierda, body a la derecha (Redes) */
+.hold-service-card--reverse .hold-service-card__media {
+  order: 1;
+}
+
+.hold-service-card--reverse .hold-service-card__body {
+  order: 2;
+}
+
+@media (max-width: 900px) {
+  .hold-service-card,
+  .hold-service-card--feature {
+    grid-template-columns: 1fr;
+  }
+
+  .hold-service-card__media,
+  .hold-service-card--reverse .hold-service-card__media,
+  .hold-service-card--feature .hold-service-card__media {
+    order: 1;
+    min-height: 240px;
+  }
+
+  .hold-service-card__body,
+  .hold-service-card--reverse .hold-service-card__body,
+  .hold-service-card--feature .hold-service-card__body {
+    order: 2;
+    padding: 32px;
+  }
+
+  .hold-service-card__num {
+    top: 16px;
+    right: 16px;
+  }
+}

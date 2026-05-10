@@ -1,0 +1,167 @@
+/* HOLD BandaCTA — banda CTA full-bleed warm-red al final de la home. */
+
+.hold-banda {
+  position: relative;
+  padding-block: clamp(96px, 14vw, 200px);
+  padding-inline: var(--gutter, 48px);
+  background: var(--c-pantone-warm-red, #F9423A);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hold-banda__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.6) 0 1px,
+    transparent 1px 28px
+  );
+  pointer-events: none;
+}
+
+.hold-banda__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max, 1440px);
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hold-banda__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 32px;
+}
+
+.hold-banda__eyebrow::before,
+.hold-banda__eyebrow::after {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.hold-banda__title {
+  font-size: clamp(64px, 11vw, 192px);
+  line-height: 0.95;
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  margin: 0;
+  max-width: 14ch;
+}
+
+.hold-banda__title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hold-banda__sub {
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 32px;
+  max-width: 540px;
+}
+
+.hold-banda__ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+
+.hold-banda__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  color: var(--c-pantone-warm-red, #F9423A);
+  border: 1px solid #fff;
+  padding: 18px 32px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  transition:
+    background var(--dur-base) var(--ease-hold),
+    color var(--dur-base) var(--ease-hold),
+    border-color var(--dur-base) var(--ease-hold);
+}
+
+.hold-banda__btn:hover {
+  background: var(--fg);
+  color: #fff;
+  border-color: var(--fg);
+}
+
+.hold-banda__btn--ghost {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.hold-banda__btn--ghost:hover {
+  background: #fff;
+  color: var(--c-pantone-warm-red, #F9423A);
+  border-color: #fff;
+}
+
+.hold-banda__btn-arrow {
+  transition: transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-banda__btn:hover .hold-banda__btn-arrow {
+  transform: translateX(4px);
+}
+
+.hold-banda__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 64px;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.hold-banda__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hold-banda__meta-dot {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .hold-banda__meta {
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .hold-banda__btn {
+    padding: 16px 24px;
+    font-size: 14px;
+  }
+}

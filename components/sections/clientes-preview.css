@@ -1,0 +1,132 @@
+/* HOLD ClientesPreview — 3 testimonios (1 por servicio) en home. */
+
+.hold-clientes {
+  padding-block: var(--gap-sect, 120px);
+  padding-inline: var(--gutter, 48px);
+  background: var(--bg);
+}
+
+.hold-clientes__inner {
+  max-width: var(--max, 1440px);
+  margin-inline: auto;
+}
+
+.hold-clientes__header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 64px;
+}
+
+.hold-clientes__head-cta {
+  justify-self: end;
+}
+
+.hold-clientes__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.hold-clientes__card {
+  --service-color: var(--fg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px;
+  border: 1px solid var(--hairline);
+  background: var(--bg);
+  transition:
+    border-color var(--dur-base) var(--ease-hold),
+    transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-clientes__card:hover {
+  border-color: var(--service-color);
+  transform: translateY(-4px);
+}
+
+.hold-clientes__quote {
+  font-size: 56px;
+  line-height: 0.5;
+  font-weight: 300;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--service-color);
+  height: 32px;
+  display: block;
+}
+
+.hold-clientes__text {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--fg);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.hold-clientes__divider {
+  height: 1px;
+  background: var(--hairline);
+}
+
+.hold-clientes__footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hold-clientes__author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hold-clientes__author-name {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--fg);
+}
+
+.hold-clientes__author-rol {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hold-clientes__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--service-color);
+  color: #fff;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .hold-clientes__grid {
+    grid-template-columns: 1fr;
+  }
+  .hold-clientes__header {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hold-clientes__head-cta {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 768px) {
+  .hold-clientes {
+    padding-block: 80px;
+  }
+  .hold-clientes__card {
+    padding: 28px;
+  }
+}

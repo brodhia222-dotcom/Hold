@@ -1,0 +1,229 @@
+/* HOLD HeroHome — centrado, display oversized, formas decorativas planas */
+
+.hold-hero {
+  position: relative;
+  /* El wrapper del layout ya empuja con var(--hold-header-h); acá solo
+     pedimos lo que queda de viewport para llenar la primera vista. */
+  min-height: calc(100svh - var(--hold-header-h, 72px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 64px;
+  padding-bottom: 72px;
+  padding-inline: var(--gutter, 48px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hold-hero__shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hold-hero__shape {
+  position: absolute;
+  display: block;
+}
+
+/* Forma 1 — círculo coral arriba-izquierda, parcialmente fuera del viewport */
+.hold-hero__shape--circle {
+  width: clamp(420px, 55vw, 720px);
+  height: clamp(420px, 55vw, 720px);
+  border-radius: 50%;
+  background: var(--c-pantone-486, #E96951);
+  opacity: 0.08;
+  top: -120px;
+  left: -160px;
+}
+
+/* Forma 2 — cuadrado tangerine abajo-derecha */
+.hold-hero__shape--square {
+  width: clamp(280px, 40vw, 520px);
+  height: clamp(280px, 40vw, 520px);
+  background: #F08A3E;
+  opacity: 0.07;
+  bottom: -80px;
+  right: -120px;
+}
+
+/* Forma 3 — barra warm-red horizontal arriba */
+.hold-hero__shape--bar {
+  width: clamp(180px, 22vw, 320px);
+  height: 8px;
+  background: var(--c-pantone-warm-red, #F9423A);
+  opacity: 0.4;
+  top: 20%;
+  right: 8%;
+}
+
+.hold-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hold-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+
+.hold-hero__eyebrow::before,
+.hold-hero__eyebrow::after {
+  content: "";
+  width: 32px;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.hold-hero__title {
+  font-size: clamp(56px, 11vw, 196px);
+  line-height: 0.92;
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  color: var(--fg);
+  margin: 0;
+  max-width: 14ch;
+}
+
+.hold-hero__title-line {
+  display: block;
+  overflow: hidden;
+}
+
+.hold-hero__title-line-inner {
+  display: inline-block;
+  will-change: transform;
+}
+
+.hold-hero__title-em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hold-hero__sub {
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--muted);
+  max-width: 540px;
+  margin-top: 40px;
+}
+
+.hold-hero__ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+
+.hold-hero__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 96px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.hold-hero__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hold-hero__meta-dot {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.hold-hero__scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  z-index: 1;
+}
+
+.hold-hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--hairline);
+  position: relative;
+  overflow: hidden;
+}
+
+.hold-hero__scroll-line::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 12px;
+  background: var(--fg);
+  animation: hold-scroll-hint 2.4s var(--ease-hold) infinite;
+}
+
+@keyframes hold-scroll-hint {
+  0%   { transform: translateY(-100%); }
+  60%  { transform: translateY(100%); }
+  100% { transform: translateY(100%); }
+}
+
+@media (max-width: 768px) {
+  .hold-hero {
+    min-height: 90svh;
+  }
+  .hold-hero__eyebrow {
+    margin-bottom: 32px;
+  }
+  .hold-hero__sub {
+    margin-top: 32px;
+  }
+  .hold-hero__ctas {
+    margin-top: 36px;
+  }
+  .hold-hero__meta {
+    margin-top: 64px;
+    gap: 16px;
+  }
+  .hold-hero__scroll {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hold-hero__scroll-line::after {
+    animation: none;
+  }
+}
