@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
 import "./globals.css"
 
 const inter = Inter({
@@ -35,7 +37,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <Header />
+        <div className="hold-page" style={{ paddingTop: "var(--hold-header-h, 72px)" }}>
+          {children}
+        </div>
+        <Footer />
+      </body>
     </html>
   )
 }

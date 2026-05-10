@@ -50,6 +50,9 @@
   --dur-fast:   0.25s;
   --dur-base:   0.4s;
   --dur-slow:   0.5s;
+
+  /* Header height — referenciado por el padding-top del <main> */
+  --hold-header-h: 72px;
 }
 
 /* ─── BASE ─────────────────────────────────────────────────────────────────── */

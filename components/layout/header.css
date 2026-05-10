@@ -1,0 +1,213 @@
+/* HOLD Header — sticky con blur sobre scroll + active link.
+   El comportamiento responsive cambia el desktop nav por el hamburger. */
+
+.hold-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--hold-header-h, 72px);
+  padding-inline: var(--gutter, 48px);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--dur-base) var(--ease-hold),
+    border-color var(--dur-base) var(--ease-hold),
+    backdrop-filter var(--dur-base) var(--ease-hold);
+}
+
+.hold-header[data-scrolled="true"] {
+  background: rgba(250, 255, 250, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom-color: var(--hairline);
+}
+
+.hold-header__logo {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.hold-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.hold-header__link {
+  position: relative;
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color var(--dur-fast) var(--ease-hold);
+}
+
+.hold-header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  height: 1px;
+  background: currentColor;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-header__link:hover::after,
+.hold-header__link[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+.hold-header__cta {
+  display: flex;
+  align-items: center;
+}
+
+/* Hamburger button */
+.hold-header__burger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 60;
+}
+
+.hold-header__burger-bar {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  height: 1.5px;
+  background: var(--fg);
+  transition:
+    transform var(--dur-base) var(--ease-hold),
+    top var(--dur-base) var(--ease-hold),
+    background var(--dur-base) var(--ease-hold);
+}
+
+.hold-header__burger-bar:nth-child(1) { top: 14px; }
+.hold-header__burger-bar:nth-child(2) { top: 20px; }
+.hold-header__burger-bar:nth-child(3) { top: 26px; }
+
+.hold-header__burger[data-open="true"] .hold-header__burger-bar {
+  background: var(--bg);
+}
+.hold-header__burger[data-open="true"] .hold-header__burger-bar:nth-child(1) {
+  top: 20px;
+  transform: rotate(45deg);
+}
+.hold-header__burger[data-open="true"] .hold-header__burger-bar:nth-child(2) {
+  opacity: 0;
+}
+.hold-header__burger[data-open="true"] .hold-header__burger-bar:nth-child(3) {
+  top: 20px;
+  transform: rotate(-45deg);
+}
+
+/* Mobile panel */
+.hold-mobile-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: var(--c-pantone-warm-red, #F9423A);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: var(--gutter, 24px);
+  padding-block: 120px;
+}
+
+.hold-mobile-panel__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hold-mobile-panel__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: clamp(40px, 9vw, 64px);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.hold-mobile-panel__link[data-active="true"] {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hold-mobile-panel__link-num {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.hold-mobile-panel__cta {
+  margin-top: 48px;
+}
+
+.hold-mobile-panel__cta a {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 16px 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition:
+    background var(--dur-base) var(--ease-hold),
+    color var(--dur-base) var(--ease-hold);
+}
+
+.hold-mobile-panel__cta a:hover {
+  background: #fff;
+  color: var(--c-pantone-warm-red, #F9423A);
+}
+
+.hold-mobile-panel__footer {
+  position: absolute;
+  bottom: 24px;
+  left: var(--gutter, 24px);
+  right: var(--gutter, 24px);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .hold-header__nav,
+  .hold-header__cta {
+    display: none;
+  }
+  .hold-header__burger {
+    display: block;
+  }
+}
