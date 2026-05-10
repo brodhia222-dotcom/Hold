@@ -13,9 +13,9 @@ const SERVICIO_NOMBRE: Record<ServicioSlug, string> = {
   performance: "Performance",
 }
 
-/** Aspect-ratios que rotan por índice — crean el efecto masonry real
- *  (items con alturas distintas que se acomodan en columnas). */
-const ASPECT_RATIOS = ["3 / 4", "4 / 3", "1 / 1", "4 / 5", "5 / 4"] as const
+/** Aspect-ratios moderados que rotan por índice — generan masonry sin
+ *  alturas extremas (3 valores se distribuyen mejor en 3 columnas). */
+const ASPECT_RATIOS = ["4 / 5", "1 / 1", "5 / 4"] as const
 
 function getInitials(nombre: string): string {
   return nombre
