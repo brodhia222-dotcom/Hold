@@ -1,5 +1,6 @@
-/* HOLD ServiciosPreview — fondo negro + blobs de color + cards glass.
-   Liquid glass reveal: cards emergen con blur que se desblurea. */
+/* HOLD ServiciosPreview — fondo negro plano + cards pricing-style.
+   Sin header de sección (las cards se autoexplican).
+   Sin blobs de color (compitían con las cards). */
 
 .hold-servicios {
   position: relative;
@@ -7,100 +8,13 @@
   padding-inline: var(--gutter, 48px);
   background: var(--fg);
   color: var(--bg);
-  overflow: hidden;
-  isolation: isolate;
 }
 
-/* === BG : 3 blobs de color con blur fuerte === */
-.hold-servicios__bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.hold-servicios__blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(96px);
-  opacity: 0.55;
-  will-change: transform;
-}
-
-.hold-servicios__blob--coral {
-  width: clamp(360px, 50vw, 600px);
-  height: clamp(360px, 50vw, 600px);
-  background: #E96951;
-  top: 10%;
-  left: -8%;
-}
-
-.hold-servicios__blob--orange {
-  width: clamp(280px, 40vw, 480px);
-  height: clamp(280px, 40vw, 480px);
-  background: #F08A3E;
-  top: 55%;
-  left: 38%;
-  opacity: 0.4;
-}
-
-.hold-servicios__blob--red {
-  width: clamp(320px, 45vw, 540px);
-  height: clamp(320px, 45vw, 540px);
-  background: #F9423A;
-  top: 25%;
-  right: -6%;
-  opacity: 0.5;
-}
-
-/* === INNER === */
 .hold-servicios__inner {
-  position: relative;
-  z-index: 1;
   max-width: var(--max, 1440px);
   margin-inline: auto;
 }
 
-/* === HEADER centrado === */
-.hold-servicios__header {
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto 80px;
-}
-
-.hold-servicios__eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0 0 24px;
-}
-
-.hold-servicios__title {
-  font-size: clamp(36px, 5.5vw, 72px);
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: -0.04em;
-  color: var(--bg);
-  margin: 0 0 24px;
-}
-
-.hold-servicios__title em {
-  font-style: italic;
-  font-weight: 400;
-}
-
-.hold-servicios__intro {
-  font-size: clamp(15px, 1.4vw, 18px);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.65);
-  margin: 0 auto;
-  max-width: 520px;
-}
-
-/* === GRID === */
 .hold-servicios__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -143,12 +57,6 @@
 @media (max-width: 768px) {
   .hold-servicios {
     padding-block: 80px;
-  }
-  .hold-servicios__header {
-    margin-bottom: 56px;
-  }
-  .hold-servicios__blob {
-    filter: blur(64px); /* menos costoso en mobile */
   }
 }
 

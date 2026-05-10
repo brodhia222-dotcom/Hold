@@ -35,7 +35,6 @@ export function ServiceCard({ servicio, className }: Props) {
       </div>
 
       <h3 className="hold-service-card__title">{servicio.nombre}</h3>
-      <p className="hold-service-card__sub">{servicio.tagline}</p>
 
       <div className="hold-service-card__price">
         <span className="hold-service-card__price-from">Desde</span>

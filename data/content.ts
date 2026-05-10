@@ -60,11 +60,9 @@ export const servicios: readonly Servicio[] = [
     precioDesde: "250",
     precioPeriodo: "curso",
     incluye: [
-      "Acceso a clases en vivo",
-      "Material y grabaciones",
+      "Clases en vivo + grabaciones",
       "Comunidad privada de Hold",
       "Sesión 1:1 final con tu mentor",
-      "Certificado de finalización",
     ],
   },
   {
@@ -90,8 +88,6 @@ export const servicios: readonly Servicio[] = [
       "Estrategia y calendario mensual",
       "Diseño y producción audiovisual",
       "Community management diario",
-      "Branding e identidad",
-      "Reportes y reuniones mensuales",
     ],
   },
   {
@@ -114,10 +110,8 @@ export const servicios: readonly Servicio[] = [
     precioDesde: "700",
     precioPeriodo: "mes",
     incluye: [
-      "Setup completo de campañas",
       "Meta + Google + TikTok Ads",
-      "Creatividades para pauta",
-      "CRM y automatizaciones",
+      "Creatividades + CRM",
       "Optimización constante con data",
     ],
   },

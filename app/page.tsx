@@ -1,4 +1,3 @@
-import { HeroScrollStack } from "@/components/sections/HeroScrollStack"
 import { HeroParticles } from "@/components/sections/HeroParticles"
 import { ServiciosPreview } from "@/components/sections/ServiciosPreview"
 import { NosotrosPreview } from "@/components/sections/NosotrosPreview"
@@ -24,11 +23,9 @@ const MARQUEE_MID = [
 export default function Home() {
   return (
     <>
-      <HeroScrollStack
-        first={<HeroParticles />}
-        second={<ServiciosPreview />}
-      />
+      <HeroParticles />
       <MarqueeBand items={MARQUEE_TOP} durationSec={45} />
+      <ServiciosPreview />
       <NosotrosPreview />
       <MarqueeBand
         items={MARQUEE_MID}
