@@ -1,6 +1,5 @@
 import { HeroScrollStack } from "@/components/sections/HeroScrollStack"
 import { HeroParticles } from "@/components/sections/HeroParticles"
-import { ServiciosIntro } from "@/components/sections/ServiciosIntro"
 import { ServiciosPreview } from "@/components/sections/ServiciosPreview"
 import { NosotrosPreview } from "@/components/sections/NosotrosPreview"
 import { ClientesPreview } from "@/components/sections/ClientesPreview"
@@ -27,10 +26,9 @@ export default function Home() {
     <>
       <HeroScrollStack
         first={<HeroParticles />}
-        second={<ServiciosIntro />}
+        second={<ServiciosPreview />}
       />
       <MarqueeBand items={MARQUEE_TOP} durationSec={45} />
-      <ServiciosPreview />
       <NosotrosPreview />
       <MarqueeBand
         items={MARQUEE_MID}

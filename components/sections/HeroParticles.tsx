@@ -23,8 +23,8 @@ const HOLD_WORDS = [
   "PERFORMANCE",
 ] as const
 
-const FRAMES_PER_WORD = 360 // ~6s a 60fps
-const TRAIL_RGBA = "rgba(250, 255, 250, 0.16)" // var(--bg) con alpha → motion blur sobre Star White
+const FRAMES_PER_WORD = 180 // ~3s a 60fps
+const TRAIL_RGBA = "rgba(250, 255, 250, 0.22)" // var(--bg) con alpha → motion blur sobre Star White (más opaco = trail más corto)
 
 /* ─── PARTICLE ───────────────────────────────────────────────────────────── */
 type RGB = { r: number; g: number; b: number }
@@ -146,10 +146,17 @@ export function HeroParticles() {
     const offCtx = off.getContext("2d")
     if (!offCtx) return
 
-    // Helvetica Neue, font-size proporcional al menor lado
-    const fontSize = Math.round(Math.min(w * 0.18, h * 0.42))
-    offCtx.fillStyle = "white"
+    // Helvetica Neue — medir el ancho real y ajustar fontSize para que la
+    // palabra entre completa con margen del 8% a cada lado.
+    const targetWidth = w * 0.84
+    let fontSize = Math.min(w * 0.22, h * 0.5)
     offCtx.font = `700 ${fontSize}px "Helvetica Neue", Helvetica, Arial, sans-serif`
+    let measured = offCtx.measureText(word).width
+    if (measured > targetWidth) {
+      fontSize = Math.floor(fontSize * (targetWidth / measured))
+      offCtx.font = `700 ${fontSize}px "Helvetica Neue", Helvetica, Arial, sans-serif`
+    }
+    offCtx.fillStyle = "white"
     offCtx.textAlign = "center"
     offCtx.textBaseline = "middle"
     offCtx.fillText(word, w / 2, h / 2)
@@ -189,10 +196,10 @@ export function HeroParticles() {
         const start = randomOuterPos(w / 2, h / 2, (w + h) / 2)
         p.pos.x = start.x
         p.pos.y = start.y
-        p.maxSpeed = Math.random() * 5 + 3
-        p.maxForce = p.maxSpeed * 0.05
+        p.maxSpeed = Math.random() * 6 + 6        // 6–12 (era 3–8)
+        p.maxForce = p.maxSpeed * 0.08            // accel más fuerte
         p.particleSize = Math.random() * 2 + 2
-        p.colorBlendRate = Math.random() * 0.025 + 0.005
+        p.colorBlendRate = Math.random() * 0.05 + 0.02 // 0.02–0.07 (era 0.005–0.03)
         particles.push(p)
       }
 

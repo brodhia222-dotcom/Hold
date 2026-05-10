@@ -52,7 +52,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  max-width: 1200px;
 }
 
 /* Fallback estático (reduced-motion o canvas no disponible) */
