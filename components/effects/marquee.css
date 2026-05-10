@@ -1,16 +1,30 @@
-/* HOLD MarqueeBand — banda full-bleed entre secciones.
-   Editorial++: tipografía oversized, negro sobre crudo, separadores ●.
-   Loop seamless gracias a duplicar la track. */
+/* HOLD MarqueeBand — banda full-bleed sutil entre secciones.
+   Versión refinada: texto chico tipo eyebrow + fondo tintado con el acento.
+   "Atractiva pero sutil" → no compite con headlines, solo agrega ritmo. */
 
 .hold-marquee {
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-top: 1px solid var(--fg);
-  border-bottom: 1px solid var(--fg);
-  background: var(--bg);
+  background: var(--accent-08, color-mix(in srgb, var(--accent) 8%, transparent));
   color: var(--fg);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
   isolation: isolate;
+}
+
+/* Hatch diagonal muy bajo alpha sobre el tinte — micro textura, casi imperceptible. */
+.hold-marquee::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 6%, transparent) 0 8px,
+    transparent 8px 16px
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hold-marquee--invert {
@@ -19,10 +33,20 @@
   border-color: var(--fg);
 }
 
+.hold-marquee--invert::before {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 18%, transparent) 0 8px,
+    transparent 8px 16px
+  );
+}
+
 .hold-marquee__viewport {
+  position: relative;
+  z-index: 1;
   display: flex;
   width: max-content;
-  animation: hold-marquee-loop var(--marquee-duration, 40s) linear infinite;
+  animation: hold-marquee-loop var(--marquee-duration, 50s) linear infinite;
   will-change: transform;
 }
 
@@ -34,31 +58,34 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  gap: var(--marquee-gap, 48px);
-  padding: var(--marquee-pad, 32px) 24px;
+  gap: 28px;
+  padding: 14px 18px;
 }
 
 .hold-marquee__item {
   display: inline-flex;
   align-items: center;
-  gap: var(--marquee-gap, 48px);
-  font-size: clamp(28px, 4.5vw, 56px);
+  gap: 28px;
+  font-size: clamp(13px, 1.2vw, 16px);
   line-height: 1;
-  font-weight: 300;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
+/* Variante editorial italic — todavía chica, no oversized. */
 .hold-marquee__item--em {
   font-style: italic;
   font-weight: 400;
+  font-size: clamp(14px, 1.4vw, 18px);
+  letter-spacing: -0.005em;
 }
 
 .hold-marquee__sep {
   display: inline-block;
-  width: 10px;
-  height: 10px;
-  background: var(--marquee-sep, var(--c-pantone-486, #E96951));
+  width: 6px;
+  height: 6px;
+  background: var(--marquee-sep, var(--accent));
   flex-shrink: 0;
 }
 
@@ -69,11 +96,11 @@
 
 @media (max-width: 768px) {
   .hold-marquee__track {
-    padding: 24px 16px;
-    gap: 32px;
+    padding: 12px 14px;
+    gap: 20px;
   }
   .hold-marquee__item {
-    gap: 32px;
+    gap: 20px;
   }
 }
 

@@ -5,30 +5,35 @@ import { Button } from "@/components/ui/Button"
 import { WHATSAPP_URL } from "@/data/content"
 import "./hero-particles.css"
 
+type RGB = { r: number; g: number; b: number }
+
 /* ─── PALETA HOLD (cycle) ────────────────────────────────────────────────── */
-const HOLD_COLORS = [
-  { r: 29, g: 29, b: 27 },    // Black
+/* Todos los colores Pantone del DS — esta animación es la única excepción a
+   la regla "blanco + negro + 1 acento": acá juegan todos. */
+const BLACK_RGB: RGB = { r: 29, g: 29, b: 27 }
+const HOLD_COLOR_CYCLE: readonly RGB[] = [
   { r: 233, g: 105, b: 81 },  // Coral · Academy
-  { r: 240, g: 138, b: 62 },  // Tangerine · Redes
+  { r: 240, g: 138, b: 62 },  // Tangerine
   { r: 249, g: 66, b: 58 },   // Warm Red · Performance
+  { r: 0,   g: 114, b: 206 }, // Bright Blue · Redes
+  { r: 235, g: 189, b: 217 }, // Soft Pink
 ] as const
 
 /* ─── PALABRAS DE MARCA ──────────────────────────────────────────────────── */
+/* HOLD primero (en negro, marca limpia). Después cicla copy editorial. */
 const HOLD_WORDS = [
+  "HOLD",
   "SOSTENER",
   "SIN PERDER",
   "LA ESENCIA",
-  "HOLD",
   "ESTRATEGIA",
   "PERFORMANCE",
 ] as const
 
-const FRAMES_PER_WORD = 180 // ~3s a 60fps
-const TRAIL_RGBA = "rgba(250, 255, 250, 0.22)" // var(--bg) con alpha → motion blur sobre Star White (más opaco = trail más corto)
+const FRAMES_PER_WORD = 110 // ~1.8s a 60fps — más ritmo, menos espera
+const TRAIL_RGBA = "rgba(250, 255, 250, 0.32)" // var(--bg) con alpha. Más opaco = trail más corto = menos motion blur acumulado = mejor performance percibida.
 
 /* ─── PARTICLE ───────────────────────────────────────────────────────────── */
-type RGB = { r: number; g: number; b: number }
-
 class Particle {
   pos = { x: 0, y: 0 }
   vel = { x: 0, y: 0 }
@@ -127,9 +132,18 @@ export function HeroParticles() {
   const particlesRef = useRef<Particle[]>([])
   const frameRef = useRef(0)
   const wordRef = useRef(0)
-  const colorRef = useRef(1) // empieza en coral (0=black skip)
+  /* Índice para HOLD_COLOR_CYCLE (rota una posición cada nueva palabra que no sea HOLD). */
+  const cycleRef = useRef(0)
   const sizeRef = useRef({ w: 1200, h: 600 })
   const [reducedMotion, setReducedMotion] = useState(false)
+
+  /* HOLD siempre se forma en negro; el resto cicla por la paleta de marca. */
+  const colorForWord = (word: string): RGB => {
+    if (word === "HOLD") return BLACK_RGB
+    const c = HOLD_COLOR_CYCLE[cycleRef.current % HOLD_COLOR_CYCLE.length]
+    cycleRef.current = (cycleRef.current + 1) % HOLD_COLOR_CYCLE.length
+    return c
+  }
 
   /* ─── Reset particles for a new word ─────────────────────────────────── */
   const renderWord = (word: string) => {
@@ -163,11 +177,11 @@ export function HeroParticles() {
 
     const data = offCtx.getImageData(0, 0, w, h).data
 
-    // Pixel step adaptativo: más denso en desktop, menos en mobile
-    const pixelStep = w < 640 ? 8 : w < 1024 ? 6 : 5
+    // Pixel step adaptativo: + grande = menos partículas = mejor performance.
+    // Reducimos densidad respecto a la versión anterior para subir FPS percibido.
+    const pixelStep = w < 640 ? 12 : w < 1024 ? 9 : 7
 
-    const newColor = HOLD_COLORS[colorRef.current % HOLD_COLORS.length]
-    colorRef.current = (colorRef.current + 1) % HOLD_COLORS.length
+    const newColor = colorForWord(word)
 
     const particles = particlesRef.current
     let idx = 0
@@ -196,10 +210,10 @@ export function HeroParticles() {
         const start = randomOuterPos(w / 2, h / 2, (w + h) / 2)
         p.pos.x = start.x
         p.pos.y = start.y
-        p.maxSpeed = Math.random() * 6 + 6        // 6–12 (era 3–8)
-        p.maxForce = p.maxSpeed * 0.08            // accel más fuerte
-        p.particleSize = Math.random() * 2 + 2
-        p.colorBlendRate = Math.random() * 0.05 + 0.02 // 0.02–0.07 (era 0.005–0.03)
+        p.maxSpeed = Math.random() * 8 + 12       // 12–20 (más rápido = forma más fluida)
+        p.maxForce = p.maxSpeed * 0.12            // accel proporcional a velocidad
+        p.particleSize = Math.random() * 2 + 2.5
+        p.colorBlendRate = Math.random() * 0.07 + 0.06 // 0.06–0.13 (color settle rápido)
         particles.push(p)
       }
 
@@ -291,7 +305,7 @@ export function HeroParticles() {
       particlesRef.current = []
       wordRef.current = 0
       frameRef.current = 0
-      colorRef.current = 1
+      cycleRef.current = 0
       renderWord(HOLD_WORDS[0])
     })
     ro.observe(wrap)

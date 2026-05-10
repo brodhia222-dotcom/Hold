@@ -3,6 +3,7 @@ import { ServiciosPreview } from "@/components/sections/ServiciosPreview"
 import { NosotrosPreview } from "@/components/sections/NosotrosPreview"
 import { ClientesPreview } from "@/components/sections/ClientesPreview"
 import { MarqueeBand } from "@/components/effects/MarqueeBand"
+import { HeroScrollStack } from "@/components/effects/HeroScrollStack"
 
 const MARQUEE_TOP = [
   "Estrategia",
@@ -23,17 +24,17 @@ const MARQUEE_MID = [
 export default function Home() {
   return (
     <>
-      <HeroParticles />
-      <MarqueeBand items={MARQUEE_TOP} durationSec={45} />
-      <ServiciosPreview />
-      <NosotrosPreview />
-      <MarqueeBand
-        items={MARQUEE_MID}
-        invert
-        italic
-        durationSec={55}
-        separatorColor="#E96951"
+      <HeroScrollStack
+        hero={<HeroParticles />}
+        next={
+          <>
+            <MarqueeBand items={MARQUEE_TOP} durationSec={55} />
+            <ServiciosPreview />
+          </>
+        }
       />
+      <NosotrosPreview />
+      <MarqueeBand items={MARQUEE_MID} invert italic durationSec={65} />
       <ClientesPreview />
     </>
   )

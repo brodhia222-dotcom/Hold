@@ -90,7 +90,7 @@
 }
 
 .hold-footer__col-list a:hover {
-  color: var(--c-pantone-486, #E96951);
+  color: var(--accent);
 }
 
 .hold-footer__col-list a::before {
@@ -130,7 +130,7 @@
 
 .hold-footer__strip {
   height: 6px;
-  background: var(--c-pantone-warm-red, #F9423A);
+  background: var(--accent);
 }
 
 /* Pattern decorativo: "h" cursiva muy tenue al fondo derecha */

@@ -59,7 +59,7 @@
   display: inline-block;
   width: 6px;
   height: 6px;
-  background: var(--c-pantone-486, #E96951);
+  background: var(--accent);
 }
 
 .hold-nosotros__title {
@@ -73,7 +73,7 @@
 .hold-nosotros__title em {
   font-style: italic;
   font-weight: 400;
-  color: var(--c-pantone-486, #E96951);
+  color: var(--accent);
 }
 
 .hold-nosotros__body {
@@ -127,7 +127,7 @@
 .hold-nosotros__photo {
   position: absolute;
   inset: 0;
-  background: var(--c-pantone-486, #E96951);
+  background: var(--accent);
   background-image: repeating-linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.12) 0 14px,

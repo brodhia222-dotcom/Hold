@@ -27,9 +27,15 @@
   --surface:   rgba(29, 29, 27, 0.04);
   --surface-2: rgba(29, 29, 27, 0.07);
 
-  /* Acento por defecto (overridable por sección) */
+  /* Acento global del sitio — controlado por <AccentSwitcher>.
+     Se cambia desde JS via document.documentElement.style.setProperty('--accent', value).
+     Por defecto: Coral 486 C (Pantone HOLD). */
   --accent:    #E96951;
   --accent-fg: #FFFFFF;
+  /* Alpha helpers del acento — derivados via color-mix para tintes sutiles. */
+  --accent-08: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-14: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-22: color-mix(in srgb, var(--accent) 22%, transparent);
 
   /* Bordes — 0px (marca cuadrada y estructurada) */
   --r-sm:   0px;

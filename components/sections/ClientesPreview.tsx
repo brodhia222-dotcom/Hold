@@ -30,11 +30,7 @@ export function ClientesPreview() {
             data-reveal
             data-reveal-delay="0.2"
           >
-            <Button
-              variant="secondary"
-              href="/clientes"
-              accentColor="#E96951"
-            >
+            <Button variant="secondary" href="/clientes">
               Ver todos los casos
               <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden />
             </Button>

@@ -44,7 +44,7 @@
 .hold-clientes__title em {
   font-style: italic;
   font-weight: 400;
-  color: var(--c-pantone-486, #E96951);
+  color: var(--accent);
 }
 
 .hold-clientes__head-cta {

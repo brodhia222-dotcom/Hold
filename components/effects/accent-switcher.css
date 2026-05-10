@@ -1,0 +1,131 @@
+/* HOLD AccentSwitcher — floating pill abajo a la izquierda con paleta Pantone.
+   Pensada como toggle visible para que las dueñas prueben acentos en vivo. */
+
+.hold-accent-switcher {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 70;
+}
+
+.hold-accent-switcher__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 12px;
+  background: var(--fg);
+  color: #fff;
+  border: 1px solid var(--fg);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background var(--dur-base) var(--ease-hold),
+    color var(--dur-base) var(--ease-hold),
+    transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-accent-switcher__trigger:hover {
+  transform: translateY(-2px);
+}
+
+.hold-accent-switcher__trigger-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: var(--current, var(--accent));
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
+.hold-accent-switcher__trigger-label {
+  line-height: 1;
+}
+
+.hold-accent-switcher__panel {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  background: var(--bg);
+  border: 1px solid var(--hairline);
+  padding: 14px 14px 16px;
+  min-width: 220px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  animation: hold-switcher-in 0.25s var(--ease-hold);
+}
+
+@keyframes hold-switcher-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hold-accent-switcher__title {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.hold-accent-switcher__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.hold-accent-switcher__list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.hold-accent-switcher__swatch {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 0;
+  transition:
+    transform var(--dur-base) var(--ease-hold),
+    border-color var(--dur-base) var(--ease-hold);
+}
+
+.hold-accent-switcher__swatch:hover {
+  transform: scale(1.1);
+  border-color: var(--fg);
+}
+
+.hold-accent-switcher__swatch[data-active] {
+  border-color: var(--fg);
+  border-width: 2px;
+}
+
+.hold-accent-switcher__name {
+  display: none; /* solo lectores de pantalla via aria-label */
+}
+
+@media (max-width: 768px) {
+  .hold-accent-switcher {
+    bottom: 16px;
+    left: 16px;
+  }
+  .hold-accent-switcher__trigger {
+    padding: 8px 12px 8px 10px;
+    font-size: 11px;
+  }
+  .hold-accent-switcher__trigger-label {
+    display: none;
+  }
+}

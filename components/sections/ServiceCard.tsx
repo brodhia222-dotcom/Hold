@@ -1,6 +1,5 @@
-import type { CSSProperties } from "react"
 import Link from "next/link"
-import { ArrowUpRight, Check } from "lucide-react"
+import { ArrowUpRight, Check, ImageIcon } from "lucide-react"
 import type { Servicio } from "@/types"
 import { cn } from "@/lib/utils"
 import "./service-card.css"
@@ -12,25 +11,29 @@ type Props = {
 
 /**
  * Card pricing-style sobre fondo oscuro con efecto liquid glass.
- * Anatomía vertical: eyebrow → título → tagline → precio → divider →
- * "Lo que incluye" + lista → CTA full-width.
- * Border-top con el color del servicio como única seña de identidad.
+ * Anatomía vertical: media (placeholder) → eyebrow → título → precio →
+ * divider → "Lo que incluye" + lista → CTA full-width.
+ *
+ * Color: usa --accent global (controlado por <AccentSwitcher>). Las 3 cards
+ * comparten el mismo acento — se diferencian por orden, eyebrow y contenido.
  */
 export function ServiceCard({ servicio, className }: Props) {
-  const styleVars = { "--service-color": servicio.acento } as CSSProperties
-
   return (
-    <article
-      className={cn("hold-service-card", className)}
-      style={styleVars}
-    >
+    <article className={cn("hold-service-card", className)}>
+      <div className="hold-service-card__media" aria-hidden>
+        <ImageIcon
+          size={28}
+          strokeWidth={1.25}
+          className="hold-service-card__media-icon"
+          aria-hidden
+        />
+        <span className="hold-service-card__media-label">Imagen</span>
+      </div>
+
       <div className="hold-service-card__head">
         <span className="hold-service-card__eyebrow">
           <span className="hold-service-card__eyebrow-dot" aria-hidden />
           {servicio.eyebrow}
-        </span>
-        <span className="hold-service-card__num" aria-hidden>
-          {servicio.numero}
         </span>
       </div>
 

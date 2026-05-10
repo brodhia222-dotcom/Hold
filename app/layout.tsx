@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer"
 import { SmoothScroll } from "@/components/effects/SmoothScroll"
 import { RevealOnScroll } from "@/components/effects/RevealOnScroll"
 import { PageTransition } from "@/components/effects/PageTransition"
+import { AccentSwitcher } from "@/components/effects/AccentSwitcher"
 import "./globals.css"
 
 const inter = Inter({
@@ -48,6 +49,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </div>
         <Footer />
+        <AccentSwitcher />
       </body>
     </html>
   )

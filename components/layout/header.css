@@ -44,10 +44,9 @@
   gap: 8px;
 }
 
-/* Link con wipe vertical de color (color asignado por servicio en la regla del DS).
-   El pseudo-element ::before cubre el item desde abajo en hover/active.        */
+/* Link con wipe vertical de color. Servicios usan --accent global,
+   neutros (Nosotros/Clientes) usan --fg. */
 .hold-header__link {
-  --link-color: var(--fg);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -70,17 +69,21 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--link-color);
+  background: var(--accent);
   transform: translateY(101%);
   transition: transform var(--dur-base) var(--ease-hold);
   z-index: -1;
 }
 
-/* Dot de color que asoma a la izquierda del label en estado base */
+.hold-header__link[data-neutral="true"]::before {
+  background: var(--fg);
+}
+
+/* Dot a la izquierda del label en estado base */
 .hold-header__link-dot {
   width: 6px;
   height: 6px;
-  background: var(--link-color);
+  background: var(--accent);
   flex-shrink: 0;
   transition:
     width var(--dur-base) var(--ease-hold),

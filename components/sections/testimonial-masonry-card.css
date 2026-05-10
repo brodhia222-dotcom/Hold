@@ -4,7 +4,6 @@
    foto real (hasta que las provean). */
 
 .hold-test-card {
-  --service-color: #E96951;
   position: relative;
   width: 100%;
   display: block;
@@ -17,11 +16,11 @@
   transform: scale(1.02);
 }
 
-/* Capa 0 — "imagen" (Placeholder hatch del color del servicio) */
+/* Capa 0 — placeholder hatch sobre el acento global del sitio. */
 .hold-test-card__media {
   position: absolute;
   inset: 0;
-  background: var(--service-color);
+  background: var(--accent);
   background-image: repeating-linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.12) 0 14px,

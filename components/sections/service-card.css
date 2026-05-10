@@ -1,19 +1,18 @@
 /* HOLD ServiceCard — pricing-style glass card sobre fondo oscuro.
-   Border-top accent con color del servicio (única seña de identidad
-   por card — todas las cards al mismo nivel jerárquico). */
+   Color: --accent global (controlado por <AccentSwitcher>).
+   Las 3 cards comparten acento — se diferencian por contenido. */
 
 .hold-service-card {
-  --service-color: #E96951;
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 32px;
+  padding: 24px;
   background: rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 3px solid var(--service-color);
+  border-top: 3px solid var(--accent);
   color: var(--bg);
   overflow: hidden;
   transition:
@@ -25,17 +24,68 @@
 .hold-service-card:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.16);
-  border-top-color: var(--service-color);
+  border-top-color: var(--accent);
   transform: translateY(-4px);
 }
 
-/* === HEAD (eyebrow + numero) === */
+/* === MEDIA · placeholder de imagen ===
+   Recuadro con tinte del acento + hatch diagonal sutil. Comunica "acá va una
+   imagen" sin tener que cargar una real. */
+.hold-service-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 24px;
+  background: var(--accent);
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.10) 0 12px,
+    transparent 12px 24px
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  isolation: isolate;
+}
+
+.hold-service-card__media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.0) 0%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  pointer-events: none;
+}
+
+.hold-service-card__media-icon {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.95);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.hold-service-card__media-label {
+  position: relative;
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* === HEAD (solo eyebrow — sin número) === */
 .hold-service-card__head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 28px;
+  justify-content: flex-start;
+  margin-bottom: 14px;
 }
 
 .hold-service-card__eyebrow {
@@ -46,7 +96,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--service-color);
+  color: var(--accent);
 }
 
 .hold-service-card__eyebrow-dot {
@@ -57,16 +107,9 @@
   flex-shrink: 0;
 }
 
-.hold-service-card__num {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: 500;
-}
-
-/* === TÍTULO + TAGLINE === */
+/* === TÍTULO === */
 .hold-service-card__title {
-  font-size: clamp(28px, 2.4vw, 36px);
+  font-size: clamp(26px, 2.2vw, 32px);
   line-height: 1.05;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -79,7 +122,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .hold-service-card__price-from {
@@ -98,9 +141,9 @@
 }
 
 .hold-service-card__price-amount {
-  font-size: clamp(36px, 3.6vw, 56px);
+  font-size: clamp(32px, 3.2vw, 48px);
   font-weight: 400;
-  color: var(--service-color);
+  color: var(--accent);
   letter-spacing: -0.025em;
   line-height: 1;
 }
@@ -115,7 +158,7 @@
 .hold-service-card__divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
-  margin: 28px 0 24px;
+  margin: 24px 0 20px;
 }
 
 /* === FEATURES === */
@@ -125,12 +168,12 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 500;
-  margin: 0 0 16px;
+  margin: 0 0 14px;
 }
 
 .hold-service-card__features {
   list-style: none;
-  margin: 0 0 32px;
+  margin: 0 0 28px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -149,7 +192,7 @@
 
 .hold-service-card__features svg {
   flex-shrink: 0;
-  color: var(--service-color);
+  color: var(--accent);
   margin-top: 4px;
 }
 
@@ -179,8 +222,8 @@
 }
 
 .hold-service-card__cta:hover {
-  background: var(--service-color);
-  border-color: var(--service-color);
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -190,6 +233,6 @@
 
 @media (max-width: 768px) {
   .hold-service-card {
-    padding: 28px 24px;
+    padding: 22px;
   }
 }

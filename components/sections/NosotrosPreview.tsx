@@ -39,7 +39,7 @@ export function NosotrosPreview() {
           </div>
 
           <div className="hold-nosotros__cta" data-reveal data-reveal-delay="0.4">
-            <Button variant="secondary" href="/nosotros" accentColor="#E96951">
+            <Button variant="secondary" href="/nosotros">
               Conocernos
             </Button>
           </div>

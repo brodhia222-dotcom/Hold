@@ -1,11 +1,6 @@
 import type { CSSProperties } from "react"
 import type { ServicioSlug, Testimonio } from "@/types"
-import { servicios } from "@/data/content"
 import "./testimonial-masonry-card.css"
-
-const SERVICIO_COLOR: Record<ServicioSlug, string> = Object.fromEntries(
-  servicios.map((s) => [s.slug, s.acento]),
-) as Record<ServicioSlug, string>
 
 const SERVICIO_NOMBRE: Record<ServicioSlug, string> = {
   academy: "Hold Academy",
@@ -34,13 +29,9 @@ interface Props {
 }
 
 export function TestimonialMasonryCard({ testimonio, index = 0 }: Props) {
-  const color = SERVICIO_COLOR[testimonio.servicio]
   const aspectRatio = ASPECT_RATIOS[index % ASPECT_RATIOS.length]
   const initials = getInitials(testimonio.nombre)
-  const styleVars = {
-    "--service-color": color,
-    aspectRatio,
-  } as CSSProperties
+  const styleVars = { aspectRatio } as CSSProperties
 
   return (
     <article className="hold-test-card" style={styleVars}>
