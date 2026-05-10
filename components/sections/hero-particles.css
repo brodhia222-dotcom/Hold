@@ -1,29 +1,13 @@
-/* HOLD HeroParticles — canvas full-bleed con palabras de marca cyclando.
-   Capas verticales: eyebrow chico arriba · canvas grande centrado ·
-   subtitle + CTA abajo. */
+/* HOLD HeroParticles — canvas full-bleed cubriendo TODA la pantalla
+   (incluso detrás del nav transparente). Contenido superpuesto encima. */
 
 .hold-hero-particles {
   position: relative;
   width: 100%;
   height: 100svh;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  align-items: center;
-  justify-items: center;
-  padding-block: clamp(72px, 12vh, 120px);
-  padding-inline: var(--gutter, 48px);
   background: var(--bg);
   overflow: hidden;
   isolation: isolate;
-}
-
-.hold-hero-particles__eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0;
 }
 
 /* Visually-hidden h1 — accesibilidad + SEO. */
@@ -39,13 +23,11 @@
   border: 0;
 }
 
+/* Canvas: capa 0 absolutely-positioned llenando el viewport entero. */
 .hold-hero-particles__canvas-wrap {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
 .hold-hero-particles__canvas {
@@ -54,8 +36,13 @@
   height: 100%;
 }
 
-/* Fallback estático (reduced-motion o canvas no disponible) */
+/* Fallback (reduced motion) */
 .hold-hero-particles__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: clamp(56px, 9vw, 128px);
   line-height: 0.95;
   font-weight: 300;
@@ -64,6 +51,7 @@
   margin: 0;
   color: var(--fg);
   max-width: 14ch;
+  padding-inline: 16px;
 }
 
 .hold-hero-particles__fallback em {
@@ -71,27 +59,114 @@
   font-weight: 400;
 }
 
+/* Content overlay: capa 1 relative, flex column space-between
+   (eyebrow arriba, bottom abajo, partículas en el medio). */
+.hold-hero-particles__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* Padding-top considera el alto del nav fixed para que el eyebrow no quede tapado. */
+  padding-top: calc(var(--hold-header-h, 72px) + 24px);
+  padding-bottom: clamp(40px, 7vh, 88px);
+  padding-inline: var(--gutter, 48px);
+  pointer-events: none;
+}
+
+/* Solo los elementos interactuables reciben pointer events
+   (el resto se transparenta para no interceptar interacciones del canvas). */
+.hold-hero-particles__eyebrow,
+.hold-hero-particles__bottom {
+  pointer-events: auto;
+}
+
+/* ─── EYEBROW ANIMADO ────────────────────────────────────────────────── */
+.hold-hero-particles__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--fg);
+  animation: hold-eyebrow-color 6s ease-in-out infinite;
+}
+
+.hold-hero-particles__eyebrow-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: currentColor;
+  flex-shrink: 0;
+  animation: hold-eyebrow-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes hold-eyebrow-color {
+  0%   { color: #1D1D1B; }
+  25%  { color: #E96951; }
+  50%  { color: #F08A3E; }
+  75%  { color: #F9423A; }
+  100% { color: #1D1D1B; }
+}
+
+@keyframes hold-eyebrow-pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.6); }
+}
+
+/* ─── BOTTOM (sub + CTAs) ────────────────────────────────────────────── */
 .hold-hero-particles__bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
+  text-align: center;
 }
 
 .hold-hero-particles__sub {
   font-size: clamp(15px, 1.4vw, 18px);
   line-height: 1.55;
   color: var(--muted);
-  text-align: center;
   max-width: 460px;
   margin: 0;
 }
 
+.hold-hero-particles__ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .hold-hero-particles {
-    padding-block: clamp(48px, 8vh, 80px);
+  .hold-hero-particles__content {
+    padding-top: calc(var(--hold-header-h, 72px) + 16px);
+    padding-bottom: 32px;
+    padding-inline: 20px;
   }
   .hold-hero-particles__bottom {
-    gap: 20px;
+    gap: 18px;
+  }
+  .hold-hero-particles__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hold-hero-particles__eyebrow,
+  .hold-hero-particles__eyebrow-dot {
+    animation: none;
+  }
+  .hold-hero-particles__eyebrow {
+    color: var(--fg);
   }
 }

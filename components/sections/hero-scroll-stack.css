@@ -5,6 +5,9 @@
 .hold-stack {
   position: relative;
   height: 200vh;
+  /* El hero canvas quiere cubrir TODO el viewport (incluso detrás del nav
+     transparente). Anulamos el padding-top que aplica el wrapper del layout. */
+  margin-top: calc(-1 * var(--hold-header-h, 72px));
 }
 
 .hold-stack__a {

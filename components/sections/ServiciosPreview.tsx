@@ -15,7 +15,11 @@ const MEDIA_LABELS: Record<string, string> = {
  */
 export function ServiciosPreview() {
   return (
-    <section className="hold-servicios" aria-label="Detalle de servicios">
+    <section
+      id="servicios"
+      className="hold-servicios"
+      aria-label="Detalle de servicios"
+    >
       <div className="hold-servicios__inner">
         <div className="hold-servicios__grid">
           {servicios.map((s) => (

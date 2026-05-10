@@ -305,11 +305,10 @@ export function HeroParticles() {
 
   return (
     <section className="hold-hero-particles" aria-label="Inicio">
-      <p className="hold-hero-particles__eyebrow">HOLD · Buenos Aires · 2025</p>
-
       {/* h1 oculto pero leíble por screen readers + valor SEO */}
       <h1 className="hold-hero-particles__sr">Sostener sin perder la esencia.</h1>
 
+      {/* Capa 0: canvas full-bleed (o fallback estático) */}
       <div ref={wrapRef} className="hold-hero-particles__canvas-wrap">
         {reducedMotion ? (
           <p className="hold-hero-particles__fallback">
@@ -324,11 +323,28 @@ export function HeroParticles() {
         )}
       </div>
 
-      <div className="hold-hero-particles__bottom">
-        <p className="hold-hero-particles__sub">{SUBTAGLINE}</p>
-        <Button href={WHATSAPP_URL} external ariaLabel="Hablemos por WhatsApp">
-          Hablemos
-        </Button>
+      {/* Capa 1: contenido superpuesto */}
+      <div className="hold-hero-particles__content">
+        <p className="hold-hero-particles__eyebrow">
+          <span className="hold-hero-particles__eyebrow-dot" aria-hidden />
+          HOLD · Agencia Creativa
+        </p>
+
+        <div className="hold-hero-particles__bottom">
+          <p className="hold-hero-particles__sub">{SUBTAGLINE}</p>
+          <div className="hold-hero-particles__ctas">
+            <Button
+              href={WHATSAPP_URL}
+              external
+              ariaLabel="Hablemos por WhatsApp"
+            >
+              Hablemos
+            </Button>
+            <Button variant="secondary" href="#servicios" arrow={false}>
+              Servicios
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   )
