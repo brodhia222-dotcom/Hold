@@ -47,6 +47,22 @@
   transform: translateX(4px);
 }
 
+/* Variante --large — más padding y peso para protagonismo en hero / banda. */
+.hold-btn--large {
+  padding: 18px 32px;
+  font-size: 16px;
+  gap: 16px;
+  letter-spacing: -0.01em;
+}
+
+.hold-btn--large .hold-btn__arrow {
+  transition: transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-btn--large[data-arrow]:hover .hold-btn__arrow {
+  transform: translateX(6px);
+}
+
 /* Primary — base negro · hover acento (DS) */
 .hold-btn--primary {
   background: var(--fg);

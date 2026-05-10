@@ -22,13 +22,13 @@ export function HeroScrollStack({ first, second }: Props) {
     offset: ["start start", "end end"],
   })
 
-  // Section 1 — sale (achica + rota negativo)
-  const scaleA = useTransform(scrollYProgress, [0, 1], [1, 0.86])
-  const rotateA = useTransform(scrollYProgress, [0, 1], [0, -3])
+  // Section 1 — sale (achica leve + rota mínimo)
+  const scaleA = useTransform(scrollYProgress, [0, 1], [1, 0.94])
+  const rotateA = useTransform(scrollYProgress, [0, 1], [0, -1.2])
 
-  // Section 2 — entra (escala desde 0.92 + rota desde 3°)
-  const scaleB = useTransform(scrollYProgress, [0, 1], [0.92, 1])
-  const rotateB = useTransform(scrollYProgress, [0, 1], [3, 0])
+  // Section 2 — entra suave
+  const scaleB = useTransform(scrollYProgress, [0, 1], [0.96, 1])
+  const rotateB = useTransform(scrollYProgress, [0, 1], [1.2, 0])
 
   return (
     <div ref={ref} className="hold-stack">

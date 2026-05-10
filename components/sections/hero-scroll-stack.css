@@ -1,6 +1,6 @@
 /* HOLD HeroScrollStack — wrapper de dos secciones sticky con scale + rotate.
-   Section 1 (Hero) sticky en top, scale 1→0.86, rotate 0→-3°.
-   Section 2 (Intro) entra desde abajo, scale 0.92→1, rotate 3°→0°. */
+   Section 1 (Hero) sticky en top, scale 1→0.94, rotate 0→-1.2°.
+   Section 2 (Servicios) entra suave, scale 0.96→1, rotate 1.2°→0°. */
 
 .hold-stack {
   position: relative;
@@ -8,6 +8,8 @@
   /* El hero canvas quiere cubrir TODO el viewport (incluso detrás del nav
      transparente). Anulamos el padding-top que aplica el wrapper del layout. */
   margin-top: calc(-1 * var(--hold-header-h, 72px));
+  /* Bg sólido para tapar las esquinas que rota deja al descubierto. */
+  background: var(--bg);
 }
 
 .hold-stack__a {
@@ -17,6 +19,7 @@
   z-index: 1;
   will-change: transform;
   transform-origin: 50% 50%;
+  background: var(--bg);
 }
 
 .hold-stack__b {

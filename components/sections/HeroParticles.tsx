@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/Button"
-import { SUBTAGLINE, WHATSAPP_URL } from "@/data/content"
+import { WHATSAPP_URL } from "@/data/content"
 import "./hero-particles.css"
 
 /* ─── PALETA HOLD (cycle) ────────────────────────────────────────────────── */
@@ -325,24 +325,30 @@ export function HeroParticles() {
 
       {/* Capa 1: contenido superpuesto */}
       <div className="hold-hero-particles__content">
-        <p className="hold-hero-particles__eyebrow">
-          <span className="hold-hero-particles__eyebrow-dot" aria-hidden />
-          HOLD · Agencia Creativa
-        </p>
+        <p className="hold-hero-particles__eyebrow">HOLD · Agencia Creativa</p>
 
         <div className="hold-hero-particles__bottom">
-          <p className="hold-hero-particles__sub">{SUBTAGLINE}</p>
           <div className="hold-hero-particles__ctas">
-            <Button
-              href={WHATSAPP_URL}
-              external
-              ariaLabel="Hablemos por WhatsApp"
-            >
-              Hablemos
-            </Button>
-            <Button variant="secondary" href="#servicios" arrow={false}>
-              Servicios
-            </Button>
+            <div className="hold-hero-particles__cta-float">
+              <Button
+                size="large"
+                href={WHATSAPP_URL}
+                external
+                ariaLabel="Hablemos por WhatsApp"
+              >
+                Hablemos
+              </Button>
+            </div>
+            <div className="hold-hero-particles__cta-float hold-hero-particles__cta-float--delayed">
+              <Button
+                size="large"
+                variant="secondary"
+                href="#servicios"
+                arrow={false}
+              >
+                Servicios
+              </Button>
+            </div>
           </div>
         </div>
       </div>

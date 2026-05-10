@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils"
 import "./button.css"
 
 export type ButtonVariant = "primary" | "secondary" | "ghost" | "link"
+export type ButtonSize = "default" | "large"
 
 type CommonProps = {
   variant?: ButtonVariant
+  size?: ButtonSize
   children: ReactNode
   /** Se renderiza una flecha → al final con animación de hover. */
   arrow?: boolean
@@ -36,25 +38,31 @@ type Props = AsLinkProps | AsButtonProps
 
 function ButtonInner({
   variant = "primary",
+  size = "default",
   children,
   arrow = false,
   className,
 }: {
   variant: ButtonVariant
+  size?: ButtonSize
   children: ReactNode
   arrow: boolean
   className?: string
 }) {
   return (
     <span
-      className={cn(`hold-btn hold-btn--${variant}`, className)}
+      className={cn(
+        `hold-btn hold-btn--${variant}`,
+        size === "large" && "hold-btn--large",
+        className,
+      )}
       data-arrow={arrow ? "true" : undefined}
     >
       <span className="hold-btn__label">{children}</span>
       {arrow ? (
         <ArrowRight
           className="hold-btn__arrow"
-          size={16}
+          size={size === "large" ? 18 : 16}
           strokeWidth={1.75}
           aria-hidden
         />
@@ -66,6 +74,7 @@ function ButtonInner({
 export function Button(props: Props) {
   const {
     variant = "primary",
+    size = "default",
     children,
     arrow = true,
     accentColor,
@@ -74,7 +83,7 @@ export function Button(props: Props) {
   } = props
 
   const inner = (
-    <ButtonInner variant={variant} arrow={arrow} className={className}>
+    <ButtonInner variant={variant} size={size} arrow={arrow} className={className}>
       {children}
     </ButtonInner>
   )
