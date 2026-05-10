@@ -33,9 +33,9 @@ export default function Home() {
           </>
         }
       />
-      <NosotrosPreview />
-      <MarqueeBand items={MARQUEE_MID} invert italic durationSec={65} />
       <ClientesPreview />
+      <MarqueeBand items={MARQUEE_MID} invert italic durationSec={65} />
+      <NosotrosPreview />
     </>
   )
 }
