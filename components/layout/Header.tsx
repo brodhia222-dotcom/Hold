@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, type CSSProperties } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { AnimatePresence, motion } from "framer-motion"
@@ -9,12 +9,23 @@ import { NAV_LINKS, WHATSAPP_URL } from "@/data/content"
 import { EASE_HOLD } from "@/lib/motion"
 import "./header.css"
 
+/** Mapeo de href → color del servicio. Honrar la regla del DS:
+ *  "un color por sección, cada servicio con su color asignado". */
+const LINK_COLOR: Record<string, string> = {
+  "/academy": "#E96951",
+  "/redes-sociales": "#0072CE",
+  "/performance": "#F9423A",
+  "/nosotros": "#1D1D1B",
+  "/clientes": "#1D1D1B",
+}
+
+const NEUTRAL_HREFS = new Set(["/nosotros", "/clientes"])
+
 export function Header() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
-  // Background blur al scrollear más de 20px
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     onScroll()
@@ -22,12 +33,10 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // Cerrar mobile menu al cambiar de ruta
   useEffect(() => {
     setOpen(false)
   }, [pathname])
 
-  // Lock scroll cuando el panel mobile está abierto
   useEffect(() => {
     if (open) {
       const prev = document.body.style.overflow
@@ -49,16 +58,24 @@ export function Header() {
         </Link>
 
         <nav className="hold-header__nav" aria-label="Navegación principal">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hold-header__link"
-              data-active={isActive(link.href) ? "true" : undefined}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const color = LINK_COLOR[link.href] ?? "#1D1D1B"
+            const neutral = NEUTRAL_HREFS.has(link.href)
+            const linkStyle = { "--link-color": color } as CSSProperties
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hold-header__link"
+                data-active={isActive(link.href) ? "true" : undefined}
+                data-neutral={neutral ? "true" : undefined}
+                style={linkStyle}
+              >
+                <span className="hold-header__link-dot" aria-hidden />
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="hold-header__cta">

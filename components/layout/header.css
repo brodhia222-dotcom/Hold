@@ -1,4 +1,4 @@
-/* HOLD Header — sticky con blur sobre scroll + active link.
+/* HOLD Header — sticky con blur sobre scroll + nav con wipe de color por servicio.
    El comportamiento responsive cambia el desktop nav por el hamburger. */
 
 .hold-header {
@@ -34,41 +34,82 @@
   line-height: 1;
   color: var(--fg);
   text-decoration: none;
+  position: relative;
+  z-index: 1;
 }
 
 .hold-header__nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 8px;
 }
 
+/* Link con wipe vertical de color (color asignado por servicio en la regla del DS).
+   El pseudo-element ::before cubre el item desde abajo en hover/active.        */
 .hold-header__link {
+  --link-color: var(--fg);
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
   color: var(--fg);
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -0.005em;
   text-decoration: none;
-  padding: 8px 0;
-  transition: color var(--dur-fast) var(--ease-hold);
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid transparent;
+  transition:
+    color var(--dur-base) var(--ease-hold),
+    border-color var(--dur-base) var(--ease-hold);
 }
 
-.hold-header__link::after {
+.hold-header__link::before {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 4px;
-  height: 1px;
-  background: currentColor;
-  transform-origin: left center;
-  transform: scaleX(0);
+  inset: 0;
+  background: var(--link-color);
+  transform: translateY(101%);
   transition: transform var(--dur-base) var(--ease-hold);
+  z-index: -1;
 }
 
-.hold-header__link:hover::after,
-.hold-header__link[data-active="true"]::after {
-  transform: scaleX(1);
+/* Dot de color que asoma a la izquierda del label en estado base */
+.hold-header__link-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--link-color);
+  flex-shrink: 0;
+  transition:
+    width var(--dur-base) var(--ease-hold),
+    background var(--dur-base) var(--ease-hold);
+}
+
+.hold-header__link:hover,
+.hold-header__link[data-active="true"] {
+  color: #fff;
+}
+
+.hold-header__link:hover::before,
+.hold-header__link[data-active="true"]::before {
+  transform: translateY(0);
+}
+
+.hold-header__link:hover .hold-header__link-dot,
+.hold-header__link[data-active="true"] .hold-header__link-dot {
+  background: #fff;
+  width: 16px;
+}
+
+/* Dot blanco neutro cuando el servicio no tiene color (Nosotros / Clientes)    */
+.hold-header__link[data-neutral="true"] .hold-header__link-dot {
+  background: var(--hairline);
+}
+.hold-header__link[data-neutral="true"]:hover .hold-header__link-dot,
+.hold-header__link[data-neutral="true"][data-active="true"] .hold-header__link-dot {
+  background: #fff;
 }
 
 .hold-header__cta {
@@ -120,7 +161,7 @@
   transform: rotate(-45deg);
 }
 
-/* Mobile panel */
+/* Mobile panel — el panel rojo full-screen del DS */
 .hold-mobile-panel {
   position: fixed;
   inset: 0;
@@ -202,7 +243,7 @@
   font-weight: 500;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hold-header__nav,
   .hold-header__cta {
     display: none;

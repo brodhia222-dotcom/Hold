@@ -1,13 +1,14 @@
 /* HOLD Footer — anatomía del DS:
-   logotipo grande · 3 columnas (servicios / contacto / sistema)
-   · línea divisoria · tagline + ciudad · franja warm-red al fondo. */
+   row 1: logotipo HOLD grande + agencia creativa tag
+   row 2: 3 columnas (servicios / contacto / sitio)
+   bottom: tagline italic + Buenos Aires
+   franja warm-red al fondo */
 
 .hold-footer {
   position: relative;
   background: var(--bg);
   color: var(--fg);
-  padding-top: 120px;
-  padding-bottom: 0;
+  padding-top: 96px;
   overflow: hidden;
 }
 
@@ -15,32 +16,30 @@
   max-width: var(--max, 1440px);
   margin-inline: auto;
   padding-inline: var(--gutter, 48px);
+  position: relative;
+  z-index: 1;
 }
 
-.hold-footer__top {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
-  gap: 48px;
-  align-items: start;
-  padding-bottom: 80px;
+/* === ROW 1 : marca === */
+.hold-footer__brand {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 64px;
   border-bottom: 1px solid var(--hairline);
 }
 
-.hold-footer__brand {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
 .hold-footer__logo {
-  font-size: clamp(96px, 14vw, 200px);
+  font-size: clamp(72px, 11vw, 144px);
   line-height: 0.85;
   font-weight: 700;
   letter-spacing: -0.06em;
   color: var(--fg);
   margin: 0;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .hold-footer__brand-tag {
@@ -50,6 +49,15 @@
   text-transform: uppercase;
   color: var(--muted);
   white-space: nowrap;
+  padding-bottom: 12px; /* alinea con baseline del logo */
+}
+
+/* === ROW 2 : columnas === */
+.hold-footer__cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  padding-block: 64px;
 }
 
 .hold-footer__col-title {
@@ -76,17 +84,38 @@
   font-size: 15px;
   line-height: 1.4;
   transition: color var(--dur-fast) var(--ease-hold);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .hold-footer__col-list a:hover {
   color: var(--c-pantone-486, #E96951);
 }
 
+.hold-footer__col-list a::before {
+  content: "";
+  width: 12px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+  transition:
+    width var(--dur-base) var(--ease-hold),
+    opacity var(--dur-base) var(--ease-hold);
+}
+
+.hold-footer__col-list a:hover::before {
+  width: 24px;
+  opacity: 1;
+}
+
+/* === ROW 3 : tagline === */
 .hold-footer__bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 0;
+  padding-block: 32px;
+  border-top: 1px solid var(--hairline);
   font-size: 13px;
   color: var(--muted);
   flex-wrap: wrap;
@@ -104,13 +133,13 @@
   background: var(--c-pantone-warm-red, #F9423A);
 }
 
-/* Pattern decorativo: "h" cursiva muy tenue al fondo */
+/* Pattern decorativo: "h" cursiva muy tenue al fondo derecha */
 .hold-footer__pattern {
   position: absolute;
   bottom: 6px;
-  right: -40px;
+  right: -32px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 600px;
+  font-size: clamp(280px, 38vw, 520px);
   line-height: 0.7;
   font-weight: 300;
   font-style: italic;
@@ -119,29 +148,33 @@
   pointer-events: none;
   user-select: none;
   letter-spacing: -0.05em;
+  z-index: 0;
 }
 
 @media (max-width: 900px) {
   .hold-footer {
-    padding-top: 80px;
-  }
-  .hold-footer__top {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    padding-bottom: 48px;
+    padding-top: 64px;
   }
   .hold-footer__brand {
-    grid-column: 1 / -1;
-    margin-bottom: 24px;
+    padding-bottom: 32px;
+  }
+  .hold-footer__brand-tag {
+    padding-bottom: 0;
+  }
+  .hold-footer__cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding-block: 40px;
   }
   .hold-footer__bottom {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  .hold-footer__pattern {
-    font-size: 360px;
-    bottom: 6px;
-    right: -24px;
+}
+
+@media (max-width: 560px) {
+  .hold-footer__cols {
+    grid-template-columns: 1fr;
   }
 }
