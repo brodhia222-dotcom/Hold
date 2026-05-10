@@ -13,7 +13,7 @@ import "./header.css"
  *  "un color por sección, cada servicio con su color asignado". */
 const LINK_COLOR: Record<string, string> = {
   "/academy": "#E96951",
-  "/redes-sociales": "#0072CE",
+  "/redes-sociales": "#F08A3E",
   "/performance": "#F9423A",
   "/nosotros": "#1D1D1B",
   "/clientes": "#1D1D1B",

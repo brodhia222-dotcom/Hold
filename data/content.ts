@@ -73,7 +73,7 @@ export const servicios: readonly Servicio[] = [
       "Branding e identidad de marca",
       "Dirección creativa",
     ],
-    acento: "#0072CE",
+    acento: "#F08A3E",
     href: "/redes-sociales",
   },
   {
