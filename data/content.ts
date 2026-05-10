@@ -57,6 +57,15 @@ export const servicios: readonly Servicio[] = [
     ],
     acento: "#E96951",
     href: "/academy",
+    precioDesde: "250",
+    precioPeriodo: "curso",
+    incluye: [
+      "Acceso a clases en vivo",
+      "Material y grabaciones",
+      "Comunidad privada de Hold",
+      "Sesión 1:1 final con tu mentor",
+      "Certificado de finalización",
+    ],
   },
   {
     slug: "redes-sociales",
@@ -75,6 +84,15 @@ export const servicios: readonly Servicio[] = [
     ],
     acento: "#F08A3E",
     href: "/redes-sociales",
+    precioDesde: "800",
+    precioPeriodo: "mes",
+    incluye: [
+      "Estrategia y calendario mensual",
+      "Diseño y producción audiovisual",
+      "Community management diario",
+      "Branding e identidad",
+      "Reportes y reuniones mensuales",
+    ],
   },
   {
     slug: "performance",
@@ -93,6 +111,15 @@ export const servicios: readonly Servicio[] = [
     ],
     acento: "#F9423A",
     href: "/performance",
+    precioDesde: "700",
+    precioPeriodo: "mes",
+    incluye: [
+      "Setup completo de campañas",
+      "Meta + Google + TikTok Ads",
+      "Creatividades para pauta",
+      "CRM y automatizaciones",
+      "Optimización constante con data",
+    ],
   },
 ] as const
 

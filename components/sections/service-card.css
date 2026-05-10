@@ -1,100 +1,41 @@
-/* HOLD ServiceCard — versión compacta (post-feedback Fede 2026-05-10):
-   layout vertical (media arriba, body abajo), 3 cards iguales en grid. */
+/* HOLD ServiceCard — pricing-style glass card sobre fondo oscuro.
+   Border-top accent con color del servicio (única seña de identidad
+   por card — todas las cards al mismo nivel jerárquico). */
 
 .hold-service-card {
-  --service-color: var(--fg);
+  --service-color: #E96951;
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  border: 1px solid var(--hairline);
+  height: 100%;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 3px solid var(--service-color);
+  color: var(--bg);
   overflow: hidden;
-  isolation: isolate;
-  text-decoration: none;
-  color: inherit;
   transition:
+    background var(--dur-base) var(--ease-hold),
     border-color var(--dur-base) var(--ease-hold),
     transform var(--dur-base) var(--ease-hold);
-  height: 100%;
 }
 
 .hold-service-card:hover {
-  border-color: var(--service-color);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  border-top-color: var(--service-color);
   transform: translateY(-4px);
 }
 
-/* Wipe de color masivo en hover (DS) */
-.hold-service-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--service-color);
-  transform: translateY(101%);
-  transition: transform var(--dur-slow) var(--ease-hold);
-  z-index: 0;
-}
-
-.hold-service-card:hover::before {
-  transform: translateY(0);
-}
-
-/* Media (arriba) */
-.hold-service-card__media {
-  position: relative;
-  z-index: 1;
-  aspect-ratio: 4 / 3;
-  background: var(--service-color);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12) 0 12px,
-    transparent 12px 24px
-  );
+/* === HEAD (eyebrow + numero) === */
+.hold-service-card__head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  padding: 18px;
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.hold-service-card__media-num {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-}
-
-.hold-service-card__media-label {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-align: right;
-  max-width: 60%;
-  align-self: flex-end;
-}
-
-/* Body (abajo) */
-.hold-service-card__body {
-  position: relative;
-  z-index: 1;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
   gap: 16px;
-  flex-grow: 1;
-  transition: color var(--dur-base) var(--ease-hold);
-}
-
-.hold-service-card:hover .hold-service-card__body {
-  color: #fff;
-}
-
-.hold-service-card:hover .hold-service-card__sub {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.hold-service-card:hover .hold-service-card__cta {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 28px;
 }
 
 .hold-service-card__eyebrow {
@@ -103,78 +44,160 @@
   gap: 8px;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--service-color);
-  transition: color var(--dur-base) var(--ease-hold);
-}
-
-.hold-service-card:hover .hold-service-card__eyebrow {
-  color: #fff;
 }
 
 .hold-service-card__eyebrow-dot {
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: currentColor;
   flex-shrink: 0;
 }
 
+.hold-service-card__num {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 500;
+}
+
+/* === TÍTULO + TAGLINE === */
 .hold-service-card__title {
   font-size: clamp(28px, 2.4vw, 36px);
   line-height: 1.05;
   font-weight: 400;
   letter-spacing: -0.02em;
-  margin: 0;
+  color: var(--bg);
+  margin: 0 0 12px;
 }
 
 .hold-service-card__sub {
-  font-size: 15px;
-  line-height: 1.45;
-  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
   font-style: italic;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.65);
   margin: 0;
 }
 
-.hold-service-card__cta {
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--fg);
-  padding-top: 16px;
-  border-top: 1px solid var(--hairline);
-  letter-spacing: -0.005em;
-  transition:
-    color var(--dur-base) var(--ease-hold),
-    border-color var(--dur-base) var(--ease-hold);
+/* === PRECIO === */
+.hold-service-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 32px;
 }
 
-.hold-service-card__cta-arrow {
-  display: inline-flex;
+.hold-service-card__price-from {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
+.hold-service-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hold-service-card__price-amount {
+  font-size: clamp(36px, 3.6vw, 56px);
+  font-weight: 400;
+  color: var(--service-color);
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.hold-service-card__price-period {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+/* === DIVIDER === */
+.hold-service-card__divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 28px 0 24px;
+}
+
+/* === FEATURES === */
+.hold-service-card__features-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  margin: 0 0 16px;
+}
+
+.hold-service-card__features {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.hold-service-card__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hold-service-card__features svg {
+  flex-shrink: 0;
+  color: var(--service-color);
+  margin-top: 4px;
+}
+
+/* === CTA === */
+.hold-service-card__cta {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
+  gap: 10px;
+  padding: 14px 20px;
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--bg);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  transition:
+    background var(--dur-base) var(--ease-hold),
+    border-color var(--dur-base) var(--ease-hold),
+    color var(--dur-base) var(--ease-hold);
+}
+
+.hold-service-card__cta svg {
   transition: transform var(--dur-base) var(--ease-hold);
 }
 
-.hold-service-card:hover .hold-service-card__cta-arrow {
-  transform: translateX(4px);
+.hold-service-card__cta:hover {
+  background: var(--service-color);
+  border-color: var(--service-color);
+  color: #fff;
+}
+
+.hold-service-card__cta:hover svg {
+  transform: translate(3px, -3px);
 }
 
 @media (max-width: 768px) {
-  .hold-service-card__body {
-    padding: 24px;
-  }
-  .hold-service-card__media {
-    padding: 16px;
+  .hold-service-card {
+    padding: 28px 24px;
   }
 }

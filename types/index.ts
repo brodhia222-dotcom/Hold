@@ -11,6 +11,12 @@ export interface Servicio {
   items: string[]
   acento: string         // hex
   href: string           // ruta interna
+  /** Monto desde, sin unidad. Ej: "250", "800". */
+  precioDesde: string
+  /** Período opcional: "mes". Si se omite, es one-shot. */
+  precioPeriodo?: "mes" | "curso" | "campaña"
+  /** Items que se incluyen, para mostrar en la card de Pricing. */
+  incluye: string[]
 }
 
 /* Estado de cursos del DS — color de dot incluido. */

@@ -28,18 +28,17 @@
   z-index: 2;
   will-change: transform;
   transform-origin: 50% 50%;
-  /* El contenido (ServiciosPreview) se centra verticalmente en los 100vh. */
+  /* El contenido (ServiciosPreview) controla su propio fondo (negro). */
   display: flex;
   align-items: center;
-  background: var(--bg);
 }
 
-/* Override del padding-top de ServiciosPreview cuando vive dentro del stack:
-   queremos que las cards se centren, no que coman padding extra arriba. */
+/* Override del padding-block de ServiciosPreview cuando vive dentro del stack:
+   queremos que las cards se centren en los 100vh, no que coman padding fijo. */
 .hold-stack__b > .hold-servicios {
   width: 100%;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 /* En mobile el rotate marea — uso solo scale leve. */
