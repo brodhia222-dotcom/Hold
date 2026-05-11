@@ -14,7 +14,7 @@ export default function NosotrosPage() {
         Nosotros
       </h1>
       <p className="t-lead" style={{ color: "var(--muted)", marginTop: 24, maxWidth: 640 }}>
-        Texto de Victoria + Florentina · valores · foto · se completa en Fase 6.
+        Texto de Vicu y Flor · valores · foto · se completa en Fase 6.
       </p>
     </main>
   )

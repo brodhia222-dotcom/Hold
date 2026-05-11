@@ -150,7 +150,7 @@ export default function DesignSystemPage() {
       {/* COMPONENTES */}
       <Block numero="05" titulo="Componentes">
         <Row label="Eyebrow">
-          <Eyebrow>HOLD · Buenos Aires · 2025</Eyebrow>
+          <Eyebrow>HOLD · Buenos Aires</Eyebrow>
           <Eyebrow tone="default">SECCIÓN ACTIVA</Eyebrow>
           <Eyebrow dotColor={academy.acento}>Educación · 01</Eyebrow>
           <Eyebrow dotColor={redes.acento}>Marcas y negocios · 02</Eyebrow>

@@ -150,7 +150,7 @@ export function Header() {
             </motion.nav>
 
             <div className="hold-mobile-panel__footer">
-              <span>HOLD · 2025</span>
+              <span>HOLD</span>
               <span>Buenos Aires · AR</span>
             </div>
           </motion.div>

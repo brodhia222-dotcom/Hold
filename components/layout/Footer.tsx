@@ -32,7 +32,7 @@ export function Footer() {
       <div className="hold-footer__inner">
         <div className="hold-footer__brand">
           <h2 className="hold-footer__logo">HOLD</h2>
-          <span className="hold-footer__brand-tag">Agencia Creativa · Buenos Aires · 2025</span>
+          <span className="hold-footer__brand-tag">Agencia Creativa · Buenos Aires</span>
         </div>
 
         <div className="hold-footer__cols">
@@ -92,7 +92,7 @@ export function Footer() {
 
         <div className="hold-footer__bottom">
           <span className="hold-footer__bottom-left">{TAGLINE}</span>
-          <span>Buenos Aires · AR · v0.1 · 2025</span>
+          <span>Buenos Aires · AR · v0.1</span>
         </div>
       </div>
 

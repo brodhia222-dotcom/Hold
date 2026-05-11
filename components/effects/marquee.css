@@ -101,11 +101,11 @@
   flex-shrink: 0;
 }
 
-/* SEAMLESS: -50% del width total = mitad - gap/2 entre grupos. Compensar
-   gap/2 más para aterrizar exacto en el inicio del segundo grupo. */
+/* SEAMLESS: --marquee-distance es group_width + gap (medido en JS en px).
+   Es el offset exacto para que el grupo B aterrice donde estaba el A. */
 @keyframes hold-marquee-loop {
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(calc(-50% - var(--marquee-gap) / 2), 0, 0); }
+  to   { transform: translate3d(calc(-1 * var(--marquee-distance, 50%)), 0, 0); }
 }
 
 @media (max-width: 768px) {

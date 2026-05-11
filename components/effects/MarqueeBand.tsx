@@ -1,4 +1,6 @@
-import type { CSSProperties } from "react"
+"use client"
+
+import { useEffect, useRef, useState, type CSSProperties } from "react"
 import { cn } from "@/lib/utils"
 import "./marquee.css"
 
@@ -19,11 +21,10 @@ type Props = {
 /**
  * Marquee infinita seamless con 2 grupos lado a lado.
  *
- * Truco: cada grupo es un <ul> con gap interno = G. El track contiene los
- * dos grupos con gap = G entre ellos. La animación translatea
- * `calc(-50% - G/2)` que equivale exacto al ancho del primer grupo + el
- * gap entre grupos → el segundo grupo queda donde estaba el primero al
- * inicio. Sin half-gap residual.
+ * Seamless robusto: medimos el ancho real del primer grupo + el gap entre
+ * grupos en JS, y seteamos `--marquee-distance` (en píxeles). La animación
+ * traduce exactamente esa distancia → el segundo grupo aterriza pixel-exacto
+ * donde estaba el primero al iniciar. Sin half-gap residual ni jumps.
  */
 export function MarqueeBand({
   items,
@@ -33,13 +34,50 @@ export function MarqueeBand({
   italic = false,
   className,
 }: Props) {
+  const groupRef = useRef<HTMLUListElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [distance, setDistance] = useState<string>("50%")
+
+  useEffect(() => {
+    const group = groupRef.current
+    const container = containerRef.current
+    if (!group || !container) return
+
+    const measure = () => {
+      const groupRect = group.getBoundingClientRect()
+      const trackGap =
+        parseFloat(
+          getComputedStyle(group.parentElement ?? group).gap || "0",
+        ) || 28
+      // group_width + gap = exact px distance for group B to land where A started.
+      const px = Math.round(groupRect.width + trackGap)
+      container.style.setProperty("--marquee-distance", `${px}px`)
+      setDistance(`${px}px`)
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(group)
+    window.addEventListener("resize", measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener("resize", measure)
+    }
+  }, [items])
+
   const styleVars = {
     "--marquee-duration": `${durationSec}s`,
     "--marquee-sep": separatorColor ?? undefined,
+    "--marquee-distance": distance,
   } as CSSProperties
 
-  const renderGroup = (keyPrefix: string, ariaHidden = false) => (
+  const renderGroup = (
+    keyPrefix: string,
+    ref?: React.RefObject<HTMLUListElement | null>,
+    ariaHidden = false,
+  ) => (
     <ul
+      ref={ref}
       className="hold-marquee__group"
       aria-hidden={ariaHidden || undefined}
     >
@@ -60,14 +98,15 @@ export function MarqueeBand({
 
   return (
     <div
+      ref={containerRef}
       className={cn("hold-marquee", invert && "hold-marquee--invert", className)}
       style={styleVars}
       aria-hidden
     >
       <div className="hold-marquee__viewport">
         <div className="hold-marquee__track">
-          {renderGroup("a")}
-          {renderGroup("b", true)}
+          {renderGroup("a", groupRef)}
+          {renderGroup("b", undefined, true)}
         </div>
       </div>
     </div>
