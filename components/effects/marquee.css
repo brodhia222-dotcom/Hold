@@ -1,8 +1,9 @@
 /* HOLD MarqueeBand — banda full-bleed sutil entre secciones.
-   Versión refinada: texto chico tipo eyebrow + fondo tintado con el acento.
-   "Atractiva pero sutil" → no compite con headlines, solo agrega ritmo. */
+   Loop seamless garantizado: 2 grupos lado a lado con el MISMO gap
+   interno que el gap entre grupos, y translate calc(-50% - gap/2). */
 
 .hold-marquee {
+  --marquee-gap: 28px;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -13,7 +14,7 @@
   isolation: isolate;
 }
 
-/* Hatch diagonal muy bajo alpha sobre el tinte — micro textura, casi imperceptible. */
+/* Hatch diagonal muy bajo alpha sobre el tinte — micro textura. */
 .hold-marquee::before {
   content: "";
   position: absolute;
@@ -48,10 +49,11 @@
   overflow: hidden;
 }
 
-/* Track con margin-right por item (NO flex gap) → translate -50% es seamless. */
+/* Track = contenedor de los 2 grupos. Gap entre grupos = mismo que gap interno. */
 .hold-marquee__track {
   display: flex;
   align-items: center;
+  gap: var(--marquee-gap);
   width: max-content;
   animation: hold-marquee-loop var(--marquee-duration, 50s) linear infinite;
   will-change: transform;
@@ -61,13 +63,21 @@
   animation-play-state: paused;
 }
 
+/* Cada grupo replica la lista completa de items. */
+.hold-marquee__group {
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap);
+  flex-shrink: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .hold-marquee__item {
   display: inline-flex;
   align-items: center;
-  /* gap interno: text → separador */
-  gap: 28px;
-  /* spacing entre items (NO flex gap del track, ver comentario arriba) */
-  margin-right: 28px;
+  gap: var(--marquee-gap);
   font-size: clamp(13px, 1.2vw, 16px);
   line-height: 1;
   font-weight: 500;
@@ -76,7 +86,6 @@
   flex-shrink: 0;
 }
 
-/* Variante editorial italic — todavía chica, no oversized. */
 .hold-marquee__item--em {
   font-style: italic;
   font-weight: 400;
@@ -92,15 +101,16 @@
   flex-shrink: 0;
 }
 
+/* SEAMLESS: -50% del width total = mitad - gap/2 entre grupos. Compensar
+   gap/2 más para aterrizar exacto en el inicio del segundo grupo. */
 @keyframes hold-marquee-loop {
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(calc(-50% - var(--marquee-gap) / 2), 0, 0); }
 }
 
 @media (max-width: 768px) {
-  .hold-marquee__item {
-    gap: 20px;
-    margin-right: 20px;
+  .hold-marquee {
+    --marquee-gap: 20px;
   }
 }
 

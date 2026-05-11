@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import "./marquee.css"
 
 type Props = {
-  /** Items que se repiten en loop. Cada item se renderiza separado por un cuadrado de color. */
+  /** Items que se repiten en loop. */
   items: readonly string[]
   /** Duración total de un loop completo. Default 50s. */
   durationSec?: number
@@ -17,10 +17,13 @@ type Props = {
 }
 
 /**
- * Marquee infinita seamless. Truco para que no quede un "gap visible" en el
- * punto del loop: cada item lleva `margin-right` (NO se usa flex `gap`). Así
- * el total width = 2N * (item + margin-right) y `translate -50%` cae exacto
- * en el inicio del item N+1 (la copia del primero). Sin half-gap de offset.
+ * Marquee infinita seamless con 2 grupos lado a lado.
+ *
+ * Truco: cada grupo es un <ul> con gap interno = G. El track contiene los
+ * dos grupos con gap = G entre ellos. La animación translatea
+ * `calc(-50% - G/2)` que equivale exacto al ancho del primer grupo + el
+ * gap entre grupos → el segundo grupo queda donde estaba el primero al
+ * inicio. Sin half-gap residual.
  */
 export function MarqueeBand({
   items,
@@ -35,8 +38,25 @@ export function MarqueeBand({
     "--marquee-sep": separatorColor ?? undefined,
   } as CSSProperties
 
-  // Items duplicados: el track se anima -50% y la mitad B reemplaza a la A sin salto.
-  const doubled = [...items, ...items]
+  const renderGroup = (keyPrefix: string, ariaHidden = false) => (
+    <ul
+      className="hold-marquee__group"
+      aria-hidden={ariaHidden || undefined}
+    >
+      {items.map((item, i) => (
+        <li
+          key={`${keyPrefix}-${i}`}
+          className={cn(
+            "hold-marquee__item",
+            italic && "hold-marquee__item--em",
+          )}
+        >
+          {item}
+          <span className="hold-marquee__sep" aria-hidden />
+        </li>
+      ))}
+    </ul>
+  )
 
   return (
     <div
@@ -46,18 +66,8 @@ export function MarqueeBand({
     >
       <div className="hold-marquee__viewport">
         <div className="hold-marquee__track">
-          {doubled.map((item, i) => (
-            <span
-              key={i}
-              className={cn(
-                "hold-marquee__item",
-                italic && "hold-marquee__item--em",
-              )}
-            >
-              {item}
-              <span className="hold-marquee__sep" aria-hidden />
-            </span>
-          ))}
+          {renderGroup("a")}
+          {renderGroup("b", true)}
         </div>
       </div>
     </div>

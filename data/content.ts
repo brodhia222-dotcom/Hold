@@ -8,7 +8,7 @@ import type {
 
 /* ─── CONTACTO ─────────────────────────────────────────────────────────────── */
 
-export const WHATSAPP_NUMBER = "5491159516214"
+export const WHATSAPP_NUMBER = "5491127108165"
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`
 export const INSTAGRAM_HANDLE = "@hold.agencia"
 export const INSTAGRAM_URL = "https://instagram.com/hold.agencia"
