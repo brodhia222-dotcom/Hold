@@ -1,6 +1,6 @@
 /* HOLD MarqueeBand — banda full-bleed sutil entre secciones.
-   Loop seamless garantizado: 2 grupos lado a lado con el MISMO gap
-   interno que el gap entre grupos, y translate calc(-50% - gap/2). */
+   Loop seamless: items duplicados 6x + margin-right uniforme en cada item
+   (incluido el último). Total width par → translate -50% pixel-exacto. */
 
 .hold-marquee {
   --marquee-gap: 28px;
@@ -49,13 +49,12 @@
   overflow: hidden;
 }
 
-/* Track = contenedor de los 2 grupos. Gap entre grupos = mismo que gap interno. */
+/* Track: flex SIN gap. El spacing entre items lo da `margin-right` de cada item. */
 .hold-marquee__track {
   display: flex;
   align-items: center;
-  gap: var(--marquee-gap);
   width: max-content;
-  animation: hold-marquee-loop var(--marquee-duration, 50s) linear infinite;
+  animation: hold-marquee-loop var(--marquee-duration, 22s) linear infinite;
   will-change: transform;
 }
 
@@ -63,21 +62,13 @@
   animation-play-state: paused;
 }
 
-/* Cada grupo replica la lista completa de items. */
-.hold-marquee__group {
-  display: flex;
-  align-items: center;
-  gap: var(--marquee-gap);
-  flex-shrink: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .hold-marquee__item {
   display: inline-flex;
   align-items: center;
+  /* gap interno: text → separador */
   gap: var(--marquee-gap);
+  /* spacing entre items (incluido el último → total par para seamless -50%) */
+  margin-right: var(--marquee-gap);
   font-size: clamp(13px, 1.2vw, 16px);
   line-height: 1;
   font-weight: 500;
@@ -101,11 +92,9 @@
   flex-shrink: 0;
 }
 
-/* SEAMLESS: --marquee-distance es group_width + gap (medido en JS en px).
-   Es el offset exacto para que el grupo B aterrice donde estaba el A. */
 @keyframes hold-marquee-loop {
   from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(calc(-1 * var(--marquee-distance, 50%)), 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 @media (max-width: 768px) {

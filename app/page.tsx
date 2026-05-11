@@ -27,13 +27,13 @@ export default function Home() {
         hero={<HeroParticles />}
         next={
           <>
-            <MarqueeBand items={MARQUEE_TOP} durationSec={55} />
+            <MarqueeBand items={MARQUEE_TOP} durationSec={32} />
             <ServiciosPreview />
           </>
         }
       />
       <ClientesPreview />
-      <MarqueeBand items={MARQUEE_MID} invert italic durationSec={65} />
+      <MarqueeBand items={MARQUEE_MID} invert italic durationSec={28} />
       <NosotrosPreview />
     </>
   )
