@@ -1,0 +1,126 @@
+/* HOLD CoursesTable — tabla editorial de cursos.
+   Filas con border-bottom hairline. Click → WhatsApp con mensaje pre-armado.
+   Hover: row entera se tinta de acento + flecha se mueve. */
+
+.hold-courses-table {
+  width: 100%;
+  border-top: 1px solid var(--hairline);
+}
+
+.hold-courses-table__row {
+  display: grid;
+  grid-template-columns: 110px 1fr 220px 180px 40px;
+  align-items: center;
+  gap: 24px;
+  padding-block: 28px;
+  padding-inline: 8px;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--fg);
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-hold),
+    padding-inline var(--dur-fast) var(--ease-hold);
+}
+
+.hold-courses-table__row:hover {
+  background: var(--accent-08);
+  padding-inline: 16px;
+}
+
+.hold-courses-table__id {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-fast) var(--ease-hold);
+}
+
+.hold-courses-table__row:hover .hold-courses-table__id {
+  color: var(--accent);
+}
+
+.hold-courses-table__name {
+  font-size: clamp(20px, 2.1vw, 26px);
+  line-height: 1.22;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hold-courses-table__format {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.hold-courses-table__estado {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hold-courses-table__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--fg);
+  flex-shrink: 0;
+}
+
+.hold-courses-table__dot[data-estado="Inscripción abierta"] {
+  background: #1FAB54;
+}
+.hold-courses-table__dot[data-estado="Próximamente"] {
+  background: var(--muted);
+}
+.hold-courses-table__dot[data-estado="Cupo limitado"] {
+  background: var(--accent);
+}
+
+.hold-courses-table__arrow {
+  justify-self: end;
+  color: var(--muted);
+  transition:
+    transform var(--dur-fast) var(--ease-hold),
+    color var(--dur-fast) var(--ease-hold);
+}
+
+.hold-courses-table__row:hover .hold-courses-table__arrow {
+  transform: translateX(6px);
+  color: var(--fg);
+}
+
+@media (max-width: 900px) {
+  .hold-courses-table__row {
+    grid-template-columns: 1fr 32px;
+    gap: 8px 16px;
+    padding-block: 24px;
+  }
+  .hold-courses-table__id {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+  .hold-courses-table__name {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    font-size: 22px;
+  }
+  .hold-courses-table__format {
+    grid-column: 1 / 2;
+    grid-row: 3;
+  }
+  .hold-courses-table__estado {
+    grid-column: 1 / 2;
+    grid-row: 4;
+    margin-top: 4px;
+  }
+  .hold-courses-table__arrow {
+    grid-column: 2;
+    grid-row: 1 / 5;
+    align-self: center;
+  }
+}

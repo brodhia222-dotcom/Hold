@@ -11,6 +11,8 @@ type Props = {
   titulo: ReactNode
   /** Subtítulo/lead opcional. */
   intro?: ReactNode
+  /** CTAs (típicamente 1-2 botones). Se renderizan debajo del intro. */
+  actions?: ReactNode
   /** Slot lateral (foto, video, ilustración). */
   side?: ReactNode
   className?: string
@@ -21,6 +23,7 @@ export function PageHero({
   eyebrowDot,
   titulo,
   intro,
+  actions,
   side,
   className,
 }: Props) {
@@ -57,6 +60,18 @@ export function PageHero({
           >
             {intro}
           </p>
+        ) : null}
+        {actions ? (
+          <div
+            style={{
+              marginTop: 40,
+              display: "flex",
+              gap: 14,
+              flexWrap: "wrap",
+            }}
+          >
+            {actions}
+          </div>
         ) : null}
       </div>
 

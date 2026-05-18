@@ -1,4 +1,12 @@
 import type { Metadata } from "next"
+import { Button } from "@/components/ui/Button"
+import { PageHero } from "@/components/ui/PageHero"
+import { SectionHeader } from "@/components/ui/SectionHeader"
+import { ServiceItems } from "@/components/sections/ServiceItems"
+import { CoursesTable } from "@/components/sections/CoursesTable"
+import { ServicePlan } from "@/components/sections/ServicePlan"
+import { CTABand } from "@/components/sections/CTABand"
+import { servicios, WHATSAPP_URL } from "@/data/content"
 
 export const metadata: Metadata = {
   title: "Hold Academy | HOLD",
@@ -6,16 +14,83 @@ export const metadata: Metadata = {
     "Cursos, entrenamientos y mentorías para creadores de contenido, emprendedores y profesionales que quieren dejar de improvisar.",
 }
 
+const ACADEMY = servicios.find((s) => s.slug === "academy")!
+
 export default function AcademyPage() {
   return (
-    <main className="section-container">
-      <p className="t-micro">Educación · 01</p>
-      <h1 className="t-h1" style={{ marginTop: 24 }}>
-        Hold Academy
-      </h1>
-      <p className="t-lead" style={{ color: "var(--muted)", marginTop: 24, maxWidth: 640 }}>
-        Detalle del servicio · cursos · CTAs · se completa en Fase 5.
-      </p>
+    <main>
+      <section className="section-container section-container--tight">
+        <PageHero
+          eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
+          titulo={
+            <>
+              Todo lo que aprendimos haciendo,{" "}
+              <em style={{ fontStyle: "italic", fontWeight: 500 }}>
+                ahora lo enseñamos.
+              </em>
+            </>
+          }
+          intro={ACADEMY.descripcion}
+          actions={
+            <>
+              <Button
+                size="large"
+                href={WHATSAPP_URL}
+                external
+                ariaLabel="Quiero asesoramiento por WhatsApp"
+              >
+                Quiero saber más
+              </Button>
+              <Button size="large" variant="secondary" href="#cursos" arrow={false}>
+                Ver cursos
+              </Button>
+            </>
+          }
+        />
+      </section>
+
+      <section className="section-container section-container--tight">
+        <SectionHeader
+          numero="01"
+          eyebrow="Qué enseñamos"
+          titulo="Formatos que se adaptan a tu momento."
+          intro="Cursos cortos, programas largos y mentorías 1:1. Todo lo que ofrecemos surgió primero de un cliente real con una necesidad real."
+        />
+        <div style={{ marginTop: 48 }}>
+          <ServiceItems items={ACADEMY.items} />
+        </div>
+      </section>
+
+      <section
+        id="cursos"
+        className="section-container section-container--tight"
+        style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
+      >
+        <SectionHeader
+          numero="02"
+          eyebrow="Catálogo"
+          titulo="Cursos abiertos."
+          intro="Cliqueá la fila para coordinar tu inscripción por WhatsApp. Te responde una persona, no un bot."
+        />
+        <div style={{ marginTop: 48 }}>
+          <CoursesTable />
+        </div>
+      </section>
+
+      <section className="section-container section-container--tight">
+        <ServicePlan servicio={ACADEMY} />
+      </section>
+
+      <CTABand
+        eyebrow="Próximo paso"
+        title={
+          <>
+            ¿Querés sumarte a un curso o armar uno{" "}
+            <em>a medida</em>?
+          </>
+        }
+        sub="Te respondemos en menos de 24 hs hábiles."
+      />
     </main>
   )
 }
