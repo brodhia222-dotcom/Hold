@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
 import {
   EMAIL,
   INSTAGRAM_HANDLE,
@@ -21,6 +20,7 @@ const SITIO = [
   { label: "Nosotros", href: "/nosotros" },
   { label: "Clientes", href: "/clientes" },
   { label: "Contacto", href: "/contacto" },
+  { label: "Trabajá con nosotros", href: "/trabaja-con-nosotros" },
 ] as const
 
 export function Footer() {
@@ -35,11 +35,6 @@ export function Footer() {
           <h2 className="hold-footer__logo">HOLD</h2>
           <span className="hold-footer__brand-tag">Agencia Creativa · Buenos Aires</span>
         </div>
-
-        <Link href="/trabaja-con-nosotros" className="hold-footer__cta-work">
-          <span>Trabajá con Nosotros</span>
-          <ArrowUpRight size={20} strokeWidth={1.75} aria-hidden />
-        </Link>
 
         <div className="hold-footer__cols">
           <div>

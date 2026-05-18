@@ -49,7 +49,8 @@
   pointer-events: none;
 }
 
-/* Capa 2 — contenido vertical, eyebrow arriba, todo lo demás abajo. */
+/* Capa 2 — contenido centrado v y h. Eyebrow flota arriba a la izquierda
+   y el bloque principal (título + precio + features + CTA) se centra. */
 .hold-service-card__content {
   position: relative;
   z-index: 2;
@@ -57,11 +58,19 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 28px;
+  gap: 14px;
 }
 
-/* === EYEBROW (arriba) === */
+/* === EYEBROW (absoluto arriba a la izquierda, fuera del flujo central) === */
 .hold-service-card__eyebrow {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -81,7 +90,7 @@
   flex-shrink: 0;
 }
 
-/* === TÍTULO (empujado hacia abajo con margin-top: auto) === */
+/* === TÍTULO centrado === */
 .hold-service-card__title {
   font-size: clamp(28px, 2.6vw, 36px);
   line-height: 1.04;
@@ -89,7 +98,6 @@
   letter-spacing: -0.025em;
   color: #fff;
   margin: 0;
-  margin-top: auto;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
 }
 
@@ -97,8 +105,8 @@
 .hold-service-card__price {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2px;
-  margin-top: 14px;
 }
 
 .hold-service-card__price-from {
@@ -113,6 +121,7 @@
 .hold-service-card__price-row {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 6px;
   flex-wrap: wrap;
 }
@@ -132,39 +141,42 @@
   font-weight: 400;
 }
 
-/* === FEATURES === */
+/* === FEATURES centradas === */
 .hold-service-card__features {
   list-style: none;
-  margin: 18px 0 20px;
+  margin: 6px 0 6px;
   padding: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
 }
 
 .hold-service-card__features li {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
   font-size: 13px;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.92);
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+  text-align: left;
 }
 
 .hold-service-card__features svg {
   flex-shrink: 0;
   color: #fff;
-  margin-top: 3px;
 }
 
 /* === CTA === */
 .hold-service-card__cta {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 18px;
+  padding: 13px 28px;
+  margin-top: 8px;
   background: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);

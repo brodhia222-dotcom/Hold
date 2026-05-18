@@ -4,8 +4,8 @@
 .hold-test-acc {
   display: flex;
   width: 100%;
-  height: clamp(360px, 50vh, 500px);
-  gap: 4px;
+  height: clamp(320px, 44vh, 440px);
+  gap: 6px;
   overflow: hidden;
 }
 

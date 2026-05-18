@@ -35,21 +35,21 @@ type CardSpec = {
 }
 
 const CARDS: readonly CardSpec[] = [
-  { col: 1,  row: 1, colSpan: 3, rowSpan: 2, rotate: -8,  colorIdx: 0, glyph: "l" },
-  { col: 4,  row: 1, colSpan: 2, rowSpan: 2, rotate: 4,   colorIdx: 1, glyph: "l" },
-  { col: 6,  row: 1, colSpan: 3, rowSpan: 3, rotate: -3,  colorIdx: 3, glyph: "l" },
-  { col: 9,  row: 1, colSpan: 2, rowSpan: 2, rotate: 7,   colorIdx: 2, glyph: "l" },
-  { col: 11, row: 1, colSpan: 2, rowSpan: 3, rotate: -5,  colorIdx: 4, glyph: "l" },
+  { col: 1,  row: 1, colSpan: 3, rowSpan: 2, rotate: -8,  colorIdx: 0, glyph: "h" },
+  { col: 4,  row: 1, colSpan: 2, rowSpan: 2, rotate: 4,   colorIdx: 1, glyph: "h" },
+  { col: 6,  row: 1, colSpan: 3, rowSpan: 3, rotate: -3,  colorIdx: 3, glyph: "h" },
+  { col: 9,  row: 1, colSpan: 2, rowSpan: 2, rotate: 7,   colorIdx: 2, glyph: "h" },
+  { col: 11, row: 1, colSpan: 2, rowSpan: 3, rotate: -5,  colorIdx: 4, glyph: "h" },
 
-  { col: 1,  row: 3, colSpan: 2, rowSpan: 2, rotate: 6,   colorIdx: 4, glyph: "l" },
-  { col: 3,  row: 3, colSpan: 2, rowSpan: 2, rotate: -4,  colorIdx: 5, glyph: "l" },
-  { col: 5,  row: 4, colSpan: 2, rowSpan: 2, rotate: 9,   colorIdx: 2, glyph: "l" },
-  { col: 9,  row: 3, colSpan: 2, rowSpan: 2, rotate: -7,  colorIdx: 1, glyph: "l" },
+  { col: 1,  row: 3, colSpan: 2, rowSpan: 2, rotate: 6,   colorIdx: 4, glyph: "h" },
+  { col: 3,  row: 3, colSpan: 2, rowSpan: 2, rotate: -4,  colorIdx: 5, glyph: "h" },
+  { col: 5,  row: 4, colSpan: 2, rowSpan: 2, rotate: 9,   colorIdx: 2, glyph: "h" },
+  { col: 9,  row: 3, colSpan: 2, rowSpan: 2, rotate: -7,  colorIdx: 1, glyph: "h" },
 
-  { col: 1,  row: 5, colSpan: 3, rowSpan: 2, rotate: -6,  colorIdx: 3, glyph: "l" },
-  { col: 4,  row: 5, colSpan: 2, rowSpan: 2, rotate: 5,   colorIdx: 0, glyph: "l" },
-  { col: 7,  row: 5, colSpan: 3, rowSpan: 2, rotate: -2,  colorIdx: 5, glyph: "l" },
-  { col: 10, row: 5, colSpan: 3, rowSpan: 2, rotate: 8,   colorIdx: 2, glyph: "l" },
+  { col: 1,  row: 5, colSpan: 3, rowSpan: 2, rotate: -6,  colorIdx: 3, glyph: "h" },
+  { col: 4,  row: 5, colSpan: 2, rowSpan: 2, rotate: 5,   colorIdx: 0, glyph: "h" },
+  { col: 7,  row: 5, colSpan: 3, rowSpan: 2, rotate: -2,  colorIdx: 5, glyph: "h" },
+  { col: 10, row: 5, colSpan: 3, rowSpan: 2, rotate: 8,   colorIdx: 2, glyph: "h" },
 ] as const
 
 const ENTRANCE_TOTAL_S = 1.6
@@ -97,13 +97,30 @@ export function HeroCards() {
         })}
       </div>
 
+      {/* Frase final centrada — aparece después del stagger de cards. */}
+      <motion.div
+        className="hold-hero-cards__phrase-wrap"
+        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          delay: reduced ? 0 : ENTRANCE_TOTAL_S + 0.05,
+          duration: 0.6,
+          ease: EASE_HOLD,
+        }}
+      >
+        <p className="hold-hero-cards__phrase">
+          Acá no te tiramos la posta:{" "}
+          <em>te acompañamos a crear la tuya.</em>
+        </p>
+      </motion.div>
+
       <div className="hold-hero-cards__cta-wrap">
         <motion.div
           className="hold-hero-cards__cta"
           initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            delay: reduced ? 0 : ENTRANCE_TOTAL_S + 0.1,
+            delay: reduced ? 0 : ENTRANCE_TOTAL_S + 0.35,
             duration: 0.5,
             ease: EASE_HOLD,
           }}

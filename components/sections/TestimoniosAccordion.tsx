@@ -33,12 +33,13 @@ function getInitials(nombre: string): string {
  * border-radius, paleta monocroma).
  */
 export function TestimoniosAccordion({ testimonios }: Props) {
-  const [active, setActive] = useState(0)
+  // null = ninguna activa (todas con flex igual, ancho parejo).
+  const [active, setActive] = useState<number | null>(null)
 
   return (
     <div
       className="hold-test-acc"
-      onMouseLeave={() => setActive(0)}
+      onMouseLeave={() => setActive(null)}
     >
       {testimonios.map((t, i) => {
         const initials = getInitials(t.nombre)
