@@ -1,38 +1,35 @@
 import { Button } from "@/components/ui/Button"
-import { ShaderBackground } from "@/components/effects/ShaderBackground"
 import { WHATSAPP_URL } from "@/data/content"
 import "./hero-shader.css"
 
-/* H's decorativas — 4 esquineras, cada una con un color HOLD distinto.
- * Aparecen en stagger después del texto principal. */
+/* H's decorativas — 4 esquineras sobre negro, cada una con un color HOLD.
+ * Hacen el "firulete" del manual sin saturar. */
 const DECO_HS = [
-  { pos: "tl", color: "#E96951", rotate: -12, delay: 2.4 }, // Coral
-  { pos: "tr", color: "#2B63FF", rotate: 8, delay: 2.7 },   // Bright Blue
-  { pos: "bl", color: "#EBBDD9", rotate: 15, delay: 3.0 },  // Soft Pink
-  { pos: "br", color: "#F9423A", rotate: -10, delay: 3.3 }, // Warm Red
+  { pos: "tl", color: "#E96951", rotate: -12, delay: 1.0 }, // Coral
+  { pos: "tr", color: "#2B63FF", rotate: 8, delay: 1.2 },   // Bright Blue
+  { pos: "bl", color: "#EBBDD9", rotate: 15, delay: 1.4 },  // Soft Pink
+  { pos: "br", color: "#F9423A", rotate: -10, delay: 1.6 }, // Warm Red
 ] as const
 
 /**
- * Hero cinematográfico editorial premium.
+ * Hero editorial premium minimalista.
  *
- * Secuencia:
- *   0.0–1.8s · Veil negro fade-out → shader se ilumina gradualmente.
- *   1.2–2.6s · Línea 1 "Sostener sin perder la esencia" entra per-word.
- *   2.4–3.6s · 4 h's decorativas esquineras entran en stagger.
- *   4.0–4.6s · Línea 1 fade-out.
- *   4.8–5.6s · Línea 2 "Acá no te tiramos la posta..." entra en el mismo
- *              lugar (reemplaza a la 1), mismo display size.
- *   5.6s+    · CTAs aparecen. Estado final estático.
+ * Fondo negro pleno HOLD. Tipografía blanca display. Las h's de color
+ * saltan limpias sobre el fondo (eso ES la identidad del manual).
+ *
+ * Secuencia (~3.5s total):
+ *   0.6–2.0s · Línea 1 "Sostener sin perder la esencia" entra per-word.
+ *   1.0–1.6s · 4 h's decorativas aparecen en stagger.
+ *   1.5s     · CTAs entran al pie (acción disponible temprano).
+ *   2.0s     · Scroll hint aparece abajo.
+ *   2.6–3.2s · Línea 1 fade-out.
+ *   3.2–4.0s · Línea 2 "Acá no te tiramos la posta..." reemplaza en el
+ *              mismo lugar. Queda fija.
  */
 export function HeroShader() {
   return (
     <section className="hold-hero-shader" aria-label="Inicio">
       <h1 className="hold-hero-shader__sr">Sostener sin perder la esencia.</h1>
-
-      <ShaderBackground />
-
-      {/* Veil negro inicial — fade-out revela el shader iluminándose. */}
-      <div className="hold-hero-shader__veil" aria-hidden />
 
       {/* 4 h's decorativas — esquineras, una por color de marca. */}
       {DECO_HS.map((d) => (
@@ -53,7 +50,6 @@ export function HeroShader() {
       ))}
 
       <div className="hold-hero-shader__stage">
-        {/* LÍNEA 1 — "Sostener sin perder la esencia" — entra y sale. */}
         <h2 className="hold-hero-shader__line hold-hero-shader__line--1" aria-hidden>
           <span className="hold-hero-shader__word" style={{ "--i": 0 } as React.CSSProperties}>
             Sostener
@@ -66,7 +62,6 @@ export function HeroShader() {
           </span>
         </h2>
 
-        {/* LÍNEA 2 — "Acá no te tiramos la posta..." — entra cuando sale la 1. */}
         <p className="hold-hero-shader__line hold-hero-shader__line--2" aria-hidden>
           Acá no te tiramos la posta:{" "}
           <em>te acompañamos a crear la tuya.</em>
@@ -91,6 +86,16 @@ export function HeroShader() {
           Servicios
         </Button>
       </div>
+
+      {/* Scroll hint: pulsa sutil, indica que hay más abajo. */}
+      <a
+        href="#servicios"
+        className="hold-hero-shader__scroll"
+        aria-label="Desplazate hacia abajo"
+      >
+        <span>Desplazate</span>
+        <span className="hold-hero-shader__scroll-line" aria-hidden />
+      </a>
     </section>
   )
 }

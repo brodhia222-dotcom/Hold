@@ -1,13 +1,14 @@
-/* HOLD HeroShader — secuencia cinematográfica editorial premium.
-   Arranque negro → shader se ilumina → línea 1 → línea 2 reemplaza →
-   estado final estático. H's decorativas esquineras como acento. */
+/* HOLD HeroShader — editorial premium minimalista sobre negro pleno.
+   Sin shader animado: el contraste negro + tipografía blanca display +
+   h's de color es lo que da la identidad. Secuencia corta (~4s). */
 
 .hold-hero-shader {
   position: relative;
   width: 100%;
   height: 100svh;
   min-height: 640px;
-  background: #000;
+  background: var(--fg);
+  color: var(--bg);
   overflow: hidden;
   isolation: isolate;
   margin-top: calc(-1 * var(--hold-header-h, 72px));
@@ -25,27 +26,7 @@
   border: 0;
 }
 
-/* === VEIL NEGRO INICIAL ===
-   Cubre el canvas totalmente al cargar y fade-out durante 1.8s.
-   Da la sensación de "iluminación" gradual. */
-.hold-hero-shader__veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: #000;
-  pointer-events: none;
-  animation: hold-veil-out 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0s both;
-}
-
-@keyframes hold-veil-out {
-  0%   { opacity: 1; }
-  20%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* === H'S DECORATIVAS ESQUINERAS ===
-   4 h's cursivas pequeñas, una por esquina, una por color de marca.
-   Aparecen en stagger después de la línea 1. Drift sutil perpetuo. */
+/* === H'S DECORATIVAS — esquineras, una por color HOLD === */
 .hold-hero-shader__deco {
   position: absolute;
   z-index: 2;
@@ -59,16 +40,16 @@
   pointer-events: none;
   opacity: 0;
   --rotate: 0deg;
-  --delay: 2s;
+  --delay: 1s;
   animation:
-    hold-deco-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay) both,
-    hold-deco-drift 8s ease-in-out calc(var(--delay) + 1s) infinite;
+    hold-deco-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay) both,
+    hold-deco-drift 8s ease-in-out calc(var(--delay) + 0.9s) infinite;
 }
 
-.hold-hero-shader__deco--tl { top: clamp(80px, 12vh, 130px); left: 4vw; }
-.hold-hero-shader__deco--tr { top: clamp(80px, 12vh, 130px); right: 4vw; }
-.hold-hero-shader__deco--bl { bottom: 14vh; left: 4vw; }
-.hold-hero-shader__deco--br { bottom: 14vh; right: 4vw; }
+.hold-hero-shader__deco--tl { top: clamp(96px, 14vh, 150px); left: 4vw; }
+.hold-hero-shader__deco--tr { top: clamp(96px, 14vh, 150px); right: 4vw; }
+.hold-hero-shader__deco--bl { bottom: 18vh; left: 4vw; }
+.hold-hero-shader__deco--br { bottom: 18vh; right: 4vw; }
 
 @keyframes hold-deco-in {
   from {
@@ -90,9 +71,7 @@
   }
 }
 
-/* === STAGE (contenedor de líneas) ===
-   Las dos líneas ocupan EXACTAMENTE el mismo espacio para que una
-   reemplace a la otra sin saltos de layout. */
+/* === STAGE (contenedor de líneas alternantes) === */
 .hold-hero-shader__stage {
   position: absolute;
   inset: 0;
@@ -116,11 +95,7 @@
   font-weight: 300;
   letter-spacing: -0.045em;
   line-height: 0.95;
-  color: var(--fg);
-  /* Halo blanco para contraste sobre el shader, sin background box. */
-  text-shadow:
-    0 0 60px rgba(250, 255, 250, 0.85),
-    0 0 28px rgba(250, 255, 250, 0.7);
+  color: var(--bg);
 }
 
 .hold-hero-shader__line em {
@@ -130,26 +105,26 @@
 }
 
 /* === LÍNEA 1: "Sostener sin perder la esencia" ===
-   Entra per-word a partir de 1.2s; se mantiene hasta 4.0s; fade-out a 4.6s. */
+   Entra per-word desde 0.6s; sale a 2.6s. */
 .hold-hero-shader__line--1 {
-  font-size: clamp(48px, 8vw, 128px);
+  font-size: clamp(48px, 9vw, 144px);
 }
 
 .hold-hero-shader__line--1 .hold-hero-shader__word {
   display: inline-block;
   opacity: 0;
-  transform: translateY(40px);
-  filter: blur(18px);
+  transform: translateY(36px);
+  filter: blur(16px);
   animation:
-    hold-word-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) calc(1.2s + var(--i, 0) * 0.18s) both,
-    hold-word-out 0.7s cubic-bezier(0.4, 0, 0.6, 1) calc(4.0s + var(--i, 0) * 0.06s) both;
+    hold-word-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) calc(0.6s + var(--i, 0) * 0.16s) both,
+    hold-word-out 0.6s cubic-bezier(0.4, 0, 0.6, 1) calc(2.6s + var(--i, 0) * 0.05s) both;
 }
 
 @keyframes hold-word-in {
   from {
     opacity: 0;
-    transform: translateY(40px);
-    filter: blur(18px);
+    transform: translateY(36px);
+    filter: blur(16px);
   }
   to {
     opacity: 1;
@@ -166,28 +141,27 @@
   }
   100% {
     opacity: 0;
-    transform: translateY(-16px) scale(1.04);
+    transform: translateY(-14px) scale(1.04);
     filter: blur(10px);
   }
 }
 
 /* === LÍNEA 2: "Acá no te tiramos la posta..." ===
-   Entra a partir de 4.8s en el mismo lugar que la línea 1.
-   Tamaño ligeramente menor porque el texto es más largo. */
+   Entra a 3.2s en el mismo lugar. Queda fija. */
 .hold-hero-shader__line--2 {
-  font-size: clamp(28px, 4.8vw, 72px);
-  line-height: 1.05;
+  font-size: clamp(28px, 5vw, 80px);
+  line-height: 1.08;
   max-width: 22ch;
   margin-inline: auto;
   opacity: 0;
-  animation: hold-line2-in 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 4.8s both;
+  animation: hold-line2-in 1.0s cubic-bezier(0.2, 0.8, 0.2, 1) 3.2s both;
 }
 
 @keyframes hold-line2-in {
   from {
     opacity: 0;
-    transform: translate(-50%, -50%) translateY(24px);
-    filter: blur(16px);
+    transform: translate(-50%, -50%) translateY(20px);
+    filter: blur(14px);
   }
   to {
     opacity: 1;
@@ -197,11 +171,12 @@
 }
 
 /* === CTAs ===
-   Aparecen al final de la secuencia (6.0s). */
+   Aparecen temprano (1.5s) para que la acción esté disponible cuando la
+   línea 1 ya se está formando. */
 .hold-hero-shader__cta {
   position: absolute;
   left: 50%;
-  bottom: clamp(48px, 10vh, 120px);
+  bottom: clamp(80px, 14vh, 150px);
   z-index: 4;
   display: flex;
   gap: 14px;
@@ -209,12 +184,57 @@
   justify-content: center;
   transform: translateX(-50%);
   opacity: 0;
-  animation: hold-cta-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 6.0s both;
+  animation: hold-cta-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 1.5s both;
 }
 
 @keyframes hold-cta-in {
   from { opacity: 0; transform: translateX(-50%) translateY(20px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* === SCROLL HINT — abajo de los CTAs === */
+.hold-hero-shader__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  z-index: 4;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(250, 255, 250, 0.65);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation:
+    hold-scroll-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 2.0s both,
+    hold-scroll-pulse 2.2s ease-in-out 2.6s infinite;
+  transition: color var(--dur-base) var(--ease-hold);
+}
+
+.hold-hero-shader__scroll:hover {
+  color: var(--bg);
+}
+
+.hold-hero-shader__scroll-line {
+  display: inline-block;
+  width: 1px;
+  height: 28px;
+  background: currentColor;
+}
+
+@keyframes hold-scroll-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 0.65; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes hold-scroll-pulse {
+  0%, 100% { opacity: 0.65; transform: translateX(-50%) translateY(0); }
+  50%      { opacity: 1;    transform: translateX(-50%) translateY(6px); }
 }
 
 @media (max-width: 768px) {
@@ -229,31 +249,31 @@
   }
   .hold-hero-shader__deco--tl,
   .hold-hero-shader__deco--tr {
-    top: clamp(80px, 10vh, 110px);
+    top: clamp(90px, 12vh, 120px);
   }
   .hold-hero-shader__deco--bl,
   .hold-hero-shader__deco--br {
-    bottom: 18vh;
+    bottom: 22vh;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hold-hero-shader__veil { animation: none; opacity: 0; }
   .hold-hero-shader__line--1 .hold-hero-shader__word,
   .hold-hero-shader__line--2,
   .hold-hero-shader__deco,
-  .hold-hero-shader__cta {
+  .hold-hero-shader__cta,
+  .hold-hero-shader__scroll {
     animation: none;
     opacity: 1;
     transform: none;
     filter: none;
   }
-  /* En reduced motion solo mostramos la línea 2 (final estático). */
+  /* Reduced motion: solo mostramos línea 2 (estado final). */
   .hold-hero-shader__line--1 { display: none; }
   .hold-hero-shader__line--2 {
     transform: translate(-50%, -50%);
+    opacity: 1;
   }
-  .hold-hero-shader__cta {
-    transform: translateX(-50%);
-  }
+  .hold-hero-shader__cta { transform: translateX(-50%); opacity: 1; }
+  .hold-hero-shader__scroll { transform: translateX(-50%); opacity: 0.65; }
 }
