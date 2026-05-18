@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/Button"
+import { ShaderAnimation } from "@/components/ui/shader-animation"
 import { WHATSAPP_URL } from "@/data/content"
 import "./hero-shader.css"
 
@@ -41,6 +42,10 @@ export function HeroShader() {
       data-hero-theme="dark"
     >
       <h1 className="hold-hero-shader__sr">Sostener sin perder la esencia.</h1>
+
+      <div className="hold-hero-shader__bg" aria-hidden>
+        <ShaderAnimation />
+      </div>
 
       {DECO_HS.map((d) => (
         <span
