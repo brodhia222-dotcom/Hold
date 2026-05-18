@@ -6,11 +6,11 @@ import "./shader-background.css"
 /**
  * Background WebGL2 con shader GLSL adaptado al manual HOLD.
  *
- * Basado en el shader-animation de aliimam (21st.dev). El shader original
- * usaba tonos sepia oscuros (vec3(bg*.25, bg*.137, bg*.05)); acá lo
- * reemplazamos por una palette() que devuelve mezclas de los Pantone HOLD
- * (coral, azul, rosa, rojo, blanco) sobre fondo Star White. El movimiento
- * lo da fbm noise + tiempo. Interactividad por mouse (`mouseMove` uniform).
+ * Approach: 3 nubes fbm independientes que se mueven a distintas
+ * velocidades, cada una con un color HOLD distinto. Sobre Star White.
+ * Las nubes se mezclan con smoothstep para tener bordes suaves.
+ * Resultado: manchas claramente visibles de coral/azul/rosa/rojo que
+ * derivan continuamente. Reactivo al mouse via 'move' uniform.
  */
 
 const VERTEX_SRC = `#version 300 es
@@ -18,8 +18,6 @@ precision highp float;
 in vec4 position;
 void main(){ gl_Position = position; }`
 
-/* Fragment shader: paleta HOLD + clouds noise.
- * Está basado en el original de Matthias Hurrle (@atzedent) — adaptado. */
 const FRAGMENT_SRC = `#version 300 es
 precision highp float;
 out vec4 O;
@@ -31,31 +29,13 @@ uniform vec2 move;
 #define R resolution
 #define MN min(R.x, R.y)
 
-/* Paleta HOLD: 5 colores Pantone interpolados por un parámetro t∈[0,1]. */
-vec3 holdPalette(float t) {
-  vec3 coral = vec3(0.914, 0.412, 0.318); // #E96951
-  vec3 blue  = vec3(0.169, 0.388, 1.000); // #2B63FF
-  vec3 pink  = vec3(0.922, 0.741, 0.851); // #EBBDD9
-  vec3 red   = vec3(0.976, 0.259, 0.227); // #F9423A
-  vec3 black = vec3(0.114, 0.114, 0.106); // #1D1D1B
-
-  t = fract(t);
-  float seg = t * 4.0;
-  int i = int(floor(seg));
-  float f = fract(seg);
-  if (i == 0) return mix(coral, blue,  f);
-  if (i == 1) return mix(blue,  pink,  f);
-  if (i == 2) return mix(pink,  red,   f);
-  return            mix(red,   coral, f);
-}
-
 float rnd(vec2 p) {
   p = fract(p * vec2(12.9898, 78.233));
   p += dot(p, p + 34.56);
   return fract(p.x * p.y);
 }
 
-float noise(in vec2 p) {
+float noise(vec2 p) {
   vec2 i = floor(p), f = fract(p), u = f * f * (3.0 - 2.0 * f);
   float
     a = rnd(i),
@@ -66,60 +46,69 @@ float noise(in vec2 p) {
 }
 
 float fbm(vec2 p) {
-  float t = 0.0, a = 1.0; mat2 m = mat2(1.0, -0.5, 0.2, 1.2);
+  float total = 0.0, amp = 0.55;
+  mat2 m = mat2(1.6, -0.8, 0.8, 1.6);
   for (int i = 0; i < 5; i++) {
-    t += a * noise(p);
-    p *= 2.0 * m;
-    a *= 0.5;
+    total += amp * noise(p);
+    p = m * p;
+    amp *= 0.5;
   }
-  return t;
-}
-
-float clouds(vec2 p) {
-  float d = 1.0, t = 0.0;
-  for (float i = 0.0; i < 3.0; i++) {
-    float a = d * fbm(i * 10.0 + p.x * 0.2 + 0.2 * (1.0 + i) * p.y + d + i * i + p);
-    t = mix(t, d, a);
-    d = a;
-    p *= 2.0 / (i + 1.0);
-  }
-  return t;
+  return total;
 }
 
 void main(void) {
-  vec2 uv = (FC - 0.5 * R) / MN;
-  vec2 st = uv * vec2(2, 1);
-  /* Star White como base (el bg HOLD). */
+  vec2 uv = (FC - 0.5 * R) / MN * 1.4;
+
+  /* Mouse parallax: desplaza el uv sutil con el pointer. */
+  uv += move * 0.0008;
+
+  /* Base: Star White, el color de marca para el bg. */
   vec3 bgWhite = vec3(0.980, 1.0, 0.980);
   vec3 col = bgWhite;
 
-  /* Mouse influence: sutil desplazamiento de uv según move uniform. */
-  uv += move * 0.0008;
+  /* Tiempo lento — animación calma, no frenética. */
+  float t = T * 0.25;
 
-  /* Cloud base modulada por tiempo — controla la mezcla con la paleta. */
-  float bg = clouds(vec2(st.x + T * 0.18, -st.y));
+  /* === NUBES DE COLOR HOLD ===
+     Cada nube tiene su offset, velocidad y dirección distinta para que
+     se muevan independientemente y se crucen. */
 
-  /* Loop de capas: cada iteración suma una mancha de color del palette. */
-  uv *= 1.0 - 0.3 * (sin(T * 0.2) * 0.5 + 0.5);
-  for (float i = 1.0; i < 10.0; i++) {
-    uv += 0.10 * cos(i * vec2(0.1 + 0.01 * i, 0.8) + i * i + T * 0.4 + 0.1 * uv.x);
-    vec2 p = uv;
-    float d = length(p);
+  /* Nube 1 — Coral, grande, deriva NE */
+  vec2 p1 = uv * 1.1 + vec2(t * 1.2, t * 0.7) + vec2(0.0, 0.0);
+  float n1 = fbm(p1);
+  vec3 coral = vec3(0.914, 0.412, 0.318);
 
-    /* Color sampled de la paleta HOLD según i y tiempo. */
-    vec3 cc = holdPalette(i * 0.13 + T * 0.04 + bg * 0.2);
+  /* Nube 2 — Azul Bright, deriva SO */
+  vec2 p2 = uv * 1.3 + vec2(-t * 0.9, -t * 1.1) + vec2(100.0, 50.0);
+  float n2 = fbm(p2);
+  vec3 blue = vec3(0.169, 0.388, 1.000);
 
-    col += 0.0018 / d * cc;
-    float b = noise(i + p + bg * 1.731);
-    col += 0.0028 * b / length(max(p, vec2(b * p.x * 0.02, p.y))) * cc;
+  /* Nube 3 — Rosa Soft, deriva E */
+  vec2 p3 = uv * 0.9 + vec2(t * 1.4, t * 0.3) + vec2(-80.0, 120.0);
+  float n3 = fbm(p3);
+  vec3 pink = vec3(0.922, 0.741, 0.851);
 
-    /* Mezcla suave con bg blanco — mantiene la composición clara y legible. */
-    col = mix(col, bgWhite * (0.92 + 0.08 * bg), d * 0.45);
-  }
+  /* Nube 4 — Rojo Warm, deriva O lento */
+  vec2 p4 = uv * 1.5 + vec2(-t * 0.6, t * 0.8) + vec2(60.0, -90.0);
+  float n4 = fbm(p4);
+  vec3 red = vec3(0.976, 0.259, 0.227);
 
-  /* Clamp para evitar quemados que rompan legibilidad del texto. */
-  col = clamp(col, 0.0, 1.0);
-  O = vec4(col, 1.0);
+  /* Mezcla cada nube sobre el blanco. smoothstep da bordes suaves.
+     El range del threshold controla qué tan visible es cada nube. */
+  col = mix(col, coral, smoothstep(0.40, 0.85, n1) * 0.85);
+  col = mix(col, blue,  smoothstep(0.42, 0.88, n2) * 0.85);
+  col = mix(col, pink,  smoothstep(0.45, 0.85, n3) * 0.70);
+  col = mix(col, red,   smoothstep(0.48, 0.88, n4) * 0.80);
+
+  /* Vignette sutil — oscurece bordes para dar profundidad. */
+  float vig = 1.0 - 0.20 * length(uv * 0.65);
+  col *= vig;
+
+  /* Grain ultra fino para textura — micro noise estático. */
+  float grain = (rnd(FC * 0.01 + T * 0.001) - 0.5) * 0.015;
+  col += grain;
+
+  O = vec4(clamp(col, 0.0, 1.0), 1.0);
 }`
 
 export function ShaderBackground() {
@@ -131,12 +120,10 @@ export function ShaderBackground() {
 
     const gl = canvas.getContext("webgl2") as WebGL2RenderingContext | null
     if (!gl) {
-      // WebGL2 no soportado — el canvas queda transparente y se ve el bg del wrapper.
       console.warn("WebGL2 no soportado. Shader background no se renderiza.")
       return
     }
 
-    /* DPR cap a 1.5 para perfomance en pantallas retina. */
     const getDpr = () => Math.min(1.5, Math.max(1, window.devicePixelRatio || 1))
 
     const compile = (type: number, source: string) => {
@@ -194,14 +181,19 @@ export function ShaderBackground() {
       const dpr = getDpr()
       const w = canvas.clientWidth || window.innerWidth
       const h = canvas.clientHeight || window.innerHeight
-      canvas.width = Math.floor(w * dpr)
-      canvas.height = Math.floor(h * dpr)
+      canvas.width = Math.max(1, Math.floor(w * dpr))
+      canvas.height = Math.max(1, Math.floor(h * dpr))
       gl.viewport(0, 0, canvas.width, canvas.height)
     }
 
     resize()
     window.addEventListener("resize", resize, { passive: true })
     canvas.addEventListener("pointermove", onPointerMove)
+
+    /* ResizeObserver para reaccionar también a cambios de layout que no
+       disparan window resize (e.g., sticky stack levantando al hero). */
+    const ro = new ResizeObserver(resize)
+    ro.observe(canvas)
 
     let raf = 0
     let mounted = true
@@ -223,6 +215,7 @@ export function ShaderBackground() {
     return () => {
       mounted = false
       cancelAnimationFrame(raf)
+      ro.disconnect()
       window.removeEventListener("resize", resize)
       canvas.removeEventListener("pointermove", onPointerMove)
       gl.deleteBuffer(buffer)

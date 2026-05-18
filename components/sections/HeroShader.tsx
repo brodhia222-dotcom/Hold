@@ -18,11 +18,6 @@ export function HeroShader() {
       <div className="hold-hero-shader__overlay" aria-hidden />
 
       <div className="hold-hero-shader__content">
-        <p className="hold-hero-shader__eyebrow">
-          <span className="hold-hero-shader__eyebrow-dot" aria-hidden />
-          HOLD · AGENCIA CREATIVA
-        </p>
-
         <h2 className="hold-hero-shader__title" aria-hidden>
           <span className="hold-hero-shader__word" style={{ "--i": 0 } as React.CSSProperties}>
             Sostener

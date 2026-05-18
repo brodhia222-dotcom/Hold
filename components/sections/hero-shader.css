@@ -26,17 +26,18 @@
   border: 0;
 }
 
-/* Overlay sutil para mejorar legibilidad del texto sobre el shader. */
+/* Vignette muy sutil — NO opaca el shader, solo oscurece bordes para
+   ayudar a que el texto del centro quede legible. */
 .hold-hero-shader__overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
     radial-gradient(
-      ellipse at center,
-      rgba(250, 255, 250, 0.45) 0%,
-      rgba(250, 255, 250, 0.15) 45%,
-      rgba(250, 255, 250, 0.05) 100%
+      ellipse 80% 60% at center,
+      transparent 0%,
+      transparent 30%,
+      rgba(250, 255, 250, 0.18) 100%
     );
   pointer-events: none;
 }
@@ -62,31 +63,6 @@
   pointer-events: auto;
 }
 
-/* === EYEBROW === */
-.hold-hero-shader__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 18px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--fg);
-  margin: 0;
-  opacity: 0;
-  animation: hold-shader-fade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both;
-}
-
-.hold-hero-shader__eyebrow-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  background: var(--accent);
-  flex-shrink: 0;
-}
-
 /* === TÍTULO PROTAGONISTA === */
 .hold-hero-shader__title {
   display: flex;
@@ -108,10 +84,12 @@
   transform: translateY(50px);
   filter: blur(20px);
   animation: hold-shader-word 1s cubic-bezier(0.2, 0.8, 0.2, 1) calc(0.4s + var(--i, 0) * 0.13s) both;
-  /* Text-shadow para mejor lectura sobre el shader animado */
+  /* Stack de text-shadow: halo blanco contundente para que la tipografía
+     resalte limpia sobre el shader vibrante. */
   text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.6),
-    0 0 24px rgba(255, 255, 255, 0.35);
+    0 0 32px rgba(250, 255, 250, 0.95),
+    0 0 16px rgba(250, 255, 250, 0.85),
+    0 1px 0 rgba(250, 255, 250, 0.6);
 }
 
 .hold-hero-shader__word em {
