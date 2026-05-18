@@ -13,9 +13,9 @@
 .hold-scroll-stack__sticky {
   position: sticky;
   top: 0;
-  /* 90svh deja un peek del next (~10svh) visible al fondo del viewport
-     desde scroll 0 → comunica que hay más contenido para scrollear. */
-  height: 90svh;
+  /* 82svh deja ~18svh del next visible al fondo → el marquee TOP se ve
+     completo asomando, comunicando claramente que hay más para scrollear. */
+  height: 82svh;
   z-index: 0;
   overflow: hidden;
 }
