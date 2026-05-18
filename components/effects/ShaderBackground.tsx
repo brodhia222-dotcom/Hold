@@ -4,13 +4,18 @@ import { useEffect, useRef } from "react"
 import "./shader-background.css"
 
 /**
- * Background WebGL2 con shader GLSL adaptado al manual HOLD.
+ * Background WebGL2 con shader de rayos radiales — adaptación del
+ * shader-animation de aliimam (21st.dev) a la paleta HOLD.
  *
- * Approach: 3 nubes fbm independientes que se mueven a distintas
- * velocidades, cada una con un color HOLD distinto. Sobre Star White.
- * Las nubes se mezclan con smoothstep para tener bordes suaves.
- * Resultado: manchas claramente visibles de coral/azul/rosa/rojo que
- * derivan continuamente. Reactivo al mouse via 'move' uniform.
+ * Algoritmo original (Matthias Hurrle / @atzedent):
+ *   Loop de 12 iteraciones. Cada una desplaza uv con cos() + tiempo, y
+ *   suma una contribución 1/d (rayo radial) + b/length(max()) (banda
+ *   nebulosa). Mezcla cada paso con un bg oscuro para mantener contraste.
+ *
+ * Cambio HOLD: la paleta original usaba cos(sin(i)*vec3(1,2,3))+1.0
+ * que daba colores random. La reemplazo por holdColor(i) que cicla por
+ * Bright Blue → Coral → Star White → Warm Red. El fade dark al final
+ * usa un azul muy oscuro en vez de sepia.
  */
 
 const VERTEX_SRC = `#version 300 es
@@ -35,7 +40,7 @@ float rnd(vec2 p) {
   return fract(p.x * p.y);
 }
 
-float noise(vec2 p) {
+float noise(in vec2 p) {
   vec2 i = floor(p), f = fract(p), u = f * f * (3.0 - 2.0 * f);
   float
     a = rnd(i),
@@ -46,71 +51,72 @@ float noise(vec2 p) {
 }
 
 float fbm(vec2 p) {
-  float total = 0.0, amp = 0.55;
-  mat2 m = mat2(1.6, -0.8, 0.8, 1.6);
+  float t = 0.0, a = 1.0;
+  mat2 m = mat2(1.0, -0.5, 0.2, 1.2);
   for (int i = 0; i < 5; i++) {
-    total += amp * noise(p);
-    p = m * p;
-    amp *= 0.5;
+    t += a * noise(p);
+    p *= 2.0 * m;
+    a *= 0.5;
   }
-  return total;
+  return t;
+}
+
+float clouds(vec2 p) {
+  float d = 1.0, t = 0.0;
+  for (float i = 0.0; i < 3.0; i++) {
+    float a = d * fbm(i * 10.0 + p.x * 0.2 + 0.2 * (1.0 + i) * p.y + d + i * i + p);
+    t = mix(t, d, a);
+    d = a;
+    p *= 2.0 / (i + 1.0);
+  }
+  return t;
+}
+
+/* Paleta HOLD interpolada por índice (cicla entre 4 colores). */
+vec3 holdColor(float i) {
+  vec3 blue  = vec3(0.169, 0.388, 1.000); // #2B63FF
+  vec3 coral = vec3(0.914, 0.412, 0.318); // #E96951
+  vec3 white = vec3(0.980, 1.000, 0.980); // #FAFFFA
+  vec3 red   = vec3(0.976, 0.259, 0.227); // #F9423A
+  float seg = mod(i, 4.0);
+  float f = fract(seg);
+  if (seg < 1.0) return mix(blue,  coral, f);
+  if (seg < 2.0) return mix(coral, white, f);
+  if (seg < 3.0) return mix(white, red,   f);
+  return            mix(red,   blue,  f);
 }
 
 void main(void) {
-  vec2 uv = (FC - 0.5 * R) / MN * 1.4;
+  vec2 uv = (FC - 0.5 * R) / MN;
+  vec2 st = uv * vec2(2, 1);
+  vec3 col = vec3(0);
 
-  /* Mouse parallax: desplaza el uv sutil con el pointer. */
-  uv += move * 0.0008;
+  /* Mouse parallax sutil */
+  uv += move * 0.0006;
 
-  /* Base: Star White, el color de marca para el bg. */
-  vec3 bgWhite = vec3(0.980, 1.0, 0.980);
-  vec3 col = bgWhite;
+  float bg = clouds(vec2(st.x + T * 0.5, -st.y));
+  uv *= 1.0 - 0.3 * (sin(T * 0.2) * 0.5 + 0.5);
 
-  /* Tiempo lento — animación calma, no frenética. */
-  float t = T * 0.25;
+  for (float i = 1.0; i < 12.0; i++) {
+    uv += 0.1 * cos(i * vec2(0.1 + 0.01 * i, 0.8) + i * i + T * 0.5 + 0.1 * uv.x);
+    vec2 p = uv;
+    float d = length(p);
 
-  /* === NUBES DE COLOR HOLD ===
-     Cada nube tiene su offset, velocidad y dirección distinta para que
-     se muevan independientemente y se crucen. */
+    /* Color HOLD para esta capa, derivando lento con el tiempo. */
+    vec3 cc = holdColor(i + T * 0.08);
 
-  /* Nube 1 — Coral, grande, deriva NE */
-  vec2 p1 = uv * 1.1 + vec2(t * 1.2, t * 0.7) + vec2(0.0, 0.0);
-  float n1 = fbm(p1);
-  vec3 coral = vec3(0.914, 0.412, 0.318);
+    /* Rayo central — el 1/d genera la silueta radial cinematográfica. */
+    col += 0.0015 / d * cc;
 
-  /* Nube 2 — Azul Bright, deriva SO */
-  vec2 p2 = uv * 1.3 + vec2(-t * 0.9, -t * 1.1) + vec2(100.0, 50.0);
-  float n2 = fbm(p2);
-  vec3 blue = vec3(0.169, 0.388, 1.000);
+    /* Nebulosa lateral — banda más difusa. */
+    float b = noise(i + p + bg * 1.731);
+    col += 0.0025 * b / length(max(p, vec2(b * p.x * 0.02, p.y))) * cc;
 
-  /* Nube 3 — Rosa Soft, deriva E */
-  vec2 p3 = uv * 0.9 + vec2(t * 1.4, t * 0.3) + vec2(-80.0, 120.0);
-  float n3 = fbm(p3);
-  vec3 pink = vec3(0.922, 0.741, 0.851);
+    /* Fade hacia azul oscuro en bordes (mantiene contraste para texto). */
+    col = mix(col, vec3(bg * 0.04, bg * 0.06, bg * 0.10), d * 0.75);
+  }
 
-  /* Nube 4 — Rojo Warm, deriva O lento */
-  vec2 p4 = uv * 1.5 + vec2(-t * 0.6, t * 0.8) + vec2(60.0, -90.0);
-  float n4 = fbm(p4);
-  vec3 red = vec3(0.976, 0.259, 0.227);
-
-  /* Mezcla editorial: manchas presentes pero NO saturadas. Strength
-     bajo 0.30-0.40 para que se sienta como un wash de color sutil,
-     premium, no flashy. smoothstep alto = manchas más pequeñas y
-     suaves. */
-  col = mix(col, coral, smoothstep(0.52, 0.92, n1) * 0.40);
-  col = mix(col, blue,  smoothstep(0.54, 0.94, n2) * 0.40);
-  col = mix(col, pink,  smoothstep(0.50, 0.92, n3) * 0.32);
-  col = mix(col, red,   smoothstep(0.55, 0.94, n4) * 0.38);
-
-  /* Vignette generoso — oscurece bordes para sensación cinematográfica. */
-  float vig = 1.0 - 0.32 * pow(length(uv * 0.55), 1.4);
-  col *= vig;
-
-  /* Grain ultra fino estático — textura papel premium. */
-  float grain = (rnd(FC * 0.01 + T * 0.001) - 0.5) * 0.012;
-  col += grain;
-
-  O = vec4(clamp(col, 0.0, 1.0), 1.0);
+  O = vec4(col, 1.0);
 }`
 
 export function ShaderBackground() {
@@ -122,7 +128,7 @@ export function ShaderBackground() {
 
     const gl = canvas.getContext("webgl2") as WebGL2RenderingContext | null
     if (!gl) {
-      console.warn("WebGL2 no soportado. Shader background no se renderiza.")
+      console.warn("WebGL2 no soportado.")
       return
     }
 
@@ -192,15 +198,12 @@ export function ShaderBackground() {
     window.addEventListener("resize", resize, { passive: true })
     canvas.addEventListener("pointermove", onPointerMove)
 
-    /* ResizeObserver para reaccionar también a cambios de layout que no
-       disparan window resize (e.g., sticky stack levantando al hero). */
     const ro = new ResizeObserver(resize)
     ro.observe(canvas)
 
     let raf = 0
     let mounted = true
     const start = performance.now()
-
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
     const loop = (now: number) => {
@@ -227,7 +230,5 @@ export function ShaderBackground() {
     }
   }, [])
 
-  return (
-    <canvas ref={canvasRef} className="hold-shader-bg" aria-hidden />
-  )
+  return <canvas ref={canvasRef} className="hold-shader-bg" aria-hidden />
 }

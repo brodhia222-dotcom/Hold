@@ -27,6 +27,30 @@
   border-bottom-color: var(--hairline);
 }
 
+/* === DARK MODE: cuando hay una sección oscura debajo del nav (ej: HeroShader).
+   El texto pasa a blanco, el logo también. El bg queda transparente (o blur
+   muy sutil al scrollear) para que se siga viendo la animación detrás. */
+.hold-header[data-on-dark] {
+  color: var(--bg);
+}
+
+.hold-header[data-on-dark] .hold-header__logo {
+  color: var(--bg);
+}
+
+.hold-header[data-on-dark] .hold-header__link {
+  color: var(--bg);
+}
+
+.hold-header[data-on-dark][data-scrolled="true"] {
+  background: rgba(29, 29, 27, 0.6);
+  border-bottom-color: rgba(250, 255, 250, 0.12);
+}
+
+.hold-header[data-on-dark] .hold-header__burger-bar {
+  background: var(--bg);
+}
+
 .hold-header__logo {
   font-size: 24px;
   font-weight: 700;

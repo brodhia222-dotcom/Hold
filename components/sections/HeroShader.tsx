@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/Button"
+import { ShaderBackground } from "@/components/effects/ShaderBackground"
 import { WHATSAPP_URL } from "@/data/content"
 import "./hero-shader.css"
 
@@ -28,8 +29,14 @@ const DECO_HS = [
  */
 export function HeroShader() {
   return (
-    <section className="hold-hero-shader" aria-label="Inicio">
+    <section
+      className="hold-hero-shader"
+      aria-label="Inicio"
+      data-hero-theme="dark"
+    >
       <h1 className="hold-hero-shader__sr">Sostener sin perder la esencia.</h1>
+
+      <ShaderBackground />
 
       {/* 4 h's decorativas — esquineras, una por color de marca. */}
       {DECO_HS.map((d) => (

@@ -16,6 +16,7 @@ const NEUTRAL_HREFS = new Set(["/nosotros", "/clientes"])
 export function Header() {
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
+  const [onDark, setOnDark] = useState(false)
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -24,6 +25,39 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
+
+  /* Detecta si hay una sección con data-hero-theme="dark" pasando por
+     debajo del nav. Aplica el tema oscuro al header para que el texto
+     se vea sobre fondos oscuros (ej: HeroShader). */
+  useEffect(() => {
+    const darkSection = document.querySelector<HTMLElement>(
+      '[data-hero-theme="dark"]',
+    )
+    if (!darkSection) {
+      setOnDark(false)
+      return
+    }
+    const headerH =
+      parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue(
+          "--hold-header-h",
+        ),
+      ) || 72
+    const observer = new IntersectionObserver(
+      ([entry]) => setOnDark(entry.isIntersecting),
+      {
+        /* La sección oscura intersecta el viewport top en la zona del nav.
+           rootMargin negativo en bottom hace que solo cuente cuando hay
+           sección oscura justo debajo de los primeros 72px. */
+        rootMargin: `0px 0px -${
+          typeof window !== "undefined" ? window.innerHeight - headerH : 0
+        }px 0px`,
+        threshold: 0,
+      },
+    )
+    observer.observe(darkSection)
+    return () => observer.disconnect()
+  }, [pathname])
 
   useEffect(() => {
     setOpen(false)
@@ -44,7 +78,11 @@ export function Header() {
 
   return (
     <>
-      <header className="hold-header" data-scrolled={scrolled}>
+      <header
+        className="hold-header"
+        data-scrolled={scrolled}
+        data-on-dark={onDark || undefined}
+      >
         <Link href="/" className="hold-header__logo" aria-label="HOLD — Inicio">
           hold
         </Link>

@@ -7,11 +7,16 @@
   width: 100%;
   height: 100svh;
   min-height: 640px;
-  background: var(--fg);
+  background: #000; /* fallback negro hasta que el shader cargue */
   color: var(--bg);
   overflow: hidden;
   isolation: isolate;
   margin-top: calc(-1 * var(--hold-header-h, 72px));
+}
+
+/* El canvas del shader debe estar detrás de todo el contenido. */
+.hold-hero-shader .hold-shader-bg {
+  z-index: 0;
 }
 
 .hold-hero-shader__sr {
