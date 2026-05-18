@@ -1,4 +1,4 @@
-import { HeroEditorial } from "@/components/sections/HeroEditorial"
+import { HeroCards } from "@/components/sections/HeroCards"
 import { ServiciosPreview } from "@/components/sections/ServiciosPreview"
 import { NosotrosPreview } from "@/components/sections/NosotrosPreview"
 import { ClientesPreview } from "@/components/sections/ClientesPreview"
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       <HeroScrollStack
-        hero={<HeroEditorial />}
+        hero={<HeroCards />}
         next={
           <>
             <MarqueeBand items={MARQUEE_TOP} durationSec={32} />
