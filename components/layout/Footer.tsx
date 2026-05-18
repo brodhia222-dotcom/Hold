@@ -20,7 +20,6 @@ const SITIO = [
   { label: "Nosotros", href: "/nosotros" },
   { label: "Clientes", href: "/clientes" },
   { label: "Contacto", href: "/contacto" },
-  { label: "Trabajá con nosotros", href: "/trabaja-con-nosotros" },
 ] as const
 
 export function Footer() {
@@ -75,6 +74,9 @@ export function Footer() {
                 >
                   {INSTAGRAM_HANDLE}
                 </a>
+              </li>
+              <li>
+                <Link href="/trabaja-con-nosotros">Trabajá con nosotros</Link>
               </li>
             </ul>
           </div>

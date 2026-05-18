@@ -1,13 +1,10 @@
-"use client"
-
-import { motion, useReducedMotion } from "framer-motion"
+import type { CSSProperties } from "react"
 import { Button } from "@/components/ui/Button"
 import { WHATSAPP_URL } from "@/data/content"
-import { EASE_HOLD } from "@/lib/motion"
 import "./hero-cards.css"
 
-/* Paleta HOLD para las cards — esta animación es la excepción al monocromo
- * (igual que era el HeroParticles antes). Acá juegan todos los Pantone. */
+/* Paleta HOLD para las cards — esta animación es la excepción al monocromo.
+ * Acá juegan todos los Pantone de marca. */
 const HOLD_COLORS = [
   { bg: "#1D1D1B", fg: "#FAFFFA" }, // Black
   { bg: "#E96951", fg: "#FAFFFA" }, // Coral
@@ -17,20 +14,13 @@ const HOLD_COLORS = [
   { bg: "#F9423A", fg: "#FAFFFA" }, // Warm Red
 ] as const
 
-/* Cards posicionadas en grid absoluto. Cada una con su rotation final,
- * letra (forma "l" cursiva), y posición. Estilo poster del manual de marca. */
 type CardSpec = {
-  /** Posición grid-column-start / grid-row-start (1-12). */
   col: number
   row: number
-  /** Span (1-N). */
   colSpan: number
   rowSpan: number
-  /** Rotation final en grados. */
   rotate: number
-  /** Índice del color en HOLD_COLORS. */
   colorIdx: number
-  /** Caracter mostrado dentro (típicamente "l" cursiva). */
   glyph: string
 }
 
@@ -52,12 +42,18 @@ const CARDS: readonly CardSpec[] = [
   { col: 10, row: 5, colSpan: 3, rowSpan: 2, rotate: 8,   colorIdx: 2, glyph: "h" },
 ] as const
 
-const ENTRANCE_TOTAL_S = 1.6
-const STAGGER_S = ENTRANCE_TOTAL_S / CARDS.length
+/* Animación: cada card entra con delay = i * STAGGER_S. Después de
+ * ENTRANCE_TOTAL_S aparece la frase y los CTAs. CSS-driven, sin JS. */
+const STAGGER_S = 0.09
+const CARD_DUR_S = 0.55
+const ENTRANCE_TOTAL_S = CARDS.length * STAGGER_S + CARD_DUR_S * 0.4 // ~1.4s
 
+/**
+ * Hero estilo manual de marca: mural de cards rotadas con la "h" cursiva
+ * gigante (logo HOLD). Entrance staggered en CSS keyframes → estado final
+ * estático. Después aparece la frase y los CTAs. Server component, sin JS.
+ */
 export function HeroCards() {
-  const reduced = useReducedMotion()
-
   return (
     <section className="hold-hero-cards" aria-label="Inicio">
       <h1 className="hold-hero-cards__sr">Sostener sin perder la esencia.</h1>
@@ -65,65 +61,38 @@ export function HeroCards() {
       <div className="hold-hero-cards__grid" aria-hidden>
         {CARDS.map((c, i) => {
           const color = HOLD_COLORS[c.colorIdx]
-          const finalRotate = c.rotate
-          // Entrance: parte de rotación opuesta + scale 0.6, llega a rotación final + scale 1.
-          const initial = reduced
-            ? { opacity: 1, rotate: finalRotate, scale: 1 }
-            : { opacity: 0, rotate: finalRotate - 24, scale: 0.6 }
-          const animate = reduced
-            ? { opacity: 1, rotate: finalRotate, scale: 1 }
-            : { opacity: 1, rotate: finalRotate, scale: 1 }
+          const styleVars = {
+            "--rotate": `${c.rotate}deg`,
+            "--rotate-start": `${c.rotate - 24}deg`,
+            "--delay": `${i * STAGGER_S}s`,
+            "--dur": `${CARD_DUR_S}s`,
+            gridColumn: `${c.col} / span ${c.colSpan}`,
+            gridRow: `${c.row} / span ${c.rowSpan}`,
+            background: color.bg,
+            color: color.fg,
+          } as CSSProperties
           return (
-            <motion.div
-              key={i}
-              className="hold-hero-cards__card"
-              style={{
-                gridColumn: `${c.col} / span ${c.colSpan}`,
-                gridRow: `${c.row} / span ${c.rowSpan}`,
-                background: color.bg,
-                color: color.fg,
-              }}
-              initial={initial}
-              animate={animate}
-              transition={{
-                delay: reduced ? 0 : i * STAGGER_S,
-                duration: reduced ? 0 : 0.55,
-                ease: EASE_HOLD,
-              }}
-            >
+            <div key={i} className="hold-hero-cards__card" style={styleVars}>
               <span className="hold-hero-cards__glyph">{c.glyph}</span>
-            </motion.div>
+            </div>
           )
         })}
       </div>
 
-      {/* Frase final centrada — aparece después del stagger de cards. */}
-      <motion.div
+      <div
         className="hold-hero-cards__phrase-wrap"
-        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          delay: reduced ? 0 : ENTRANCE_TOTAL_S + 0.05,
-          duration: 0.6,
-          ease: EASE_HOLD,
-        }}
+        style={{ "--delay": `${ENTRANCE_TOTAL_S + 0.05}s` } as CSSProperties}
       >
         <p className="hold-hero-cards__phrase">
           Acá no te tiramos la posta:{" "}
           <em>te acompañamos a crear la tuya.</em>
         </p>
-      </motion.div>
+      </div>
 
       <div className="hold-hero-cards__cta-wrap">
-        <motion.div
+        <div
           className="hold-hero-cards__cta"
-          initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            delay: reduced ? 0 : ENTRANCE_TOTAL_S + 0.35,
-            duration: 0.5,
-            ease: EASE_HOLD,
-          }}
+          style={{ "--delay": `${ENTRANCE_TOTAL_S + 0.35}s` } as CSSProperties}
         >
           <Button
             size="large"
@@ -141,7 +110,7 @@ export function HeroCards() {
           >
             Servicios
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
