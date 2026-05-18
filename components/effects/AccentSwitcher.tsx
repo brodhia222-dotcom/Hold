@@ -13,7 +13,7 @@ const ACCENTS = [
   { name: "Coral",      value: "#E96951" },
   { name: "Tangerine",  value: "#F08A3E" },
   { name: "Warm Red",   value: "#F9423A" },
-  { name: "Bright Blue", value: "#0072CE" },
+  { name: "Bright Blue", value: "#2B63FF" },
   { name: "Soft Pink",  value: "#EBBDD9" },
 ] as const
 

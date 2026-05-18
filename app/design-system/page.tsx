@@ -20,7 +20,7 @@ const COLORS = [
   { name: "Coral", hex: "#E96951", role: "Academy · 486 C" },
   { name: "Warm Red", hex: "#F9423A", role: "Performance · CTAs intensos" },
   { name: "Soft Pink", hex: "#EBBDD9", role: "Acento suave · 243 C" },
-  { name: "Bright Blue", hex: "#0072CE", role: "Redes Sociales · 285 C" },
+  { name: "Bright Blue", hex: "#2B63FF", role: "Redes Sociales · 285 C" },
 ] as const
 
 const TYPE_SCALE = [

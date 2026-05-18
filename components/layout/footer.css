@@ -27,8 +27,42 @@
   justify-content: space-between;
   gap: 32px;
   flex-wrap: wrap;
-  padding-bottom: 64px;
+  padding-bottom: 32px;
+}
+
+/* === CTA "Trabajá con Nosotros" — bloque protagonista entre marca y cols === */
+.hold-footer__cta-work {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 36px 40px;
+  margin-block: 40px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  border-top: 1px solid var(--hairline);
   border-bottom: 1px solid var(--hairline);
+  transition:
+    background var(--dur-base) var(--ease-hold),
+    transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-footer__cta-work svg {
+  flex-shrink: 0;
+  transition: transform var(--dur-base) var(--ease-hold);
+}
+
+.hold-footer__cta-work:hover {
+  background: var(--fg);
+}
+
+.hold-footer__cta-work:hover svg {
+  transform: translate(6px, -6px) scale(1.15);
 }
 
 .hold-footer__logo {

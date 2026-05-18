@@ -29,10 +29,11 @@
 }
 
 /* El hero interno ya tiene 100svh y margin-top negativo standalone.
-   Adentro del stack lo neutralizamos: el sticky maneja la altura. */
-.hold-scroll-stack__hero > .hold-hero-particles {
-  height: 100%;
-  margin-top: 0;
+   Adentro del stack lo neutralizamos: el sticky maneja la altura.
+   Selector genérico: aplica a HeroCards, HeroParticles, o cualquier hero. */
+.hold-scroll-stack__hero > * {
+  height: 100% !important;
+  margin-top: 0 !important;
 }
 
 .hold-scroll-stack__next {

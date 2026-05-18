@@ -1,20 +1,40 @@
 import { ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/Button"
-import { MasonryGrid } from "@/components/effects/MasonryGrid"
-import { TestimonialMasonryCard } from "@/components/sections/TestimonialMasonryCard"
+import { TestimoniosAccordion } from "@/components/sections/TestimoniosAccordion"
 import { testimonios } from "@/data/content"
+import type { ServicioSlug } from "@/types"
 import "./clientes-preview.css"
 
 /**
- * Sección de Clientes inspirada en image-testimonial-grid (21st.dev),
- * adaptada al DS HOLD: paleta de marca, sin border-radius, hatch en
- * lugar de fotos reales.
- *
- * El MasonryGrid maneja sus propias columnas responsive (1/2/3/4)
- * según viewport. Cada card del MasonryGrid se anima individualmente
- * con blur fade-in al entrar al viewport (whileInView).
+ * Sección de Clientes: 6 testimonios curados (2 por servicio) en accordion
+ * horizontal interactivo. Hover/focus expande la card y revela el quote.
+ * Estilo inspirado en interactive-image-accordion de 21st.dev.
  */
+
+/* Cura: 2 testimonios por servicio para llenar 6 slots del accordion. */
+function pickSixTestimonios(): typeof testimonios {
+  const byService: Record<ServicioSlug, typeof testimonios[number][]> = {
+    academy: [],
+    "redes-sociales": [],
+    performance: [],
+  }
+  testimonios.forEach((t) => {
+    if (byService[t.servicio].length < 2) byService[t.servicio].push(t)
+  })
+  // Orden: 1 de cada → 2 de cada → alterna para mostrar mix de servicios.
+  return [
+    byService.academy[0],
+    byService["redes-sociales"][0],
+    byService.performance[0],
+    byService.academy[1],
+    byService["redes-sociales"][1],
+    byService.performance[1],
+  ].filter(Boolean) as typeof testimonios
+}
+
 export function ClientesPreview() {
+  const six = pickSixTestimonios()
+
   return (
     <section className="hold-clientes" aria-label="Clientes">
       <div className="hold-clientes__inner">
@@ -37,15 +57,9 @@ export function ClientesPreview() {
           </div>
         </header>
 
-        <MasonryGrid gap={4}>
-          {testimonios.map((t, i) => (
-            <TestimonialMasonryCard
-              key={`${t.servicio}-${i}`}
-              testimonio={t}
-              index={i}
-            />
-          ))}
-        </MasonryGrid>
+        <div data-reveal data-reveal-delay="0.3">
+          <TestimoniosAccordion testimonios={six} />
+        </div>
       </div>
     </section>
   )

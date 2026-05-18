@@ -15,7 +15,7 @@ const HOLD_COLOR_CYCLE: readonly RGB[] = [
   { r: 233, g: 105, b: 81 },  // Coral · Academy
   { r: 240, g: 138, b: 62 },  // Tangerine
   { r: 249, g: 66, b: 58 },   // Warm Red · Performance
-  { r: 0,   g: 114, b: 206 }, // Bright Blue · Redes
+  { r: 43,  g: 99,  b: 255 }, // Bright Blue · Redes
   { r: 235, g: 189, b: 217 }, // Soft Pink
 ] as const
 

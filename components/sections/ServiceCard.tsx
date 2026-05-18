@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Check, ImageIcon } from "lucide-react"
+import { ArrowUpRight, Check } from "lucide-react"
 import type { Servicio } from "@/types"
 import { cn } from "@/lib/utils"
 import "./service-card.css"
@@ -10,69 +10,57 @@ type Props = {
 }
 
 /**
- * Card pricing-style sobre fondo oscuro con efecto liquid glass.
- * Anatomía vertical: media (placeholder) → eyebrow → título → precio →
- * divider → "Lo que incluye" + lista → CTA full-width.
- *
- * Color: usa --accent global (controlado por <AccentSwitcher>). Las 3 cards
- * comparten el mismo acento — se diferencian por orden, eyebrow y contenido.
+ * Card pricing-style: TODA la card es la imagen de fondo (placeholder hatch).
+ * Capas: media (hatch del acento) → gradient overlay para legibilidad →
+ * contenido (eyebrow, título, precio, features, CTA) en blanco con
+ * drop-shadow. Layout editorial editorial-style.
  */
 export function ServiceCard({ servicio, className }: Props) {
   return (
     <article className={cn("hold-service-card", className)}>
-      <div className="hold-service-card__media" aria-hidden>
-        <ImageIcon
-          size={28}
-          strokeWidth={1.25}
-          className="hold-service-card__media-icon"
-          aria-hidden
-        />
-        <span className="hold-service-card__media-label">Imagen</span>
-      </div>
+      <div className="hold-service-card__media" aria-hidden />
+      <div className="hold-service-card__overlay" aria-hidden />
 
-      <div className="hold-service-card__head">
+      <div className="hold-service-card__content">
         <span className="hold-service-card__eyebrow">
           <span className="hold-service-card__eyebrow-dot" aria-hidden />
           {servicio.eyebrow}
         </span>
-      </div>
 
-      <h3 className="hold-service-card__title">{servicio.nombre}</h3>
+        <h3 className="hold-service-card__title">{servicio.nombre}</h3>
 
-      <div className="hold-service-card__price">
-        <span className="hold-service-card__price-from">Desde</span>
-        <span className="hold-service-card__price-row">
-          <span className="hold-service-card__price-amount">
-            USD {servicio.precioDesde}
-          </span>
-          {servicio.precioPeriodo ? (
-            <span className="hold-service-card__price-period">
-              / {servicio.precioPeriodo}
+        <div className="hold-service-card__price">
+          <span className="hold-service-card__price-from">Desde</span>
+          <span className="hold-service-card__price-row">
+            <span className="hold-service-card__price-amount">
+              USD {servicio.precioDesde}
             </span>
-          ) : null}
-        </span>
+            {servicio.precioPeriodo ? (
+              <span className="hold-service-card__price-period">
+                / {servicio.precioPeriodo}
+              </span>
+            ) : null}
+          </span>
+        </div>
+
+        <ul className="hold-service-card__features">
+          {servicio.incluye.map((item) => (
+            <li key={item}>
+              <Check size={14} strokeWidth={2.4} aria-hidden />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <Link
+          href={servicio.href}
+          className="hold-service-card__cta"
+          aria-label={`Ver detalle de ${servicio.nombre}`}
+        >
+          <span>Quiero saber más</span>
+          <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden />
+        </Link>
       </div>
-
-      <div className="hold-service-card__divider" aria-hidden />
-
-      <p className="hold-service-card__features-label">Lo que incluye</p>
-      <ul className="hold-service-card__features">
-        {servicio.incluye.map((item) => (
-          <li key={item}>
-            <Check size={14} strokeWidth={2.25} aria-hidden />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-
-      <Link
-        href={servicio.href}
-        className="hold-service-card__cta"
-        aria-label={`Ver detalle de ${servicio.nombre}`}
-      >
-        <span>Quiero saber más</span>
-        <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden />
-      </Link>
     </article>
   )
 }
