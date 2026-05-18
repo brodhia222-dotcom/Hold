@@ -1,16 +1,15 @@
-/* HOLD HeroShader — canvas WebGL2 con paleta HOLD + texto centrado encima.
-   Anatomía: shader full-bleed → overlay sutil de glass → contenido vertical
-   centrado con animaciones staggered. */
+/* HOLD HeroShader — secuencia cinematográfica editorial premium.
+   Arranque negro → shader se ilumina → línea 1 → línea 2 reemplaza →
+   estado final estático. H's decorativas esquineras como acento. */
 
 .hold-hero-shader {
   position: relative;
   width: 100%;
   height: 100svh;
   min-height: 640px;
-  background: var(--bg);
+  background: #000;
   overflow: hidden;
   isolation: isolate;
-  /* Cubrir detrás del nav transparente */
   margin-top: calc(-1 * var(--hold-header-h, 72px));
 }
 
@@ -26,83 +25,131 @@
   border: 0;
 }
 
-/* Vignette muy sutil — NO opaca el shader, solo oscurece bordes para
-   ayudar a que el texto del centro quede legible. */
-.hold-hero-shader__overlay {
+/* === VEIL NEGRO INICIAL ===
+   Cubre el canvas totalmente al cargar y fade-out durante 1.8s.
+   Da la sensación de "iluminación" gradual. */
+.hold-hero-shader__veil {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    radial-gradient(
-      ellipse 80% 60% at center,
-      transparent 0%,
-      transparent 30%,
-      rgba(250, 255, 250, 0.18) 100%
-    );
+  background: #000;
   pointer-events: none;
+  animation: hold-veil-out 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0s both;
 }
 
-/* === CONTENIDO === */
-.hold-hero-shader__content {
-  position: relative;
+@keyframes hold-veil-out {
+  0%   { opacity: 1; }
+  20%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* === H'S DECORATIVAS ESQUINERAS ===
+   4 h's cursivas pequeñas, una por esquina, una por color de marca.
+   Aparecen en stagger después de la línea 1. Drift sutil perpetuo. */
+.hold-hero-shader__deco {
+  position: absolute;
   z-index: 2;
-  width: 100%;
-  height: 100%;
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(56px, 9vw, 140px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+  --rotate: 0deg;
+  --delay: 2s;
+  animation:
+    hold-deco-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) var(--delay) both,
+    hold-deco-drift 8s ease-in-out calc(var(--delay) + 1s) infinite;
+}
+
+.hold-hero-shader__deco--tl { top: clamp(80px, 12vh, 130px); left: 4vw; }
+.hold-hero-shader__deco--tr { top: clamp(80px, 12vh, 130px); right: 4vw; }
+.hold-hero-shader__deco--bl { bottom: 14vh; left: 4vw; }
+.hold-hero-shader__deco--br { bottom: 14vh; right: 4vw; }
+
+@keyframes hold-deco-in {
+  from {
+    opacity: 0;
+    transform: rotate(calc(var(--rotate) - 20deg)) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--rotate)) scale(1);
+  }
+}
+
+@keyframes hold-deco-drift {
+  0%, 100% {
+    transform: rotate(var(--rotate)) translate(0, 0);
+  }
+  50% {
+    transform: rotate(calc(var(--rotate) + 2deg)) translate(2px, -4px);
+  }
+}
+
+/* === STAGE (contenedor de líneas) ===
+   Las dos líneas ocupan EXACTAMENTE el mismo espacio para que una
+   reemplace a la otra sin saltos de layout. */
+.hold-hero-shader__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(18px, 2.5vh, 28px);
-  padding-inline: clamp(20px, 4vw, 64px);
+  padding-inline: clamp(24px, 5vw, 96px);
   padding-top: var(--hold-header-h, 72px);
-  text-align: center;
   pointer-events: none;
 }
 
-.hold-hero-shader__content > * {
-  pointer-events: auto;
-}
-
-/* === TÍTULO PROTAGONISTA === */
-.hold-hero-shader__title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  font-size: clamp(54px, 9.5vw, 156px);
-  line-height: 0.92;
+.hold-hero-shader__line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(1100px, 92vw);
+  text-align: center;
+  margin: 0;
   font-weight: 300;
   letter-spacing: -0.045em;
+  line-height: 0.95;
   color: var(--fg);
-  margin: 0;
-  max-width: 16ch;
-}
-
-.hold-hero-shader__word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(50px);
-  filter: blur(20px);
-  animation: hold-shader-word 1s cubic-bezier(0.2, 0.8, 0.2, 1) calc(0.4s + var(--i, 0) * 0.13s) both;
-  /* Stack de text-shadow: halo blanco contundente para que la tipografía
-     resalte limpia sobre el shader vibrante. */
+  /* Halo blanco para contraste sobre el shader, sin background box. */
   text-shadow:
-    0 0 32px rgba(250, 255, 250, 0.95),
-    0 0 16px rgba(250, 255, 250, 0.85),
-    0 1px 0 rgba(250, 255, 250, 0.6);
+    0 0 60px rgba(250, 255, 250, 0.85),
+    0 0 28px rgba(250, 255, 250, 0.7);
 }
 
-.hold-hero-shader__word em {
+.hold-hero-shader__line em {
   font-style: italic;
   font-weight: 400;
   color: var(--accent);
 }
 
-@keyframes hold-shader-word {
+/* === LÍNEA 1: "Sostener sin perder la esencia" ===
+   Entra per-word a partir de 1.2s; se mantiene hasta 4.0s; fade-out a 4.6s. */
+.hold-hero-shader__line--1 {
+  font-size: clamp(48px, 8vw, 128px);
+}
+
+.hold-hero-shader__line--1 .hold-hero-shader__word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(18px);
+  animation:
+    hold-word-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) calc(1.2s + var(--i, 0) * 0.18s) both,
+    hold-word-out 0.7s cubic-bezier(0.4, 0, 0.6, 1) calc(4.0s + var(--i, 0) * 0.06s) both;
+}
+
+@keyframes hold-word-in {
   from {
     opacity: 0;
-    transform: translateY(50px);
-    filter: blur(20px);
+    transform: translateY(40px);
+    filter: blur(18px);
   }
   to {
     opacity: 1;
@@ -111,65 +158,102 @@
   }
 }
 
-/* === SUBTAGLINE === */
-.hold-hero-shader__sub {
-  font-size: clamp(16px, 1.5vw, 22px);
-  line-height: 1.4;
-  font-weight: 400;
-  color: var(--fg);
-  margin: 0;
-  max-width: 38ch;
+@keyframes hold-word-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) scale(1.04);
+    filter: blur(10px);
+  }
+}
+
+/* === LÍNEA 2: "Acá no te tiramos la posta..." ===
+   Entra a partir de 4.8s en el mismo lugar que la línea 1.
+   Tamaño ligeramente menor porque el texto es más largo. */
+.hold-hero-shader__line--2 {
+  font-size: clamp(28px, 4.8vw, 72px);
+  line-height: 1.05;
+  max-width: 22ch;
+  margin-inline: auto;
   opacity: 0;
-  animation: hold-shader-fade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s both;
-  padding: 10px 18px;
-  background: rgba(250, 255, 250, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  animation: hold-line2-in 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 4.8s both;
 }
 
-.hold-hero-shader__sub em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent);
+@keyframes hold-line2-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(24px);
+    filter: blur(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+    filter: blur(0);
+  }
 }
 
-/* === CTAs === */
+/* === CTAs ===
+   Aparecen al final de la secuencia (6.0s). */
 .hold-hero-shader__cta {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(48px, 10vh, 120px);
+  z-index: 4;
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 6px;
+  transform: translateX(-50%);
   opacity: 0;
-  animation: hold-shader-fade 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.4s both;
+  animation: hold-cta-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 6.0s both;
 }
 
-@keyframes hold-shader-fade {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes hold-cta-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 @media (max-width: 768px) {
-  .hold-hero-shader__title {
-    font-size: clamp(44px, 12vw, 96px);
+  .hold-hero-shader__line--1 {
+    font-size: clamp(38px, 11vw, 88px);
   }
-  .hold-hero-shader__sub {
-    font-size: 14px;
+  .hold-hero-shader__line--2 {
+    font-size: clamp(22px, 7vw, 44px);
   }
-  .hold-hero-shader__eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.16em;
+  .hold-hero-shader__deco {
+    font-size: clamp(40px, 14vw, 90px);
+  }
+  .hold-hero-shader__deco--tl,
+  .hold-hero-shader__deco--tr {
+    top: clamp(80px, 10vh, 110px);
+  }
+  .hold-hero-shader__deco--bl,
+  .hold-hero-shader__deco--br {
+    bottom: 18vh;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hold-hero-shader__eyebrow,
-  .hold-hero-shader__sub,
-  .hold-hero-shader__cta,
-  .hold-hero-shader__word {
+  .hold-hero-shader__veil { animation: none; opacity: 0; }
+  .hold-hero-shader__line--1 .hold-hero-shader__word,
+  .hold-hero-shader__line--2,
+  .hold-hero-shader__deco,
+  .hold-hero-shader__cta {
+    animation: none;
     opacity: 1;
     transform: none;
     filter: none;
-    animation: none;
+  }
+  /* En reduced motion solo mostramos la línea 2 (final estático). */
+  .hold-hero-shader__line--1 { display: none; }
+  .hold-hero-shader__line--2 {
+    transform: translate(-50%, -50%);
+  }
+  .hold-hero-shader__cta {
+    transform: translateX(-50%);
   }
 }

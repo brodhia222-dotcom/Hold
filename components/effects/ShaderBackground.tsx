@@ -93,19 +93,21 @@ void main(void) {
   float n4 = fbm(p4);
   vec3 red = vec3(0.976, 0.259, 0.227);
 
-  /* Mezcla cada nube sobre el blanco. smoothstep da bordes suaves.
-     El range del threshold controla qué tan visible es cada nube. */
-  col = mix(col, coral, smoothstep(0.40, 0.85, n1) * 0.85);
-  col = mix(col, blue,  smoothstep(0.42, 0.88, n2) * 0.85);
-  col = mix(col, pink,  smoothstep(0.45, 0.85, n3) * 0.70);
-  col = mix(col, red,   smoothstep(0.48, 0.88, n4) * 0.80);
+  /* Mezcla editorial: manchas presentes pero NO saturadas. Strength
+     bajo 0.30-0.40 para que se sienta como un wash de color sutil,
+     premium, no flashy. smoothstep alto = manchas más pequeñas y
+     suaves. */
+  col = mix(col, coral, smoothstep(0.52, 0.92, n1) * 0.40);
+  col = mix(col, blue,  smoothstep(0.54, 0.94, n2) * 0.40);
+  col = mix(col, pink,  smoothstep(0.50, 0.92, n3) * 0.32);
+  col = mix(col, red,   smoothstep(0.55, 0.94, n4) * 0.38);
 
-  /* Vignette sutil — oscurece bordes para dar profundidad. */
-  float vig = 1.0 - 0.20 * length(uv * 0.65);
+  /* Vignette generoso — oscurece bordes para sensación cinematográfica. */
+  float vig = 1.0 - 0.32 * pow(length(uv * 0.55), 1.4);
   col *= vig;
 
-  /* Grain ultra fino para textura — micro noise estático. */
-  float grain = (rnd(FC * 0.01 + T * 0.001) - 0.5) * 0.015;
+  /* Grain ultra fino estático — textura papel premium. */
+  float grain = (rnd(FC * 0.01 + T * 0.001) - 0.5) * 0.012;
   col += grain;
 
   O = vec4(clamp(col, 0.0, 1.0), 1.0);
