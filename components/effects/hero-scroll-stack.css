@@ -13,7 +13,9 @@
 .hold-scroll-stack__sticky {
   position: sticky;
   top: 0;
-  height: 100svh;
+  /* 90svh deja un peek del next (~10svh) visible al fondo del viewport
+     desde scroll 0 → comunica que hay más contenido para scrollear. */
+  height: 90svh;
   z-index: 0;
   overflow: hidden;
 }
