@@ -21,10 +21,9 @@
   align-items: flex-end;
 }
 
-/* Variante compact: para títulos largos que de otra forma rompen el peek. */
-.hold-hero-textured[data-compact="true"] {
-  min-height: 56svh;
-}
+/* Variante compact: la altura es la misma que el regular — solo se
+   reduce el font-size del título para que entre en 2-3 líneas. Si no
+   forzaríamos misma altura, los hero quedarían dispares entre páginas. */
 
 /* ── Softener: capa negra semitransparente que atenúa la saturación
      del shader y le da el feel "editorial premium" en vez de "rave". ── */
@@ -127,8 +126,22 @@
 }
 
 .hold-hero-textured[data-compact="true"] .hold-hero-textured__title {
-  font-size: clamp(38px, 5.2vw, 76px);
-  max-width: 14ch;
+  font-size: clamp(32px, 4vw, 60px);
+  max-width: 26ch;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+/* En compact, también apretamos el padding-top del content para que
+   las 3 herois mantengan la misma altura visible. */
+.hold-hero-textured[data-compact="true"] .hold-hero-textured__content {
+  padding-top: 40px;
+  gap: 18px;
+}
+
+.hold-hero-textured[data-compact="true"] .hold-hero-textured__intro {
+  font-size: clamp(14px, 1.2vw, 17px);
+  max-width: 60ch;
 }
 
 .hold-hero-textured__title em {
@@ -182,9 +195,6 @@
   .hold-hero-textured {
     min-height: 58svh;
     padding-bottom: 56px;
-  }
-  .hold-hero-textured[data-compact="true"] {
-    min-height: 54svh;
   }
   .hold-hero-textured__content {
     padding-top: 32px;
