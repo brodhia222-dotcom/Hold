@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
+import { usePathname } from "next/navigation"
 import Lenis from "lenis"
 import { gsap, ScrollTrigger } from "@/lib/gsap"
 
@@ -12,14 +13,25 @@ import { gsap, ScrollTrigger } from "@/lib/gsap"
  * - GSAP ticker dirige el RAF de Lenis (única source of truth de la animación).
  * - ScrollTrigger.update se engancha al scroll de Lenis para que los triggers
  *   se sincronicen con el scroll suavizado en lugar del nativo.
+ * - Al cambiar de pathname, fuerza scroll a 0 inmediato. Sin esto, navegar
+ *   entre páginas con scroll preserva la posición — incómodo en multi-page.
  */
 export function SmoothScroll() {
+  const lenisRef = useRef<Lenis | null>(null)
+  const pathname = usePathname()
+
   useEffect(() => {
     // Respeta reduced motion
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches
     if (prefersReducedMotion) return
+
+    // Desactivar scroll-restoration nativo del browser para evitar
+    // que pelee con Lenis en navegaciones de back/forward.
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual"
+    }
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -28,6 +40,7 @@ export function SmoothScroll() {
       wheelMultiplier: 1,
       touchMultiplier: 1.4,
     })
+    lenisRef.current = lenis
 
     const onScroll = () => ScrollTrigger.update()
     lenis.on("scroll", onScroll)
@@ -43,8 +56,22 @@ export function SmoothScroll() {
       lenis.off("scroll", onScroll)
       gsap.ticker.remove(tick)
       lenis.destroy()
+      lenisRef.current = null
     }
   }, [])
+
+  /* Scroll a top en cada cambio de ruta. Usa Lenis si está activo
+     (reduced-motion off) o scroll nativo como fallback. immediate:true
+     hace el salto sin animación — es lo esperado al navegar entre
+     páginas, no querés ver el scroll bajando suavemente desde donde
+     estabas. */
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo({ top: 0, behavior: "auto" })
+    }
+  }, [pathname])
 
   return null
 }
