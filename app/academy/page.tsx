@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHero } from "@/components/ui/PageHero"
 import { SectionHeader } from "@/components/ui/SectionHeader"
-import { ServiceItems } from "@/components/sections/ServiceItems"
-import { CoursesTable } from "@/components/sections/CoursesTable"
-import { ServicePlan } from "@/components/sections/ServicePlan"
+import { BentoTeach } from "@/components/sections/BentoTeach"
+import { CoursesShowcase } from "@/components/sections/CoursesShowcase"
+import { ServicePlanFeature } from "@/components/sections/ServicePlanFeature"
 import { CTABand } from "@/components/sections/CTABand"
 import { servicios, WHATSAPP_URL } from "@/data/content"
 
@@ -15,6 +15,17 @@ export const metadata: Metadata = {
 }
 
 const ACADEMY = servicios.find((s) => s.slug === "academy")!
+
+/* Categorías editoriales que diferencian el bento de la tabla de cursos.
+   Los items vienen de ACADEMY.items en data/content.ts. */
+const BENTO_ITEMS = [
+  { title: "Claude para creadores de contenido", category: "Curso · IA" },
+  { title: "Meta para creadores de contenido",   category: "Curso · Ads" },
+  { title: "Creatividad aplicada",               category: "Programa" },
+  { title: "Contenido con colaboradores",        category: "Workshop" },
+  { title: "Entrenamientos para emprendedores",  category: "Programa" },
+  { title: "Mentorías 1:1 360",                  category: "Mentoría" },
+] as const
 
 export default function AcademyPage() {
   return (
@@ -57,7 +68,7 @@ export default function AcademyPage() {
           intro="Cursos cortos, programas largos y mentorías 1:1. Todo lo que ofrecemos surgió primero de un cliente real con una necesidad real."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <ServiceItems items={ACADEMY.items} />
+          <BentoTeach items={BENTO_ITEMS} />
         </div>
       </section>
 
@@ -70,15 +81,15 @@ export default function AcademyPage() {
           numero="02"
           eyebrow="Catálogo"
           titulo="Cursos abiertos."
-          intro="Cliqueá la fila para coordinar tu inscripción por WhatsApp. Te responde una persona, no un bot."
+          intro="Tocá un curso para coordinar tu inscripción por WhatsApp. Te responde una persona del equipo, no un bot."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <CoursesTable />
+          <CoursesShowcase />
         </div>
       </section>
 
       <section className="section-container section-container--tight">
-        <ServicePlan servicio={ACADEMY} />
+        <ServicePlanFeature servicio={ACADEMY} />
       </section>
 
       <CTABand

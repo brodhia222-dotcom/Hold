@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHero } from "@/components/ui/PageHero"
 import { SectionHeader } from "@/components/ui/SectionHeader"
-import { ServiceItems } from "@/components/sections/ServiceItems"
+import { BentoTeach } from "@/components/sections/BentoTeach"
 import { ServiceProcess } from "@/components/sections/ServiceProcess"
 import type { ProcessStep } from "@/components/sections/ServiceProcess"
-import { ServicePlan } from "@/components/sections/ServicePlan"
+import { ServicePlanFeature } from "@/components/sections/ServicePlanFeature"
 import { CTABand } from "@/components/sections/CTABand"
 import { servicios, WHATSAPP_URL } from "@/data/content"
 
@@ -16,6 +16,14 @@ export const metadata: Metadata = {
 }
 
 const REDES = servicios.find((s) => s.slug === "redes-sociales")!
+
+const BENTO_ITEMS = [
+  { title: "Estrategia y calendario mensual",     category: "Estrategia" },
+  { title: "Diseño gráfico y producción audiovisual", category: "Diseño" },
+  { title: "Community management",                category: "Comunidad" },
+  { title: "Branding e identidad de marca",       category: "Branding" },
+  { title: "Dirección creativa",                  category: "Dirección" },
+] as const
 
 const PROCESO: readonly ProcessStep[] = [
   {
@@ -77,7 +85,7 @@ export default function RedesSocialesPage() {
           intro="No tercerizamos en freelancers sueltos. Estrategas, diseñadores y community managers trabajando como una unidad."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <ServiceItems items={REDES.items} />
+          <BentoTeach items={BENTO_ITEMS} />
         </div>
       </section>
 
@@ -98,7 +106,7 @@ export default function RedesSocialesPage() {
       </section>
 
       <section className="section-container section-container--tight">
-        <ServicePlan servicio={REDES} />
+        <ServicePlanFeature servicio={REDES} />
       </section>
 
       <CTABand

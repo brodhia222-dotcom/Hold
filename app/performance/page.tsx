@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHero } from "@/components/ui/PageHero"
 import { SectionHeader } from "@/components/ui/SectionHeader"
-import { ServiceItems } from "@/components/sections/ServiceItems"
+import { BentoTeach } from "@/components/sections/BentoTeach"
 import { ServiceProcess } from "@/components/sections/ServiceProcess"
 import type { ProcessStep } from "@/components/sections/ServiceProcess"
-import { ServicePlan } from "@/components/sections/ServicePlan"
+import { ServicePlanFeature } from "@/components/sections/ServicePlanFeature"
 import { CTABand } from "@/components/sections/CTABand"
 import { servicios, WHATSAPP_URL } from "@/data/content"
 
@@ -16,6 +16,14 @@ export const metadata: Metadata = {
 }
 
 const PERFORMANCE = servicios.find((s) => s.slug === "performance")!
+
+const BENTO_ITEMS = [
+  { title: "Meta Ads, Google Ads, TikTok Ads",         category: "Pauta" },
+  { title: "Creatividades para pauta",                 category: "Creatividad" },
+  { title: "Implementación de CRM",                    category: "CRM" },
+  { title: "Automatizaciones de captación y seguimiento", category: "Automation" },
+  { title: "Reportes y optimización mensual",          category: "Data" },
+] as const
 
 const PROCESO: readonly ProcessStep[] = [
   {
@@ -77,7 +85,7 @@ export default function PerformancePage() {
           intro="Desde la estrategia inicial hasta el último ajuste del CRM. Sin pasarte de mano en mano."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <ServiceItems items={PERFORMANCE.items} />
+          <BentoTeach items={BENTO_ITEMS} />
         </div>
       </section>
 
@@ -98,7 +106,7 @@ export default function PerformancePage() {
       </section>
 
       <section className="section-container section-container--tight">
-        <ServicePlan servicio={PERFORMANCE} />
+        <ServicePlanFeature servicio={PERFORMANCE} />
       </section>
 
       <CTABand

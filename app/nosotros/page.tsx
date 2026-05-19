@@ -5,8 +5,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader"
 import { Founders } from "@/components/sections/Founders"
 import { TeamRoster } from "@/components/sections/TeamRoster"
 import { PhotoGallery } from "@/components/sections/PhotoGallery"
-import { ServiceProcess } from "@/components/sections/ServiceProcess"
-import type { ProcessStep } from "@/components/sections/ServiceProcess"
+import { BentoTeach } from "@/components/sections/BentoTeach"
 import { CTABand } from "@/components/sections/CTABand"
 import { WHATSAPP_URL } from "@/data/content"
 
@@ -16,20 +15,24 @@ export const metadata: Metadata = {
     "Somos una agencia creativa que ayuda a marcas, equipos y creadores a comunicar con identidad propia, sin caer en lo genérico.",
 }
 
-const POR_QUE: readonly ProcessStep[] = [
+const POR_QUE = [
   {
+    category: "Razón · 01",
     title: "Lorem ipsum dolor",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
+    category: "Razón · 02",
     title: "Consectetur adipiscing",
     desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   },
   {
+    category: "Razón · 03",
     title: "Eiusmod tempor",
     desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
   },
   {
+    category: "Razón · 04",
     title: "Excepteur sint",
     desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
@@ -114,7 +117,7 @@ export default function NosotrosPage() {
           intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <ServiceProcess steps={POR_QUE} />
+          <BentoTeach items={POR_QUE} />
         </div>
       </section>
 
