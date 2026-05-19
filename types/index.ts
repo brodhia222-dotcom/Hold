@@ -42,6 +42,12 @@ export interface MiembroEquipo {
   iniciales: string
 }
 
+/** Área del equipo extendido (Comunicación, Diseño, Performance, Producción). */
+export interface EquipoArea {
+  area: string
+  miembros: readonly string[]
+}
+
 export interface NavLink {
   label: string
   href: string

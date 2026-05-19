@@ -1,5 +1,6 @@
 import type {
   Curso,
+  EquipoArea,
   MiembroEquipo,
   NavLink,
   Servicio,
@@ -190,11 +191,35 @@ export const testimonios: readonly Testimonio[] = [
   },
 ] as const
 
-/* ─── EQUIPO ──────────────────────────────────────────────────────────────── */
+/* ─── FOUNDERS ────────────────────────────────────────────────────────────── */
 
-export const equipo: readonly MiembroEquipo[] = [
+export const founders: readonly MiembroEquipo[] = [
   { nombre: "Victoria",   rol: "Co-fundadora",       iniciales: "V" },
   { nombre: "Florentina", rol: "Co-fundadora",       iniciales: "F" },
+] as const
+
+/* Alias retro-compatible — uso interno en NosotrosPreview de la home. */
+export const equipo = founders
+
+/* ─── EQUIPO EXTENDIDO (por áreas) ────────────────────────────────────────── */
+
+export const team: readonly EquipoArea[] = [
+  {
+    area: "Comunicación",
+    miembros: ["Soledad", "Maya", "Natalia", "Morena", "Katty"],
+  },
+  {
+    area: "Diseño",
+    miembros: ["Andrea", "Manuela", "Iara", "María", "Raquel"],
+  },
+  {
+    area: "Performance",
+    miembros: ["Gabriela", "Sofía"],
+  },
+  {
+    area: "Producción",
+    miembros: ["Valentina", "Josefina", "Camila", "Martina", "Coni"],
+  },
 ] as const
 
 /* ─── STATS DECORATIVOS ───────────────────────────────────────────────────── */
