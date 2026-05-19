@@ -57,7 +57,7 @@ export default function ClientesPage() {
           titulo="Las voces detrás de cada proyecto."
           intro="Filtrá por servicio o explorá todos. Lo que vas a leer son citas literales de nuestros clientes."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ClientesTabs testimonios={testimonios} />
         </div>
       </section>
@@ -69,7 +69,7 @@ export default function ClientesPage() {
           titulo="Algunos proyectos que cuentan mejor que las palabras."
           intro="Una selección de trabajos representativos. Próximamente cada caso con su historia completa."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <CasosGrid />
         </div>
       </section>

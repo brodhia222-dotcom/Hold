@@ -43,10 +43,17 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <body>
+        <a href="#content" className="hold-skip-link">
+          Saltar al contenido
+        </a>
         <SmoothScroll />
         <RevealOnScroll />
         <Header />
-        <div className="hold-page" style={{ paddingTop: "var(--hold-header-h, 72px)" }}>
+        <div
+          id="content"
+          className="hold-page"
+          style={{ paddingTop: "var(--hold-header-h, 72px)" }}
+        >
           <PageTransition>{children}</PageTransition>
         </div>
         <Footer />

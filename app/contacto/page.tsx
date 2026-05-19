@@ -1,4 +1,7 @@
 import type { Metadata } from "next"
+import { PageHero } from "@/components/ui/PageHero"
+import { SectionHeader } from "@/components/ui/SectionHeader"
+import { ContactMethods } from "@/components/sections/ContactMethods"
 
 export const metadata: Metadata = {
   title: "Contacto | HOLD",
@@ -8,14 +11,88 @@ export const metadata: Metadata = {
 
 export default function ContactoPage() {
   return (
-    <main className="section-container">
-      <p className="t-micro">Hablemos</p>
-      <h1 className="t-h1" style={{ marginTop: 24 }}>
-        Contacto
-      </h1>
-      <p className="t-lead" style={{ color: "var(--muted)", marginTop: 24, maxWidth: 640 }}>
-        Datos + 3 botones (WhatsApp / Email / IG) · se completa en Fase 8.
-      </p>
+    <main>
+      <section className="section-container section-container--tight">
+        <PageHero
+          eyebrow="Contacto · 06"
+          titulo={
+            <>
+              Estamos a un mensaje{" "}
+              <em style={{ fontStyle: "italic", fontWeight: 500 }}>
+                de distancia.
+              </em>
+            </>
+          }
+          intro="No usamos formularios para esquivarte: escribinos por el canal que prefieras y te responde una persona del equipo en menos de 24 hs hábiles."
+        />
+      </section>
+
+      <section className="section-container section-container--tight">
+        <SectionHeader
+          numero="01"
+          eyebrow="Canales"
+          titulo="Elegí el que te quede más cómodo."
+          intro="WhatsApp para charlas rápidas, mail para propuestas más largas, Instagram para ver lo que estamos haciendo."
+        />
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
+          <ContactMethods />
+        </div>
+      </section>
+
+      <section className="section-container section-container--tight">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 48,
+            paddingTop: 48,
+            borderTop: "1px solid var(--hairline)",
+          }}
+        >
+          <div>
+            <p
+              className="t-micro"
+              style={{ color: "var(--muted)", marginBottom: 12 }}
+            >
+              Base
+            </p>
+            <p className="t-h3" style={{ fontWeight: 400 }}>
+              Buenos Aires
+              <br />
+              Argentina
+            </p>
+          </div>
+          <div>
+            <p
+              className="t-micro"
+              style={{ color: "var(--muted)", marginBottom: 12 }}
+            >
+              Atención
+            </p>
+            <p className="t-h3" style={{ fontWeight: 400 }}>
+              Lunes a viernes
+              <br />
+              10 a 19 hs (UTC−3)
+            </p>
+          </div>
+          <div>
+            <p
+              className="t-micro"
+              style={{ color: "var(--muted)", marginBottom: 12 }}
+            >
+              Trabajá con nosotros
+            </p>
+            <p className="t-h3" style={{ fontWeight: 400 }}>
+              <a
+                href="/trabaja-con-nosotros"
+                style={{ color: "var(--fg)", textDecoration: "none" }}
+              >
+                Postulate →
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }

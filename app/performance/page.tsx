@@ -76,7 +76,7 @@ export default function PerformancePage() {
           titulo="Toda la cadena, en un solo equipo."
           intro="Desde la estrategia inicial hasta el último ajuste del CRM. Sin pasarte de mano en mano."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ServiceItems items={PERFORMANCE.items} />
         </div>
       </section>
@@ -92,7 +92,7 @@ export default function PerformancePage() {
           titulo="Un método que se mide en cada ciclo."
           intro="No optimizamos por sensación: cada decisión se apoya en data y se traduce en un próximo paso concreto."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ServiceProcess steps={PROCESO} />
         </div>
       </section>

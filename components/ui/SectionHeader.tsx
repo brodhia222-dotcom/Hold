@@ -21,7 +21,7 @@ export function SectionHeader({ numero, eyebrow, titulo, intro, className }: Pro
         borderTop: "1px solid var(--fg)",
       }}
     >
-      <div>
+      <div data-reveal>
         <p className="t-micro">{numero}</p>
         {eyebrow ? (
           <p
@@ -34,13 +34,15 @@ export function SectionHeader({ numero, eyebrow, titulo, intro, className }: Pro
       </div>
 
       <div>
-        <h2 className="t-h2" style={{ maxWidth: 900 }}>
+        <h2 className="t-h2" style={{ maxWidth: 900 }} data-reveal>
           {titulo}
         </h2>
         {intro ? (
           <p
             className="t-lead"
             style={{ marginTop: 24, color: "var(--muted)", maxWidth: 720 }}
+            data-reveal
+            data-reveal-delay="0.1"
           >
             {intro}
           </p>

@@ -93,6 +93,31 @@ body {
   color: var(--bg);
 }
 
+/* ─── SKIP-TO-CONTENT (a11y) ──────────────────────────────────────────────── */
+
+.hold-skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform var(--dur-fast) var(--ease-hold);
+}
+
+.hold-skip-link:focus,
+.hold-skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* ─── ESCALA TIPOGRÁFICA (del DS) ─────────────────────────────────────────── */
 /* Helvetica Neue · 4 pesos: 300 / 400 / 500 / 700                           */
 

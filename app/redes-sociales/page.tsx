@@ -76,7 +76,7 @@ export default function RedesSocialesPage() {
           titulo="Un equipo dedicado a tu marca."
           intro="No tercerizamos en freelancers sueltos. Estrategas, diseñadores y community managers trabajando como una unidad."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ServiceItems items={REDES.items} />
         </div>
       </section>
@@ -92,7 +92,7 @@ export default function RedesSocialesPage() {
           titulo="Cuatro fases que se repiten cada mes."
           intro="No es un proyecto que arranca y termina: es una operación viva que se ajusta con cada ciclo."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ServiceProcess steps={PROCESO} />
         </div>
       </section>

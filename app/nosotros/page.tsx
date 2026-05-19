@@ -74,7 +74,7 @@ export default function NosotrosPage() {
           eyebrow="Founders"
           titulo="Las que arrancaron HOLD."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <Founders />
         </div>
       </section>
@@ -90,7 +90,7 @@ export default function NosotrosPage() {
           titulo="Un equipo multidisciplinario."
           intro="Especialistas en comunicación, diseño, performance y producción trabajando como una sola unidad detrás de cada proyecto."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <TeamRoster />
         </div>
       </section>
@@ -101,7 +101,7 @@ export default function NosotrosPage() {
           eyebrow="Galería"
           titulo="Detrás de escena."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <PhotoGallery />
         </div>
       </section>
@@ -113,7 +113,7 @@ export default function NosotrosPage() {
           titulo="Lo que nos diferencia."
           intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ServiceProcess steps={POR_QUE} />
         </div>
       </section>

@@ -56,7 +56,7 @@ export default function AcademyPage() {
           titulo="Formatos que se adaptan a tu momento."
           intro="Cursos cortos, programas largos y mentorías 1:1. Todo lo que ofrecemos surgió primero de un cliente real con una necesidad real."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <ServiceItems items={ACADEMY.items} />
         </div>
       </section>
@@ -72,7 +72,7 @@ export default function AcademyPage() {
           titulo="Cursos abiertos."
           intro="Cliqueá la fila para coordinar tu inscripción por WhatsApp. Te responde una persona, no un bot."
         />
-        <div style={{ marginTop: 48 }}>
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <CoursesTable />
         </div>
       </section>
