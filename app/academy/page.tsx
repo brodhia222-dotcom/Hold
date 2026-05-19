@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
+import { HeroScroll } from "@/components/sections/HeroScroll"
 import { BentoTeach } from "@/components/sections/BentoTeach"
 import { CoursesShowcase } from "@/components/sections/CoursesShowcase"
 import { ServicePlanFeature } from "@/components/sections/ServicePlanFeature"
@@ -54,6 +55,23 @@ export default function AcademyPage() {
             </Button>
           </>
         }
+      />
+
+      <HeroScroll
+        introEyebrow="La filosofía"
+        introTitle={
+          <>
+            Aprendé como nosotros: <em>haciendo</em>.
+          </>
+        }
+        introSub="Lo que enseñamos lo aprendimos antes con clientes reales. No es teoría empacada bonita — son procedimientos que vimos funcionar."
+        galleryTitle={
+          <>
+            Detrás de cada curso, <em>una historia real</em>.
+          </>
+        }
+        galleryMeta="Academy · 2025"
+        images={["Clase", "Mentoría", "Workshop", "1:1"]}
       />
 
       <section className="section-container section-container--tight">

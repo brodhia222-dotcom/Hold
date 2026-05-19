@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
+import { HeroScroll } from "@/components/sections/HeroScroll"
 import { BentoTeach } from "@/components/sections/BentoTeach"
 import { ServiceProcess } from "@/components/sections/ServiceProcess"
 import type { ProcessStep } from "@/components/sections/ServiceProcess"
@@ -71,6 +72,23 @@ export default function RedesSocialesPage() {
             </Button>
           </>
         }
+      />
+
+      <HeroScroll
+        introEyebrow="La filosofía"
+        introTitle={
+          <>
+            Tu marca, <em>una sola voz</em>.
+          </>
+        }
+        introSub="Estrategia, contenido, diseño y comunidad. Un solo equipo que entiende tu negocio y lo traduce a redes con criterio."
+        galleryTitle={
+          <>
+            Lo que entregamos <em>cada mes</em>.
+          </>
+        }
+        galleryMeta="Redes · 2025"
+        images={["Estrategia", "Diseño", "Video", "Community"]}
       />
 
       <section className="section-container section-container--tight">

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
+import { HeroScroll } from "@/components/sections/HeroScroll"
 import { BentoTeach } from "@/components/sections/BentoTeach"
 import { ServiceProcess } from "@/components/sections/ServiceProcess"
 import type { ProcessStep } from "@/components/sections/ServiceProcess"
@@ -71,6 +72,23 @@ export default function PerformancePage() {
             </Button>
           </>
         }
+      />
+
+      <HeroScroll
+        introEyebrow="La filosofía"
+        introTitle={
+          <>
+            Que cada peso <em>rinda</em>.
+          </>
+        }
+        introSub="Campañas con hipótesis claras, creatividades que convierten y data que se usa para decidir — no para decorar."
+        galleryTitle={
+          <>
+            El proceso <em>en acción</em>.
+          </>
+        }
+        galleryMeta="Performance · 2025"
+        images={["Ads", "Creatividad", "CRM", "Reporte"]}
       />
 
       <section className="section-container section-container--tight">

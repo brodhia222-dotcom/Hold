@@ -39,17 +39,22 @@ export function Header() {
       ) || 72
 
     const computeOnDark = () => {
-      const darkSection = document.querySelector<HTMLElement>(
+      const darkSections = document.querySelectorAll<HTMLElement>(
         '[data-hero-theme="dark"]',
       )
-      if (!darkSection) {
+      if (darkSections.length === 0) {
         setOnDark(false)
         return
       }
-      const rect = darkSection.getBoundingClientRect()
-      /* Está activo mientras la sección oscura cubre al menos un 30%
-         del header desde arriba. */
-      setOnDark(rect.top <= 0 && rect.bottom > headerH * 0.3)
+      /* Dark mode activo si CUALQUIER sección oscura cubre la zona del
+         header (≥ 30% desde arriba). Permite tener múltiples secciones
+         dark a lo largo del scroll — ej: hero textured arriba + section
+         dark del HeroScroll más abajo. */
+      const isAnyDark = Array.from(darkSections).some((el) => {
+        const rect = el.getBoundingClientRect()
+        return rect.top <= 0 && rect.bottom > headerH * 0.3
+      })
+      setOnDark(isAnyDark)
     }
 
     computeOnDark()
