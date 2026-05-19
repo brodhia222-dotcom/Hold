@@ -1,12 +1,16 @@
 /* HOLD PageHeroTextured — hero oscuro con shader Three.js + grain + vignette.
    Bg negro HOLD. El shader provee la animación de líneas concéntricas
    coloreadas con la paleta brand. Encima: softener (negro semi para
-   atenuar saturación), grano fino, vignette en bordes, contenido. */
+   atenuar saturación), grano fino, vignette en bordes, contenido.
+
+   Altura FIJA (72svh) en todas las páginas para que sean idénticas,
+   sin depender del largo del contenido. Si el contenido es más chico
+   queda al bottom con espacio arriba (align-items: flex-end). */
 
 .hold-hero-textured {
   position: relative;
   width: 100%;
-  min-height: 62svh;
+  height: 72svh;
   background: var(--fg);
   color: var(--bg);
   overflow: hidden;
@@ -20,10 +24,6 @@
   display: flex;
   align-items: flex-end;
 }
-
-/* Variante compact: la altura es la misma que el regular — solo se
-   reduce el font-size del título para que entre en 2-3 líneas. Si no
-   forzaríamos misma altura, los hero quedarían dispares entre páginas. */
 
 /* ── Softener: capa negra semitransparente que atenúa la saturación
      del shader y le da el feel "editorial premium" en vez de "rave". ── */
@@ -101,7 +101,6 @@
   color: var(--bg);
   opacity: 0.75;
   margin: 0 0 8px;
-  /* Sombra sutil para legibilidad sobre el shader. */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
@@ -121,27 +120,17 @@
   color: var(--bg);
   margin: 0;
   max-width: 16ch;
-  /* Sombra sutil para legibilidad sobre el shader. */
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
 }
 
+/* Variante compact: title más chico + max-width más ancho para que el
+   contenido entre en 2-3 líneas en vez de explotar a 5. La altura del
+   hero NO cambia (es siempre 72svh) — solo se ajusta el copy. */
 .hold-hero-textured[data-compact="true"] .hold-hero-textured__title {
   font-size: clamp(32px, 4vw, 60px);
   max-width: 26ch;
   letter-spacing: -0.035em;
   line-height: 1.02;
-}
-
-/* En compact, también apretamos el padding-top del content para que
-   las 3 herois mantengan la misma altura visible. */
-.hold-hero-textured[data-compact="true"] .hold-hero-textured__content {
-  padding-top: 40px;
-  gap: 18px;
-}
-
-.hold-hero-textured[data-compact="true"] .hold-hero-textured__intro {
-  font-size: clamp(14px, 1.2vw, 17px);
-  max-width: 60ch;
 }
 
 .hold-hero-textured__title em {
@@ -158,6 +147,11 @@
   max-width: 56ch;
   margin: 16px 0 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.hold-hero-textured[data-compact="true"] .hold-hero-textured__intro {
+  font-size: clamp(14px, 1.2vw, 17px);
+  max-width: 60ch;
 }
 
 .hold-hero-textured__actions {
@@ -183,20 +177,54 @@
   background: rgba(250, 255, 250, 0.08);
 }
 
-/* ── Reduced motion: el ShaderAnimation ya no inicializa WebGL.
-     Aquí matamos también el grain animation. ─────────────────────── */
+/* ─── HERO TRAIL ────────────────────────────────────────────────────────
+   Banda de transición de 140px que va inmediatamente debajo del hero.
+   Fade del negro (var(--fg)) al bg blanco, con grano sutil encima.
+   Evita el corte abrupto y le da continuidad visual al "feel" del shader. */
+
+.hold-hero-trail {
+  position: relative;
+  height: 140px;
+  width: 100%;
+  margin-top: -1px;
+  background: linear-gradient(
+    to bottom,
+    var(--fg) 0%,
+    rgba(29, 29, 27, 0.55) 35%,
+    rgba(29, 29, 27, 0.18) 65%,
+    var(--bg) 100%
+  );
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hold-hero-trail__grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+  animation: hold-grain-shift 8s steps(6) infinite;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .hold-hero-textured__grain {
+  .hold-hero-textured__grain,
+  .hold-hero-trail__grain {
     animation: none;
   }
 }
 
 @media (max-width: 768px) {
   .hold-hero-textured {
-    min-height: 58svh;
+    height: 70svh;
     padding-bottom: 56px;
   }
   .hold-hero-textured__content {
     padding-top: 32px;
+  }
+  .hold-hero-trail {
+    height: 100px;
   }
 }
