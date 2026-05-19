@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import { ShaderAnimation } from "./ShaderAnimation"
 import "./page-hero-textured.css"
 
 type Props = {
@@ -10,29 +11,32 @@ type Props = {
   intro?: ReactNode
   /** CTAs (típicamente 1-2 botones). */
   actions?: ReactNode
+  /** Versión compacta: title font-size y altura más chicos.
+   *  Útil para títulos largos que de otra forma rompen el peek. */
+  compact?: boolean
 }
 
 /**
- * Hero oscuro para páginas internas. Fondo negro HOLD + grano fino +
- * tres orbs del var(--accent) que orbitan lentamente en distinto tempo.
- * Texto blanco editorial. Performance: 100% CSS, sin WebGL.
- *
- * El atributo data-hero-theme="dark" lo detecta el Header para virar
- * los textos a blanco automáticamente.
+ * Hero oscuro para páginas internas con shader Three.js de líneas
+ * concéntricas coloreadas con la paleta HOLD. Grain + vignette CSS
+ * encima del shader, texto editorial encima de todo. El shader es
+ * reactivo al AccentSwitcher y respeta prefers-reduced-motion.
  */
 export function PageHeroTextured({
   eyebrow,
   titulo,
   intro,
   actions,
+  compact = false,
 }: Props) {
   return (
-    <header className="hold-hero-textured" data-hero-theme="dark">
-      <div className="hold-hero-textured__orbs" aria-hidden>
-        <span className="hold-hero-textured__orb hold-hero-textured__orb--1" />
-        <span className="hold-hero-textured__orb hold-hero-textured__orb--2" />
-        <span className="hold-hero-textured__orb hold-hero-textured__orb--3" />
-      </div>
+    <header
+      className="hold-hero-textured"
+      data-hero-theme="dark"
+      data-compact={compact ? "true" : undefined}
+    >
+      <ShaderAnimation />
+      <div className="hold-hero-textured__softener" aria-hidden />
       <div className="hold-hero-textured__grain" aria-hidden />
       <div className="hold-hero-textured__vignette" aria-hidden />
 
