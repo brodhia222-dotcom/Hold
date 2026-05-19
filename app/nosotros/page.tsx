@@ -73,8 +73,6 @@ export default function NosotrosPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="01"
-          eyebrow="Founders"
           titulo="Las que arrancaron HOLD."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
@@ -88,8 +86,6 @@ export default function NosotrosPage() {
         style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
       >
         <SectionHeader
-          numero="02"
-          eyebrow="Equipo"
           titulo="Un equipo multidisciplinario."
           intro="Especialistas en comunicación, diseño, performance y producción trabajando como una sola unidad detrás de cada proyecto."
         />
@@ -100,8 +96,6 @@ export default function NosotrosPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="03"
-          eyebrow="Galería"
           titulo="Detrás de escena."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
@@ -111,8 +105,6 @@ export default function NosotrosPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="04"
-          eyebrow="¿Por qué elegirnos?"
           titulo="Lo que nos diferencia."
           intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />

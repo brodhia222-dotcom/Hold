@@ -75,8 +75,6 @@ export default function PerformancePage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="01"
-          eyebrow="Qué hacemos"
           titulo="Toda la cadena, en un solo equipo."
           intro="Desde la estrategia inicial hasta el último ajuste del CRM. Sin pasarte de mano en mano."
         />
@@ -91,8 +89,6 @@ export default function PerformancePage() {
         style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
       >
         <SectionHeader
-          numero="02"
-          eyebrow="Cómo trabajamos"
           titulo="Un método que se mide en cada ciclo."
           intro="No optimizamos por sensación: cada decisión se apoya en data y se traduce en un próximo paso concreto."
         />

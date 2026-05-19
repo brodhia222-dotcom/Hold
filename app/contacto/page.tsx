@@ -29,8 +29,6 @@ export default function ContactoPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="01"
-          eyebrow="Canales"
           titulo="Elegí el que te quede más cómodo."
           intro="WhatsApp para charlas rápidas, mail para propuestas más largas, Instagram para ver lo que estamos haciendo."
         />

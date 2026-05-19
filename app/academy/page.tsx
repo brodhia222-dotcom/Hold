@@ -58,8 +58,6 @@ export default function AcademyPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="01"
-          eyebrow="Qué enseñamos"
           titulo="Formatos que se adaptan a tu momento."
           intro="Cursos cortos, programas largos y mentorías 1:1. Todo lo que ofrecemos surgió primero de un cliente real con una necesidad real."
         />
@@ -74,8 +72,6 @@ export default function AcademyPage() {
         style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
       >
         <SectionHeader
-          numero="02"
-          eyebrow="Catálogo"
           titulo="Cursos abiertos."
           intro="Tocá un curso para coordinar tu inscripción por WhatsApp. Te responde una persona del equipo, no un bot."
         />

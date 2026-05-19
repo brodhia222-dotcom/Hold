@@ -52,8 +52,6 @@ export default function ClientesPage() {
         style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
       >
         <SectionHeader
-          numero="01"
-          eyebrow="Testimonios"
           titulo="Las voces detrás de cada proyecto."
           intro="Filtrá por servicio o explorá todos. Lo que vas a leer son citas literales de nuestros clientes."
         />
@@ -64,8 +62,6 @@ export default function ClientesPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="02"
-          eyebrow="Casos"
           titulo="Algunos proyectos que cuentan mejor que las palabras."
           intro="Una selección de trabajos representativos. Próximamente cada caso con su historia completa."
         />

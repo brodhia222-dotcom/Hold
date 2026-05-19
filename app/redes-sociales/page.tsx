@@ -75,8 +75,6 @@ export default function RedesSocialesPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          numero="01"
-          eyebrow="Qué hacemos"
           titulo="Un equipo dedicado a tu marca."
           intro="No tercerizamos en freelancers sueltos. Estrategas, diseñadores y community managers trabajando como una unidad."
         />
@@ -91,8 +89,6 @@ export default function RedesSocialesPage() {
         style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
       >
         <SectionHeader
-          numero="02"
-          eyebrow="Cómo trabajamos"
           titulo="Cuatro fases que se repiten cada mes."
           intro="No es un proyecto que arranca y termina: es una operación viva que se ajusta con cada ciclo."
         />

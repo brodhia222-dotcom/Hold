@@ -10,14 +10,12 @@ type Props = {
   intro?: ReactNode
   /** CTAs (típicamente 1-2 botones). */
   actions?: ReactNode
-  /** Texto pequeño abajo a la derecha (default: "Desplazate"). */
-  scrollLabel?: string
 }
 
 /**
  * Hero oscuro para páginas internas. Fondo negro HOLD + grano fino +
- * gradient del var(--accent) que se desplaza lentamente. Texto en
- * blanco editorial. Performance: 100% CSS, sin WebGL.
+ * tres orbs del var(--accent) que orbitan lentamente en distinto tempo.
+ * Texto blanco editorial. Performance: 100% CSS, sin WebGL.
  *
  * El atributo data-hero-theme="dark" lo detecta el Header para virar
  * los textos a blanco automáticamente.
@@ -27,11 +25,14 @@ export function PageHeroTextured({
   titulo,
   intro,
   actions,
-  scrollLabel = "Desplazate",
 }: Props) {
   return (
     <header className="hold-hero-textured" data-hero-theme="dark">
-      <div className="hold-hero-textured__tint" aria-hidden />
+      <div className="hold-hero-textured__orbs" aria-hidden>
+        <span className="hold-hero-textured__orb hold-hero-textured__orb--1" />
+        <span className="hold-hero-textured__orb hold-hero-textured__orb--2" />
+        <span className="hold-hero-textured__orb hold-hero-textured__orb--3" />
+      </div>
       <div className="hold-hero-textured__grain" aria-hidden />
       <div className="hold-hero-textured__vignette" aria-hidden />
 
@@ -44,11 +45,6 @@ export function PageHeroTextured({
         {actions ? (
           <div className="hold-hero-textured__actions">{actions}</div>
         ) : null}
-      </div>
-
-      <div className="hold-hero-textured__meta" aria-hidden>
-        <span>{scrollLabel}</span>
-        <span className="hold-hero-textured__meta-line" />
       </div>
     </header>
   )

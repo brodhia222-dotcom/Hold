@@ -26,37 +26,39 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  /* Detecta si hay una sección con data-hero-theme="dark" pasando por
-     debajo del nav. Aplica el tema oscuro al header para que el texto
-     se vea sobre fondos oscuros (ej: HeroShader). */
+  /* Detecta si hay una sección con data-hero-theme="dark" cubriendo la
+     zona del header. Combina check sync al mount + scroll listener para
+     robustez — el IntersectionObserver tenía race conditions al cargar
+     la página directamente sobre el hero oscuro. */
   useEffect(() => {
-    const darkSection = document.querySelector<HTMLElement>(
-      '[data-hero-theme="dark"]',
-    )
-    if (!darkSection) {
-      setOnDark(false)
-      return
-    }
     const headerH =
       parseFloat(
         getComputedStyle(document.documentElement).getPropertyValue(
           "--hold-header-h",
         ),
       ) || 72
-    const observer = new IntersectionObserver(
-      ([entry]) => setOnDark(entry.isIntersecting),
-      {
-        /* La sección oscura intersecta el viewport top en la zona del nav.
-           rootMargin negativo en bottom hace que solo cuente cuando hay
-           sección oscura justo debajo de los primeros 72px. */
-        rootMargin: `0px 0px -${
-          typeof window !== "undefined" ? window.innerHeight - headerH : 0
-        }px 0px`,
-        threshold: 0,
-      },
-    )
-    observer.observe(darkSection)
-    return () => observer.disconnect()
+
+    const computeOnDark = () => {
+      const darkSection = document.querySelector<HTMLElement>(
+        '[data-hero-theme="dark"]',
+      )
+      if (!darkSection) {
+        setOnDark(false)
+        return
+      }
+      const rect = darkSection.getBoundingClientRect()
+      /* Está activo mientras la sección oscura cubre al menos un 30%
+         del header desde arriba. */
+      setOnDark(rect.top <= 0 && rect.bottom > headerH * 0.3)
+    }
+
+    computeOnDark()
+    window.addEventListener("scroll", computeOnDark, { passive: true })
+    window.addEventListener("resize", computeOnDark)
+    return () => {
+      window.removeEventListener("scroll", computeOnDark)
+      window.removeEventListener("resize", computeOnDark)
+    }
   }, [pathname])
 
   useEffect(() => {
