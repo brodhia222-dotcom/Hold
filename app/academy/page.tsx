@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
-import { PageHero } from "@/components/ui/PageHero"
+import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
 import { BentoTeach } from "@/components/sections/BentoTeach"
 import { CoursesShowcase } from "@/components/sections/CoursesShowcase"
@@ -30,35 +30,31 @@ const BENTO_ITEMS = [
 export default function AcademyPage() {
   return (
     <main>
-      <section className="section-container section-container--tight">
-        <PageHero
-          eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
-          titulo={
-            <>
-              Todo lo que aprendimos haciendo,{" "}
-              <em style={{ fontStyle: "italic", fontWeight: 500 }}>
-                ahora lo enseñamos.
-              </em>
-            </>
-          }
-          intro={ACADEMY.descripcion}
-          actions={
-            <>
-              <Button
-                size="large"
-                href={WHATSAPP_URL}
-                external
-                ariaLabel="Quiero asesoramiento por WhatsApp"
-              >
-                Quiero saber más
-              </Button>
-              <Button size="large" variant="secondary" href="#cursos" arrow={false}>
-                Ver cursos
-              </Button>
-            </>
-          }
-        />
-      </section>
+      <PageHeroTextured
+        eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
+        titulo={
+          <>
+            Todo lo que aprendimos haciendo,{" "}
+            <em>ahora lo enseñamos.</em>
+          </>
+        }
+        intro={ACADEMY.descripcion}
+        actions={
+          <>
+            <Button
+              size="large"
+              href={WHATSAPP_URL}
+              external
+              ariaLabel="Quiero asesoramiento por WhatsApp"
+            >
+              Quiero saber más
+            </Button>
+            <Button size="large" variant="secondary" href="#cursos" arrow={false}>
+              Ver cursos
+            </Button>
+          </>
+        }
+      />
 
       <section className="section-container section-container--tight">
         <SectionHeader

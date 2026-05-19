@@ -1,0 +1,227 @@
+/* HOLD PageHeroTextured — hero oscuro con grano + tinte animado.
+   Bg negro HOLD, capa de grain estático fino (SVG turbulence inline)
+   y un gradient radial del var(--accent) que se desplaza lentamente
+   (loop 32s, alternate). Texto blanco editorial encima. Sin WebGL —
+   solo CSS, max performance.
+
+   El header detecta data-hero-theme="dark" en el wrapper y aplica el
+   modo claro/blanco automáticamente. */
+
+.hold-hero-textured {
+  position: relative;
+  width: 100%;
+  min-height: 78svh;
+  background: var(--fg);
+  color: var(--bg);
+  overflow: hidden;
+  isolation: isolate;
+  /* Compensa el padding-top del <main> para que el hero cubra hasta
+     el top absoluto del viewport (header transparente arriba). */
+  margin-top: calc(-1 * var(--hold-header-h, 72px));
+  padding-top: var(--hold-header-h, 72px);
+  padding-inline: var(--gutter, 48px);
+  padding-bottom: 120px;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* ── Capa de grano (SVG noise inline, no requiere archivos) ────────── */
+.hold-hero-textured__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+/* ── Tinte radial del acento que se desplaza muy lento ─────────────── */
+.hold-hero-textured__tint {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 30% 40%,
+      var(--accent-22) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      var(--accent-14) 0%,
+      transparent 55%
+    );
+  filter: blur(40px);
+  animation: hold-hero-textured-drift 32s var(--ease-hold) infinite alternate;
+}
+
+@keyframes hold-hero-textured-drift {
+  0% {
+    transform: translate(-4%, -3%) scale(1);
+  }
+  50% {
+    transform: translate(3%, 4%) scale(1.05);
+  }
+  100% {
+    transform: translate(-3%, 3%) scale(1);
+  }
+}
+
+/* ── Vignette muy sutil en los bordes ──────────────────────────────── */
+.hold-hero-textured__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.35) 100%
+    );
+}
+
+/* ── Contenido encima de todas las capas ───────────────────────────── */
+.hold-hero-textured__content {
+  position: relative;
+  z-index: 3;
+  max-width: var(--max, 1440px);
+  margin-inline: auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  padding-top: 80px;
+}
+
+.hold-hero-textured__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: 0.7;
+  margin: 0 0 16px;
+}
+
+.hold-hero-textured__eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.hold-hero-textured__title {
+  font-size: clamp(48px, 7.5vw, 112px);
+  line-height: 0.96;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--bg);
+  margin: 0;
+  max-width: 16ch;
+}
+
+.hold-hero-textured__title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hold-hero-textured__intro {
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.55;
+  color: var(--bg);
+  opacity: 0.75;
+  max-width: 56ch;
+  margin: 24px 0 0;
+}
+
+.hold-hero-textured__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+/* ── Override de botones para que vivan sobre fondo oscuro ─────────── */
+.hold-hero-textured__actions .hold-btn--primary {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.hold-hero-textured__actions .hold-btn--secondary {
+  border-color: rgba(250, 255, 250, 0.4);
+  color: var(--bg);
+}
+
+.hold-hero-textured__actions .hold-btn--secondary:hover {
+  border-color: var(--bg);
+  background: rgba(250, 255, 250, 0.08);
+}
+
+/* ── Meta/scroll cue en la parte inferior ──────────────────────────── */
+.hold-hero-textured__meta {
+  position: absolute;
+  right: var(--gutter, 48px);
+  bottom: 32px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  opacity: 0.55;
+}
+
+.hold-hero-textured__meta-line {
+  width: 1px;
+  height: 32px;
+  background: var(--bg);
+  opacity: 0.5;
+  animation: hold-hero-textured-scroll 2.4s var(--ease-hold) infinite;
+}
+
+@keyframes hold-hero-textured-scroll {
+  0%, 100% {
+    transform: scaleY(0.4);
+    transform-origin: top;
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 0.7;
+  }
+}
+
+/* ── Reduced motion: matamos animaciones ───────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hold-hero-textured__tint,
+  .hold-hero-textured__meta-line {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hold-hero-textured {
+    min-height: 68svh;
+    padding-bottom: 80px;
+  }
+  .hold-hero-textured__content {
+    padding-top: 40px;
+  }
+  .hold-hero-textured__meta {
+    display: none;
+  }
+}

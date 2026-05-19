@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
-import { PageHero } from "@/components/ui/PageHero"
+import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
 import { BentoTeach } from "@/components/sections/BentoTeach"
 import { ServiceProcess } from "@/components/sections/ServiceProcess"
@@ -47,35 +47,31 @@ const PROCESO: readonly ProcessStep[] = [
 export default function PerformancePage() {
   return (
     <main>
-      <section className="section-container section-container--tight">
-        <PageHero
-          eyebrow={`${PERFORMANCE.eyebrow} · ${PERFORMANCE.numero}`}
-          titulo={
-            <>
-              Campañas que convierten,{" "}
-              <em style={{ fontStyle: "italic", fontWeight: 500 }}>
-                no que decoran.
-              </em>
-            </>
-          }
-          intro={PERFORMANCE.descripcion}
-          actions={
-            <>
-              <Button
-                size="large"
-                href={WHATSAPP_URL}
-                external
-                ariaLabel="Quiero asesoramiento por WhatsApp"
-              >
-                Quiero saber más
-              </Button>
-              <Button size="large" variant="secondary" href="#proceso" arrow={false}>
-                Cómo trabajamos
-              </Button>
-            </>
-          }
-        />
-      </section>
+      <PageHeroTextured
+        eyebrow={`${PERFORMANCE.eyebrow} · ${PERFORMANCE.numero}`}
+        titulo={
+          <>
+            Campañas que convierten,{" "}
+            <em>no que decoran.</em>
+          </>
+        }
+        intro={PERFORMANCE.descripcion}
+        actions={
+          <>
+            <Button
+              size="large"
+              href={WHATSAPP_URL}
+              external
+              ariaLabel="Quiero asesoramiento por WhatsApp"
+            >
+              Quiero saber más
+            </Button>
+            <Button size="large" variant="secondary" href="#proceso" arrow={false}>
+              Cómo trabajamos
+            </Button>
+          </>
+        }
+      />
 
       <section className="section-container section-container--tight">
         <SectionHeader
