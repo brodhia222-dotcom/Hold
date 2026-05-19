@@ -1,11 +1,8 @@
 /* HOLD PageHeroTextured — hero oscuro con shader Three.js + grain + vignette.
-   Bg negro HOLD. El shader provee la animación de líneas concéntricas
-   coloreadas con la paleta brand. Encima: softener (negro semi para
-   atenuar saturación), grano fino, vignette en bordes, contenido.
-
-   Altura FIJA (72svh) en todas las páginas para que sean idénticas,
-   sin depender del largo del contenido. Si el contenido es más chico
-   queda al bottom con espacio arriba (align-items: flex-end). */
+   Altura FIJA (72svh) en todas las páginas para que sean idénticas.
+   Contenido CENTRADO verticalmente (place-items: center) — las
+   diferencias de altura del contenido (más/menos líneas en el título)
+   se reparten arriba y abajo y no se notan visualmente. */
 
 .hold-hero-textured {
   position: relative;
@@ -15,18 +12,16 @@
   color: var(--bg);
   overflow: hidden;
   isolation: isolate;
-  /* Compensa el padding-top del <main> para que el hero cubra desde
-     top:0 absoluto del viewport (header transparente arriba). */
+  /* Compensa el padding-top del <main>. */
   margin-top: calc(-1 * var(--hold-header-h, 72px));
   padding-top: var(--hold-header-h, 72px);
   padding-inline: var(--gutter, 48px);
-  padding-bottom: 80px;
-  display: flex;
-  align-items: flex-end;
+  padding-bottom: 0;
+  display: grid;
+  place-items: center start;
 }
 
-/* ── Softener: capa negra semitransparente que atenúa la saturación
-     del shader y le da el feel "editorial premium" en vez de "rave". ── */
+/* ── Softener: capa negra semi para atenuar saturación del shader ──── */
 .hold-hero-textured__softener {
   position: absolute;
   inset: 0;
@@ -41,7 +36,7 @@
   mix-blend-mode: multiply;
 }
 
-/* ── Capa de grano (SVG noise inline) con panning sutil ────────────── */
+/* ── Grano fino con panning sutil ──────────────────────────────────── */
 .hold-hero-textured__grain {
   position: absolute;
   inset: 0;
@@ -77,17 +72,15 @@
     );
 }
 
-/* ── Contenido encima de todas las capas ───────────────────────────── */
+/* ── Contenido: caja interna con max-width y stack vertical ────────── */
 .hold-hero-textured__content {
   position: relative;
   z-index: 4;
   max-width: var(--max, 1440px);
-  margin-inline: auto;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  padding-top: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .hold-hero-textured__eyebrow {
@@ -100,7 +93,7 @@
   text-transform: uppercase;
   color: var(--bg);
   opacity: 0.75;
-  margin: 0 0 8px;
+  margin: 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
@@ -113,24 +106,14 @@
 }
 
 .hold-hero-textured__title {
-  font-size: clamp(44px, 6.5vw, 96px);
-  line-height: 0.98;
+  font-size: clamp(40px, 5.5vw, 84px);
+  line-height: 1;
   font-weight: 300;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   color: var(--bg);
   margin: 0;
-  max-width: 16ch;
+  max-width: 22ch;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
-}
-
-/* Variante compact: title más chico + max-width más ancho para que el
-   contenido entre en 2-3 líneas en vez de explotar a 5. La altura del
-   hero NO cambia (es siempre 72svh) — solo se ajusta el copy. */
-.hold-hero-textured[data-compact="true"] .hold-hero-textured__title {
-  font-size: clamp(32px, 4vw, 60px);
-  max-width: 26ch;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
 }
 
 .hold-hero-textured__title em {
@@ -145,23 +128,18 @@
   color: var(--bg);
   opacity: 0.8;
   max-width: 56ch;
-  margin: 16px 0 0;
+  margin: 0;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-.hold-hero-textured[data-compact="true"] .hold-hero-textured__intro {
-  font-size: clamp(14px, 1.2vw, 17px);
-  max-width: 60ch;
 }
 
 .hold-hero-textured__actions {
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  margin-top: 24px;
+  margin-top: 8px;
 }
 
-/* ── Override de botones para que vivan sobre fondo oscuro ─────────── */
+/* ── Override de botones sobre fondo oscuro ────────────────────────── */
 .hold-hero-textured__actions .hold-btn--primary {
   background: var(--bg);
   color: var(--fg);
@@ -178,9 +156,8 @@
 }
 
 /* ─── HERO TRAIL ────────────────────────────────────────────────────────
-   Banda de transición de 140px que va inmediatamente debajo del hero.
-   Fade del negro (var(--fg)) al bg blanco, con grano sutil encima.
-   Evita el corte abrupto y le da continuidad visual al "feel" del shader. */
+   Banda de 140px que va inmediatamente debajo del hero. Fade del negro
+   al bg con grano sutil. Conecta el hero ↔ secciones blancas. */
 
 .hold-hero-trail {
   position: relative;
@@ -219,10 +196,9 @@
 @media (max-width: 768px) {
   .hold-hero-textured {
     height: 70svh;
-    padding-bottom: 56px;
   }
-  .hold-hero-textured__content {
-    padding-top: 32px;
+  .hold-hero-textured__title {
+    font-size: clamp(36px, 8vw, 60px);
   }
   .hold-hero-trail {
     height: 100px;

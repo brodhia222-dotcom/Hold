@@ -31,7 +31,6 @@ export default function AcademyPage() {
   return (
     <main>
       <PageHeroTextured
-        compact
         eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
         titulo={
           <>

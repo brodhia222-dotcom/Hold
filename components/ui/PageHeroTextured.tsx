@@ -11,33 +11,25 @@ type Props = {
   intro?: ReactNode
   /** CTAs (típicamente 1-2 botones). */
   actions?: ReactNode
-  /** Versión compacta: title font-size más chico para títulos largos. */
-  compact?: boolean
 }
 
 /**
  * Hero oscuro para páginas internas con shader Three.js de líneas
- * concéntricas coloreadas con la paleta HOLD + trail residual debajo
- * (banda de fade negro → bg con grano) para que la transición al
- * contenido blanco no sea abrupta.
+ * concéntricas coloreadas con la paleta HOLD + trail residual debajo.
  *
- * Altura fija (72svh) para que las 3 páginas de servicio queden
- * exactamente del mismo tamaño, sin depender del largo del contenido.
+ * Altura fija (72svh) y contenido centrado verticalmente — las 3
+ * páginas de servicio se ven idénticas independientemente del largo
+ * del título.
  */
 export function PageHeroTextured({
   eyebrow,
   titulo,
   intro,
   actions,
-  compact = false,
 }: Props) {
   return (
     <>
-      <header
-        className="hold-hero-textured"
-        data-hero-theme="dark"
-        data-compact={compact ? "true" : undefined}
-      >
+      <header className="hold-hero-textured" data-hero-theme="dark">
         <ShaderAnimation />
         <div className="hold-hero-textured__softener" aria-hidden />
         <div className="hold-hero-textured__grain" aria-hidden />
@@ -56,8 +48,7 @@ export function PageHeroTextured({
       </header>
 
       {/* Trail residual: banda de transición con fade del negro al bg
-          y grano sutil que continúa el "feel" del shader sin tapar el
-          contenido que sigue. */}
+          y grano sutil para conectar el hero con la sección siguiente. */}
       <div className="hold-hero-trail" aria-hidden>
         <div className="hold-hero-trail__grain" />
       </div>
