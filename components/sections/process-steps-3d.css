@@ -24,6 +24,32 @@
   background: var(--fg);
 }
 
+/* ── Header inline (título + intro dentro del wrapper oscuro) ────── */
+.hold-steps3d-header {
+  max-width: 1280px;
+  margin: 0 auto clamp(40px, 5vh, 64px);
+  padding-bottom: clamp(28px, 4vh, 48px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hold-steps3d-header__title {
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.04;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: var(--bg);
+  margin: 0;
+  max-width: 22ch;
+}
+
+.hold-steps3d-header__intro {
+  font-size: clamp(15px, 1.4vw, 19px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 20px 0 0;
+  max-width: 56ch;
+}
+
 .hold-steps3d {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

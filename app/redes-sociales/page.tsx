@@ -113,24 +113,19 @@ export default function RedesSocialesPage() {
 
       <section
         id="proceso"
-        className="section-container section-container--tight"
         style={{
           scrollMarginTop: "var(--hold-header-h, 72px)",
-          paddingBottom: 48,
+          marginBottom: "calc(var(--gap-sect) * 0.5)",
         }}
       >
-        <SectionHeader
-          titulo="Cuatro fases que se repiten cada mes."
-          intro="No es un proyecto que arranca y termina: es una operación viva que se ajusta con cada ciclo."
+        <ProcessSteps3D
+          steps={PROCESO}
+          header={{
+            title: "Cuatro fases que se repiten cada mes.",
+            intro:
+              "No es un proyecto que arranca y termina: es una operación viva que se ajusta con cada ciclo.",
+          }}
         />
-      </section>
-
-      <section
-        data-reveal
-        data-reveal-delay="0.2"
-        style={{ marginBottom: "calc(var(--gap-sect) * 0.5)" }}
-      >
-        <ProcessSteps3D steps={PROCESO} />
       </section>
 
       <section className="section-container section-container--tight">

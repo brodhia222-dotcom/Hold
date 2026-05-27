@@ -113,24 +113,19 @@ export default function PerformancePage() {
 
       <section
         id="proceso"
-        className="section-container section-container--tight"
         style={{
           scrollMarginTop: "var(--hold-header-h, 72px)",
-          paddingBottom: 48,
+          marginBottom: "calc(var(--gap-sect) * 0.5)",
         }}
       >
-        <SectionHeader
-          titulo="Un método que se mide en cada ciclo."
-          intro="No optimizamos por sensación: cada decisión se apoya en data y se traduce en un próximo paso concreto."
+        <ProcessSteps3D
+          steps={PROCESO}
+          header={{
+            title: "Un método que se mide en cada ciclo.",
+            intro:
+              "No optimizamos por sensación: cada decisión se apoya en data y se traduce en un próximo paso concreto.",
+          }}
         />
-      </section>
-
-      <section
-        data-reveal
-        data-reveal-delay="0.2"
-        style={{ marginBottom: "calc(var(--gap-sect) * 0.5)" }}
-      >
-        <ProcessSteps3D steps={PROCESO} />
       </section>
 
       <section className="section-container section-container--tight">
