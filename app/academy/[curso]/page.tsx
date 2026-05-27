@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${curso.nombre} | Hold Academy`,
     description:
-      curso.descripcion ?? `Curso ${curso.id} de HOLD Academy: ${curso.nombre}.`,
+      curso.descripcion ?? `${curso.nombre} — Curso de HOLD Academy.`,
     /* Páginas internas — solo se llega desde el grid de Academy.
        No queremos que aparezcan en buscadores como entrada directa. */
     robots: { index: false, follow: true },
@@ -68,7 +68,7 @@ export default async function CursoPage({ params }: Props) {
           </>
         }
         sub="Escribinos por WhatsApp y te respondemos en menos de 24 hs hábiles."
-        ctaLabel={`Inscribirme — ${curso.id}`}
+        ctaLabel="Inscribirme"
         ctaHref={waUrlCurso(curso)}
         ctaExternal
       />

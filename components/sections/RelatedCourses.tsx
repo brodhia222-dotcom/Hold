@@ -25,11 +25,9 @@ export function RelatedCourses({ currentSlug }: Props) {
           key={curso.slug}
           href={`/academy/${curso.slug}`}
           className="hold-related__card"
-          aria-label={`Ver curso ${curso.id} ${curso.nombre}`}
+          aria-label={`Ver curso ${curso.nombre}`}
         >
-          <div className="hold-related__media">
-            <span className="hold-related__id">{curso.id}</span>
-          </div>
+          <div className="hold-related__media" aria-hidden />
           <div className="hold-related__body">
             <h3 className="hold-related__nombre">{curso.nombre}</h3>
             <div className="hold-related__meta">

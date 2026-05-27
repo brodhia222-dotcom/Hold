@@ -14,16 +14,15 @@ export function CoursesBento() {
     <div className="hold-courses-bento">
       {cursos.map((curso) => (
         <Link
-          key={curso.id}
+          key={curso.slug}
           href={`/academy/${curso.slug}`}
           className="hold-courses-bento__card"
-          aria-label={`Ver detalle del curso ${curso.id} ${curso.nombre}`}
+          aria-label={`Ver detalle del curso ${curso.nombre}`}
         >
           <div className="hold-courses-bento__media" aria-hidden />
           <div className="hold-courses-bento__overlay" aria-hidden />
 
           <div className="hold-courses-bento__head">
-            <span className="hold-courses-bento__id">{curso.id}</span>
             <span className="hold-courses-bento__status">
               <span
                 className="hold-courses-bento__status-dot"

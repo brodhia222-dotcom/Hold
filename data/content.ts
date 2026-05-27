@@ -24,7 +24,7 @@ export function waUrl(mensaje: string): string {
 
 /* Helper específico para click en curso de Academy. */
 export function waUrlCurso(curso: Curso): string {
-  return waUrl(`Hola, me interesa el curso ${curso.id} ${curso.nombre}.`)
+  return waUrl(`Hola, me interesa el curso "${curso.nombre}" de HOLD Academy.`)
 }
 
 /* ─── NAVEGACIÓN (rutas planas, igual al navbar del DS) ───────────────────── */

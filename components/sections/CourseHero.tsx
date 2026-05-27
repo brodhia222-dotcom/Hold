@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import type { Curso } from "@/types"
 import { Button } from "@/components/ui/Button"
 import { waUrlCurso } from "@/data/content"
@@ -20,14 +21,11 @@ export function CourseHero({ curso }: Props) {
   return (
     <section className="hold-course-hero">
       <div className="hold-course-hero__main">
-        <nav className="hold-course-hero__breadcrumb" aria-label="Migas de pan">
-          <Link href="/academy" className="hold-course-hero__breadcrumb-link">
-            Academy
+        <nav aria-label="Volver">
+          <Link href="/academy" className="hold-course-hero__back-link">
+            <ArrowLeft size={14} strokeWidth={1.75} aria-hidden />
+            <span>Volver a Academy</span>
           </Link>
-          <span className="hold-course-hero__breadcrumb-sep" aria-hidden>/</span>
-          <span className="hold-course-hero__breadcrumb-current">
-            {curso.id}
-          </span>
         </nav>
 
         <h1 className="hold-course-hero__title">{curso.nombre}</h1>
@@ -89,9 +87,7 @@ export function CourseHero({ curso }: Props) {
       </div>
 
       <div className="hold-course-hero__media-wrap">
-        <div className="hold-course-hero__media" aria-hidden>
-          <span className="hold-course-hero__media-id">{curso.id}</span>
-        </div>
+        <div className="hold-course-hero__media" aria-hidden />
       </div>
     </section>
   )
