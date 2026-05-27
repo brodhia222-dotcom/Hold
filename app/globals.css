@@ -333,29 +333,8 @@ body {
 /* ─ REDES (azul predominante) ─────────────────────────────────────── */
 
 /* ─ REDES (azul predominante) ─────────────────────────────────────── */
-/* El bloque "Cómo trabajamos" pasa a panel azul fuerte con texto blanco.
-   Es la sección más larga y le da identidad clara al servicio. */
-[data-service="redes-sociales"] .hold-service-process {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-[data-service="redes-sociales"] .hold-service-process__step {
-  background: var(--accent);
-  color: #fff;
-}
-
-[data-service="redes-sociales"] .hold-service-process__num {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-[data-service="redes-sociales"] .hold-service-process__title {
-  color: #fff;
-}
-
-[data-service="redes-sociales"] .hold-service-process__desc {
-  color: rgba(255, 255, 255, 0.78);
-}
+/* El bloque "Cómo trabajamos" usa ProcessSteps3D — el wrapper se pinta
+   de azul fuerte vía override en process-steps-3d.css. */
 
 /* ─ PERFORMANCE (negro predominante) ──────────────────────────────── */
 /* BentoTeach invertido a panel oscuro (todas las celdas en bg fg con
@@ -402,29 +381,8 @@ body {
   color: rgba(250, 255, 250, 0.7);
 }
 
-/* ServiceProcess también invertido en Performance — todo el bloque
-   "Cómo trabajamos" va a panel oscuro con número en accent azul. */
-[data-service="performance"] .hold-service-process {
-  background: var(--fg);
-  border-color: rgba(250, 255, 250, 0.08);
-}
-
-[data-service="performance"] .hold-service-process__step {
-  background: var(--fg);
-  color: var(--bg);
-}
-
-[data-service="performance"] .hold-service-process__num {
-  color: var(--accent);
-}
-
-[data-service="performance"] .hold-service-process__title {
-  color: var(--bg);
-}
-
-[data-service="performance"] .hold-service-process__desc {
-  color: rgba(250, 255, 250, 0.65);
-}
+/* ServiceProcess también invertido en Performance — ahora se usa
+   ProcessSteps3D que maneja su propio bg via process-steps-3d.css. */
 
 /* ─ CTABand · Redes pasa a AZUL ───────────────────────────────────── */
 [data-service="redes-sociales"] .hold-cta-band:not([data-variant="accent"]) {

@@ -4,8 +4,8 @@ import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
 import { HeroScroll } from "@/components/sections/HeroScroll"
 import { BentoTeach } from "@/components/sections/BentoTeach"
-import { ServiceProcess } from "@/components/sections/ServiceProcess"
-import type { ProcessStep } from "@/components/sections/ServiceProcess"
+import { ProcessSteps3D } from "@/components/sections/ProcessSteps3D"
+import type { ProcessStep3D } from "@/components/sections/ProcessSteps3D"
 import { PacksGrid } from "@/components/sections/PacksGrid"
 import { CTABand } from "@/components/sections/CTABand"
 import { servicios, WHATSAPP_URL } from "@/data/content"
@@ -26,7 +26,7 @@ const BENTO_ITEMS = [
   { title: "Dirección creativa",                  category: "Dirección" },
 ] as const
 
-const PROCESO: readonly ProcessStep[] = [
+const PROCESO: readonly ProcessStep3D[] = [
   {
     title: "Auditoría",
     desc: "Revisamos lo que ya hiciste, lo que funciona y lo que diluye la marca. Empezamos por entender, no por proponer.",
@@ -104,15 +104,23 @@ export default function RedesSocialesPage() {
       <section
         id="proceso"
         className="section-container section-container--tight"
-        style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
+        style={{
+          scrollMarginTop: "var(--hold-header-h, 72px)",
+          paddingBottom: 48,
+        }}
       >
         <SectionHeader
           titulo="Cuatro fases que se repiten cada mes."
           intro="No es un proyecto que arranca y termina: es una operación viva que se ajusta con cada ciclo."
         />
-        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <ServiceProcess steps={PROCESO} />
-        </div>
+      </section>
+
+      <section
+        data-reveal
+        data-reveal-delay="0.2"
+        style={{ marginBottom: "calc(var(--gap-sect) * 0.5)" }}
+      >
+        <ProcessSteps3D steps={PROCESO} />
       </section>
 
       <section className="section-container section-container--tight">
