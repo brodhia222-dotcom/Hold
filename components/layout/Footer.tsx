@@ -31,7 +31,10 @@ export function Footer() {
 
       <div className="hold-footer__inner">
         <div className="hold-footer__brand">
-          <h2 className="hold-footer__logo">HOLD</h2>
+          <h2 className="hold-footer__logo">
+            HOLD
+            <span className="hold-footer__logo-r" aria-hidden>®</span>
+          </h2>
           <span className="hold-footer__brand-tag">Agencia Creativa · Buenos Aires</span>
         </div>
 
@@ -96,6 +99,11 @@ export function Footer() {
         <div className="hold-footer__bottom">
           <span className="hold-footer__bottom-left">{TAGLINE}</span>
           <span>Buenos Aires · AR · v0.1</span>
+        </div>
+
+        <div className="hold-footer__legal">
+          <span>HOLD® es marca registrada en el INPI.</span>
+          <span>© {new Date().getFullYear()} HOLD Agencia Creativa</span>
         </div>
       </div>
 

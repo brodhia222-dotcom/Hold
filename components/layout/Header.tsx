@@ -92,6 +92,7 @@ export function Header() {
       >
         <Link href="/" className="hold-header__logo" aria-label="HOLD — Inicio">
           hold
+          <span className="hold-header__logo-r" aria-hidden>®</span>
         </Link>
 
         <nav className="hold-header__nav" aria-label="Navegación principal">

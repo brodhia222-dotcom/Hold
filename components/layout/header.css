@@ -60,6 +60,21 @@
   text-decoration: none;
   position: relative;
   z-index: 1;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+/* ® supercript chiquito arriba a la derecha del wordmark. Cumple con
+   la indicación del agente INPI: "colocar la letra R que define que
+   la marca está registrada — en la parte superior derecha". */
+.hold-header__logo-r {
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 0.6;
+  margin-top: 2px;
 }
 
 .hold-header__nav {

@@ -40,6 +40,18 @@
   margin: 0;
   user-select: none;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: clamp(4px, 0.6vw, 8px);
+}
+
+.hold-footer__logo-r {
+  font-size: 0.18em;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  opacity: 0.55;
+  margin-top: 0.45em;
 }
 
 .hold-footer__brand-tag {
@@ -128,6 +140,22 @@
   color: var(--fg);
 }
 
+/* === ROW 4 : legal === */
+.hold-footer__legal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 18px;
+  border-top: 1px solid var(--hairline);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .hold-footer__strip {
   height: 6px;
   background: var(--accent);
@@ -166,7 +194,8 @@
     gap: 32px;
     padding-block: 40px;
   }
-  .hold-footer__bottom {
+  .hold-footer__bottom,
+  .hold-footer__legal {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
