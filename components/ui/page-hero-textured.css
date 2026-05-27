@@ -16,7 +16,11 @@
   margin-top: calc(-1 * var(--hold-header-h, 72px));
   padding-top: var(--hold-header-h, 72px);
   padding-inline: clamp(48px, 6vw, 96px);
-  padding-bottom: 0;
+  /* Padding-bottom generoso → el contenido se centra entre header y
+     bottom-80, lo cual lo mueve visualmente hacia arriba. Sin esto
+     en hero altos con contenido pesado los botones quedaban pegados
+     al borde inferior. */
+  padding-bottom: 80px;
   display: grid;
   place-items: center;
 }
@@ -110,8 +114,8 @@
 }
 
 .hold-hero-textured__title {
-  font-size: clamp(40px, 5.5vw, 84px);
-  line-height: 1;
+  font-size: clamp(36px, 5vw, 76px);
+  line-height: 1.02;
   font-weight: 300;
   letter-spacing: -0.035em;
   color: var(--bg);
