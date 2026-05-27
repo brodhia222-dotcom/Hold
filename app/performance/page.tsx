@@ -26,22 +26,32 @@ const BENTO_ITEMS = [
   { title: "Reportes y optimización mensual",          category: "Data" },
 ] as const
 
+/* Imágenes de Unsplash temáticas — la card las desatura y tinta dark
+   para que mantengan coherencia con la paleta brand (b/n/azul). */
 const PROCESO: readonly ProcessStep3D[] = [
   {
     title: "Diagnóstico",
     desc: "Analizamos cuentas, históricos, audiencias y embudos. Antes de invertir un peso, sabemos por qué.",
+    bgImage:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop",
   },
   {
     title: "Estrategia",
     desc: "Definimos objetivos, plataformas, presupuesto y mensajes. Cada campaña con una hipótesis clara para validar.",
+    bgImage:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&fit=crop",
   },
   {
     title: "Creatividades",
     desc: "Diseñamos y producimos las piezas pensadas para convertir. La creatividad es la palanca más grande del rendimiento.",
+    bgImage:
+      "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1200&auto=format&fit=crop",
   },
   {
     title: "Optimización",
     desc: "Lectura de datos semanal, ajustes constantes y reporte mensual. La pauta es una conversación con el mercado.",
+    bgImage:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&auto=format&fit=crop",
   },
 ] as const
 

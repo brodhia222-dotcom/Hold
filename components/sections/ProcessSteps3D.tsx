@@ -7,14 +7,16 @@ import "./process-steps-3d.css"
 export type ProcessStep3D = {
   title: string
   desc: string
+  /** URL de imagen de fondo (Unsplash u otra). Se desatura + tinta
+   *  con el bg de la card para mantener coherencia con la paleta. */
+  bgImage?: string
 }
 
 type StepProps = {
   step: ProcessStep3D
-  index: number
 }
 
-function StepCard({ step, index }: StepProps) {
+function StepCard({ step }: StepProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)
@@ -54,17 +56,20 @@ function StepCard({ step, index }: StepProps) {
         damping: 22,
       }}
     >
+      {step.bgImage ? (
+        <div
+          className="hold-step3d__bg"
+          style={{ backgroundImage: `url(${step.bgImage})` }}
+          aria-hidden
+        />
+      ) : null}
+      <div className="hold-step3d__shade" aria-hidden />
       <div className="hold-step3d__glow" aria-hidden />
       <div className="hold-step3d__grain" aria-hidden />
 
       <div className="hold-step3d__content">
-        <span className="hold-step3d__num" aria-hidden>
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <h3 className="hold-step3d__title">{step.title}</h3>
-          <p className="hold-step3d__desc">{step.desc}</p>
-        </div>
+        <h3 className="hold-step3d__title">{step.title}</h3>
+        <p className="hold-step3d__desc">{step.desc}</p>
       </div>
 
       <div className="hold-step3d__beam" aria-hidden />
@@ -77,21 +82,17 @@ type Props = {
 }
 
 /**
- * Reemplazo 3D del ServiceProcess. Cuatro cards en grid 2x2 con tilt
- * por mousemove (max 4°), lift al hover, glow del accent abajo y
- * border-bottom iluminado tipo LED. Adaptado del gradient-card de
- * ravikatiyar (21st.dev) al DS HOLD: paleta b/n/azul, border 0,
- * sin border-radius.
- *
- * Se renderiza dentro de un wrapper con bg propio (negro o azul según
- * data-service del <main> padre).
+ * Cuatro cards en grid 2x2 con tilt 3D por mousemove (max 4°), lift al
+ * hover, imagen de fondo opcional, glow del accent abajo y border-bottom
+ * iluminado tipo LED. Adaptado del gradient-card de ravikatiyar (21st)
+ * al DS HOLD: paleta b/n/azul, border 0, sin border-radius.
  */
 export function ProcessSteps3D({ steps }: Props) {
   return (
     <div className="hold-steps3d-wrap">
       <div className="hold-steps3d">
-        {steps.map((step, i) => (
-          <StepCard key={step.title} step={step} index={i} />
+        {steps.map((step) => (
+          <StepCard key={step.title} step={step} />
         ))}
       </div>
     </div>

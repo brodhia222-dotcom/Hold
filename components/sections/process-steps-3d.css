@@ -1,11 +1,11 @@
-/* HOLD ProcessSteps3D — versión 3D del ServiceProcess original.
+/* HOLD ProcessSteps3D — cards 3D con bg image + overlay editorial.
    Adaptación del gradient-card de ravikatiyar (21st.dev) al DS HOLD:
    - Wrapper de sección con bg negro (var(--fg)) o azul según servicio
    - Cards con tilt 3D al mousemove (max 4°), lift -4px al hover
-   - Glow radial del accent azul detrás de cada card
-   - Border-bottom con box-shadow azul tipo LED iluminado
-   - Grano fino mix-blend overlay
-   - Paleta limitada b/n/azul, border 0, sin border-radius */
+   - Imagen de fondo desaturada con overlay oscuro/azul
+   - Glow radial del accent abajo (intensifica al hover)
+   - Border-bottom iluminado tipo LED
+   - Texto centrado (sin numeración) */
 
 .hold-steps3d-wrap {
   position: relative;
@@ -36,9 +36,9 @@
 /* ── Card individual ──────────────────────────────────────────────── */
 .hold-step3d {
   position: relative;
-  padding: clamp(28px, 3.4vw, 44px);
-  min-height: 280px;
-  background: rgba(0, 0, 0, 0.4);
+  padding: clamp(32px, 4vw, 56px) clamp(28px, 3.4vw, 44px);
+  min-height: 320px;
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--bg);
   overflow: hidden;
@@ -46,43 +46,100 @@
   will-change: transform;
   transform-style: preserve-3d;
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-/* Performance: bg padre ya es negro, las cards quedan con un surface
-   elevated más claro para tener algo de contraste */
 [data-service="performance"] .hold-step3d {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
 }
 
-/* Redes: bg padre es azul fuerte, las cards en negro semi-transparent
-   funcionan como "glass dark over blue" */
 [data-service="redes-sociales"] .hold-step3d {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.4);
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* ── Glow radial del accent detrás ─────────────────────────────────── */
+/* ── BG IMAGE (capa más baja) ──────────────────────────────────────── */
+.hold-step3d__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Desaturada + un toque más oscura para que el texto blanco se lea
+     y el azul brand mande sobre cualquier color de la foto. */
+  filter: grayscale(0.85) brightness(0.55) contrast(1.05);
+  opacity: 0.65;
+  transform: scale(1.04);
+  transition:
+    transform 0.6s var(--ease-hold),
+    opacity var(--dur-base) var(--ease-hold),
+    filter var(--dur-base) var(--ease-hold);
+}
+
+.hold-step3d:hover .hold-step3d__bg {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* ── Shade: tinte de marca sobre la imagen ─────────────────────────── */
+.hold-step3d__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+[data-service="redes-sociales"] .hold-step3d__shade {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent) 35%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 55%, rgba(0, 0, 0, 0.5)) 100%
+  );
+  mix-blend-mode: normal;
+}
+
+[data-service="performance"] .hold-step3d__shade {
+  background: linear-gradient(
+    180deg,
+    rgba(29, 29, 27, 0.5) 0%,
+    rgba(29, 29, 27, 0.25) 45%,
+    rgba(29, 29, 27, 0.75) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* ── Glow radial del accent abajo ──────────────────────────────────── */
 .hold-step3d__glow {
   position: absolute;
   inset: -30%;
-  z-index: 0;
+  z-index: 2;
   background: radial-gradient(
     circle at 50% 100%,
     var(--accent) 0%,
     transparent 55%
   );
-  opacity: 0.3;
-  filter: blur(36px);
+  opacity: 0.28;
+  filter: blur(40px);
   pointer-events: none;
   transition: opacity var(--dur-base) var(--ease-hold);
 }
 
 .hold-step3d:hover .hold-step3d__glow {
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
-/* En redes el bg ya es azul → el glow azul se pierde. Lo hacemos blanco
-   para que el efecto "iluminación" siga notándose */
 [data-service="redes-sociales"] .hold-step3d__glow {
   background: radial-gradient(
     circle at 50% 100%,
@@ -93,14 +150,14 @@
 }
 
 [data-service="redes-sociales"] .hold-step3d:hover .hold-step3d__glow {
-  opacity: 0.3;
+  opacity: 0.28;
 }
 
 /* ── Grano sutil ──────────────────────────────────────────────────── */
 .hold-step3d__grain {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   opacity: 0.18;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
@@ -124,8 +181,8 @@
   box-shadow:
     0 0 12px 2px var(--accent),
     0 0 28px 6px rgba(43, 99, 255, 0.4);
-  opacity: 0.4;
-  z-index: 2;
+  opacity: 0.45;
+  z-index: 4;
   pointer-events: none;
   transition: opacity var(--dur-base) var(--ease-hold);
 }
@@ -134,7 +191,6 @@
   opacity: 0.95;
 }
 
-/* En redes (sobre bg azul) el beam azul se pierde — usamos blanco */
 [data-service="redes-sociales"] .hold-step3d__beam {
   background: linear-gradient(
     90deg,
@@ -147,47 +203,34 @@
     0 0 28px 6px rgba(255, 255, 255, 0.35);
 }
 
-/* ── Contenido encima de las capas ─────────────────────────────────── */
+/* ── Contenido centrado encima de las capas ─────────────────────── */
 .hold-step3d__content {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  height: 100%;
-  justify-content: space-between;
-}
-
-.hold-step3d__num {
-  font-size: clamp(48px, 5.2vw, 76px);
-  line-height: 0.92;
-  font-weight: 300;
-  letter-spacing: -0.045em;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 8px;
-}
-
-[data-service="redes-sociales"] .hold-step3d__num {
-  color: #fff;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 32ch;
 }
 
 .hold-step3d__title {
-  font-size: clamp(20px, 1.9vw, 24px);
+  font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.15;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--bg);
   margin: 0;
-  max-width: 16ch;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
 }
 
 .hold-step3d__desc {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
   margin: 0;
-  max-width: 42ch;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 @media (max-width: 768px) {
@@ -195,6 +238,6 @@
     grid-template-columns: 1fr;
   }
   .hold-step3d {
-    min-height: 220px;
+    min-height: 260px;
   }
 }

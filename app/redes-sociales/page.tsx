@@ -26,22 +26,32 @@ const BENTO_ITEMS = [
   { title: "Dirección creativa",                  category: "Dirección" },
 ] as const
 
+/* Imágenes de Unsplash temáticas — la card las desatura y tinta de azul
+   para que mantengan coherencia con la paleta brand. */
 const PROCESO: readonly ProcessStep3D[] = [
   {
     title: "Auditoría",
     desc: "Revisamos lo que ya hiciste, lo que funciona y lo que diluye la marca. Empezamos por entender, no por proponer.",
+    bgImage:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop",
   },
   {
     title: "Estrategia",
     desc: "Definimos tono, pilares de contenido y calendario mensual. Tu marca con un criterio que se sostiene en el tiempo.",
+    bgImage:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&fit=crop",
   },
   {
     title: "Producción",
     desc: "Diseño gráfico, video y fotografía con un equipo que conoce tu marca. Cada pieza pensada para un objetivo claro.",
+    bgImage:
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=1200&auto=format&fit=crop",
   },
   {
     title: "Comunidad",
     desc: "Community management diario: respondemos, escuchamos y traducimos lo que pasa en redes en información útil para tu negocio.",
+    bgImage:
+      "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1200&auto=format&fit=crop",
   },
 ] as const
 
