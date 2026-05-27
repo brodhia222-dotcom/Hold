@@ -36,12 +36,14 @@
 .hold-bento-teach[data-count="6"] .hold-bento-teach__cell:nth-child(5) { grid-column: span 4; }
 .hold-bento-teach[data-count="6"] .hold-bento-teach__cell:nth-child(6) { grid-column: span 4; }
 
-/* 5 piezas: 7+5 / 5+(hero) / 4+4+4 */
+/* 5 piezas: 7+5 / hero(continúa)+5 / 6+6 — cell1 ocupa col 1-7 row 1-2,
+   cell2 va a col 8-12 row 1, cell3 a col 8-12 row 2 (los 5 cols
+   restantes después de cell1 en row 2), y cell4/5 toman 6+6 en row 3. */
 .hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(1) { grid-column: span 7; grid-row: span 2; }
 .hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(2) { grid-column: span 5; }
-.hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(3) { grid-column: span 4; }
-.hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(4) { grid-column: span 4; }
-.hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(5) { grid-column: span 4; }
+.hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(3) { grid-column: span 5; }
+.hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(4) { grid-column: span 6; }
+.hold-bento-teach[data-count="5"] .hold-bento-teach__cell:nth-child(5) { grid-column: span 6; }
 
 /* 4 piezas: 6+6 / 6+6 (cuadrícula simétrica de 2x2) */
 .hold-bento-teach[data-count="4"] .hold-bento-teach__cell:nth-child(n) { grid-column: span 6; }

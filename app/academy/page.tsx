@@ -1,11 +1,11 @@
+import type { CSSProperties } from "react"
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
 import { SectionHeader } from "@/components/ui/SectionHeader"
 import { HeroScroll } from "@/components/sections/HeroScroll"
-import { BentoTeach } from "@/components/sections/BentoTeach"
-import { CoursesShowcase } from "@/components/sections/CoursesShowcase"
-import { ServicePlanFeature } from "@/components/sections/ServicePlanFeature"
+import { CoursesBento } from "@/components/sections/CoursesBento"
+import { CustomTraining } from "@/components/sections/CustomTraining"
 import { CTABand } from "@/components/sections/CTABand"
 import { servicios, WHATSAPP_URL } from "@/data/content"
 
@@ -17,20 +17,17 @@ export const metadata: Metadata = {
 
 const ACADEMY = servicios.find((s) => s.slug === "academy")!
 
-/* Categorías editoriales que diferencian el bento de la tabla de cursos.
-   Los items vienen de ACADEMY.items en data/content.ts. */
-const BENTO_ITEMS = [
-  { title: "Claude para creadores de contenido", category: "Curso · IA" },
-  { title: "Meta para creadores de contenido",   category: "Curso · Ads" },
-  { title: "Creatividad aplicada",               category: "Programa" },
-  { title: "Contenido con colaboradores",        category: "Workshop" },
-  { title: "Entrenamientos para emprendedores",  category: "Programa" },
-  { title: "Mentorías 1:1 360",                  category: "Mentoría" },
-] as const
+/* Color brand fijo: Coral 486 C (Pantone HOLD · Academy).
+   Override del AccentSwitcher para que la página tenga su predominio
+   propio (lo pidieron las chicas de HOLD). */
+const SERVICE_STYLE: CSSProperties = {
+  // @ts-expect-error CSS custom property
+  "--accent": ACADEMY.acento,
+}
 
 export default function AcademyPage() {
   return (
-    <main>
+    <main data-service="academy" style={SERVICE_STYLE}>
       <PageHeroTextured
         eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
         titulo={
@@ -74,32 +71,28 @@ export default function AcademyPage() {
         images={["Clase", "Mentoría", "Workshop", "1:1"]}
       />
 
-      <section className="section-container section-container--tight">
-        <SectionHeader
-          titulo="Formatos que se adaptan a tu momento."
-          intro="Cursos cortos, programas largos y mentorías 1:1. Todo lo que ofrecemos surgió primero de un cliente real con una necesidad real."
-        />
-        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <BentoTeach items={BENTO_ITEMS} />
-        </div>
-      </section>
-
       <section
         id="cursos"
         className="section-container section-container--tight"
         style={{ scrollMarginTop: "var(--hold-header-h, 72px)" }}
       >
         <SectionHeader
-          titulo="Cursos abiertos."
-          intro="Tocá un curso para coordinar tu inscripción por WhatsApp. Te responde una persona del equipo, no un bot."
+          titulo="Formatos que se adaptan a tu momento."
+          intro="Cada curso tiene formato, duración y precio claros. Tocá la tarjeta para coordinar tu inscripción por WhatsApp — te responde una persona del equipo."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <CoursesShowcase />
+          <CoursesBento />
         </div>
       </section>
 
       <section className="section-container section-container--tight">
-        <ServicePlanFeature servicio={ACADEMY} />
+        <SectionHeader
+          titulo="Capacitaciones Personalizadas."
+          intro="Si tu equipo o tu empresa necesita una formación específica, armamos el programa desde cero."
+        />
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
+          <CustomTraining />
+        </div>
       </section>
 
       <CTABand

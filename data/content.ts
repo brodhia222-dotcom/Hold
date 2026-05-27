@@ -121,12 +121,59 @@ export const servicios: readonly Servicio[] = [
 /* ─── CURSOS ACADEMY (del DS) ─────────────────────────────────────────────── */
 
 export const cursos: readonly Curso[] = [
-  { id: "ACA · 01", nombre: "Claude para creadores de contenido", formato: "4 sesiones · Online", estado: "Inscripción abierta" },
-  { id: "ACA · 02", nombre: "Meta para creadores de contenido",   formato: "6 sesiones · Online", estado: "Inscripción abierta" },
-  { id: "ACA · 03", nombre: "Creatividad aplicada",               formato: "8 sesiones · Híbrido", estado: "Próximamente" },
-  { id: "ACA · 04", nombre: "Contenido con colaboradores",        formato: "Workshop · 1 día",     estado: "Próximamente" },
-  { id: "ACA · 05", nombre: "Entrenamientos para emprendedores",  formato: "Programa · 3 meses",   estado: "Inscripción abierta" },
-  { id: "ACA · 06", nombre: "Mentorías 1:1 360",                  formato: "Encuentros mensuales", estado: "Cupo limitado" },
+  {
+    id: "ACA · 01",
+    nombre: "Claude para creadores de contenido",
+    formato: "4 sesiones · Online",
+    estado: "Inscripción abierta",
+    precio: "USD 250",
+    descripcion:
+      "Cómo usar Claude como copiloto para crear contenido más rápido y con mejor criterio — sin perder tu voz.",
+  },
+  {
+    id: "ACA · 02",
+    nombre: "Meta para creadores de contenido",
+    formato: "6 sesiones · Online",
+    estado: "Inscripción abierta",
+    precio: "USD 320",
+    descripcion:
+      "Del boost al campaña: usar Meta Ads sin desperdiciar presupuesto y midiendo lo que importa.",
+  },
+  {
+    id: "ACA · 03",
+    nombre: "Creatividad aplicada",
+    formato: "8 sesiones · Híbrido",
+    estado: "Próximamente",
+    precio: "USD 580",
+    descripcion: "Pensar como creativo: del insight a la ejecución concreta.",
+  },
+  {
+    id: "ACA · 04",
+    nombre: "Contenido con colaboradores",
+    formato: "Workshop · 1 día",
+    estado: "Próximamente",
+    precio: "USD 180",
+    descripcion:
+      "Cómo dirigir colaboradores y producir contenido sin volverte el cuello de botella.",
+  },
+  {
+    id: "ACA · 05",
+    nombre: "Entrenamientos para emprendedores",
+    formato: "Programa · 3 meses",
+    estado: "Inscripción abierta",
+    precio: "USD 1.200",
+    descripcion:
+      "Programa intensivo para que tu negocio empiece a comunicar como una marca.",
+  },
+  {
+    id: "ACA · 06",
+    nombre: "Mentorías 1:1 360",
+    formato: "Encuentros mensuales",
+    estado: "Cupo limitado",
+    precio: "USD 350 / mes",
+    descripcion:
+      "Encuentros mensuales 1:1 para acompañarte mes a mes con criterio externo.",
+  },
 ] as const
 
 /* ─── TESTIMONIOS (placeholder · 3 por servicio) ──────────────────────────── */

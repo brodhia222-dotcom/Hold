@@ -216,3 +216,47 @@ body {
     --gap-block: 32px;
   }
 }
+
+/* ─── SERVICE THEMING ──────────────────────────────────────────────────────
+   Cada página de servicio fuerza su --accent en el <main> (style inline) y
+   marca el data-service correspondiente. Acá agregamos overrides sutiles
+   para que cada servicio tenga su color predominante propio. */
+
+/* — REDES (azul Pantone): tinte azul en el bloque "Cómo trabajamos" — */
+[data-service="redes-sociales"] .hold-service-process {
+  background: linear-gradient(
+    135deg,
+    var(--bg) 0%,
+    color-mix(in srgb, var(--accent) 6%, var(--bg)) 100%
+  );
+  border-color: color-mix(in srgb, var(--accent) 18%, var(--hairline));
+}
+
+[data-service="redes-sociales"] .hold-service-process__step {
+  background: transparent;
+}
+
+/* — PERFORMANCE (warm red + dominancia oscura): ServiceProcess se
+     invierte a panel oscuro con texto blanco. Refuerza el "feel" de
+     campaña/dashboard. */
+[data-service="performance"] .hold-service-process {
+  background: var(--fg);
+  border-color: rgba(250, 255, 250, 0.08);
+}
+
+[data-service="performance"] .hold-service-process__step {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-service-process__num {
+  color: var(--accent);
+}
+
+[data-service="performance"] .hold-service-process__title {
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-service-process__desc {
+  color: rgba(250, 255, 250, 0.65);
+}

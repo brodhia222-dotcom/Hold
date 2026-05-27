@@ -27,6 +27,10 @@ export interface Curso {
   nombre: string
   formato: string        // "4 sesiones · Online"
   estado: CursoEstado
+  /** Precio de referencia. Si se omite, se muestra solo el formato. */
+  precio?: string        // "USD 250" · "USD 1.200" · "Consultar"
+  /** Descripción breve — visible solo en la celda hero del bento. */
+  descripcion?: string
 }
 
 export interface Testimonio {

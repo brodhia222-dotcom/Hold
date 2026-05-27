@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
@@ -6,7 +7,7 @@ import { HeroScroll } from "@/components/sections/HeroScroll"
 import { BentoTeach } from "@/components/sections/BentoTeach"
 import { ServiceProcess } from "@/components/sections/ServiceProcess"
 import type { ProcessStep } from "@/components/sections/ServiceProcess"
-import { ServicePlanFeature } from "@/components/sections/ServicePlanFeature"
+import { PacksGrid } from "@/components/sections/PacksGrid"
 import { CTABand } from "@/components/sections/CTABand"
 import { servicios, WHATSAPP_URL } from "@/data/content"
 
@@ -17,6 +18,12 @@ export const metadata: Metadata = {
 }
 
 const REDES = servicios.find((s) => s.slug === "redes-sociales")!
+
+/* Color brand fijo: Bright Blue 285 C (Pantone HOLD · Redes). */
+const SERVICE_STYLE: CSSProperties = {
+  // @ts-expect-error CSS custom property
+  "--accent": "#2B63FF",
+}
 
 const BENTO_ITEMS = [
   { title: "Estrategia y calendario mensual",     category: "Estrategia" },
@@ -47,7 +54,7 @@ const PROCESO: readonly ProcessStep[] = [
 
 export default function RedesSocialesPage() {
   return (
-    <main>
+    <main data-service="redes-sociales" style={SERVICE_STYLE}>
       <PageHeroTextured
         eyebrow={`${REDES.eyebrow} · ${REDES.numero}`}
         titulo={
@@ -116,7 +123,13 @@ export default function RedesSocialesPage() {
       </section>
 
       <section className="section-container section-container--tight">
-        <ServicePlanFeature servicio={REDES} />
+        <SectionHeader
+          titulo="Cotizá tu Propuesta."
+          intro="Tres opciones para arrancar — packs estándar o cotización a medida según tu necesidad."
+        />
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
+          <PacksGrid />
+        </div>
       </section>
 
       <CTABand

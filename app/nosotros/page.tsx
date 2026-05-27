@@ -96,20 +96,20 @@ export default function NosotrosPage() {
 
       <section className="section-container section-container--tight">
         <SectionHeader
-          titulo="Detrás de escena."
-        />
-        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
-          <PhotoGallery />
-        </div>
-      </section>
-
-      <section className="section-container section-container--tight">
-        <SectionHeader
           titulo="Lo que nos diferencia."
           intro="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
         <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
           <BentoTeach items={POR_QUE} />
+        </div>
+      </section>
+
+      <section className="section-container section-container--tight">
+        <SectionHeader
+          titulo="Detrás de escena."
+        />
+        <div style={{ marginTop: 48 }} data-reveal data-reveal-delay="0.2">
+          <PhotoGallery />
         </div>
       </section>
 
