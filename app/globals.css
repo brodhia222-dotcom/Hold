@@ -219,11 +219,118 @@ body {
 
 /* ─── SERVICE THEMING ──────────────────────────────────────────────────────
    Paleta única: blanco / negro / azul. Cada página de servicio tiene un
-   color predominante distinto para que se reconozca entre sí.
+   color predominante MUY distinto para que se reconozca entre sí en una
+   ojeada.
 
-   - Academy → blanco predominante (default, sin overrides)
-   - Redes Sociales → azul predominante (ServiceProcess en azul fuerte)
-   - Performance → negro predominante (BentoTeach + ServiceProcess en negro) */
+   - Academy → BLANCO predominante: HeroScroll Section2 invertida a
+     blanco con grid azul, CoursesBento blanco, CustomTraining split
+     (default). CTABand de cierre negro como contraste.
+
+   - Redes Sociales → AZUL predominante: HeroScroll Section1 en azul
+     fuerte, ServiceProcess en azul fuerte, PacksGrid Pro destacado en
+     azul, CTABand en azul. Páginas con mucho azul.
+
+   - Performance → NEGRO predominante: HeroScroll Section1 invertida
+     a negro, BentoTeach todo en negro, ServiceProcess en negro,
+     ServicePlanFeature split (parte negra). Casi todo oscuro. */
+
+/* ─ HEROSCROLL · Academy: Section2 invertida a blanco con grid azul ─ */
+[data-service="academy"] .hold-hero-scroll {
+  background: var(--bg);
+}
+
+[data-service="academy"] .hold-hero-scroll__gallery {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+[data-service="academy"] .hold-hero-scroll__grid--dark {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--accent) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 18%, transparent) 1px, transparent 1px);
+}
+
+[data-service="academy"] .hold-hero-scroll__gallery-title {
+  color: var(--fg);
+}
+
+[data-service="academy"] .hold-hero-scroll__gallery-meta {
+  color: var(--muted);
+}
+
+[data-service="academy"] .hold-hero-scroll__gallery-card {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(29, 29, 27, 0.06) 0 8px,
+      transparent 8px 16px
+    ),
+    var(--surface);
+  border-color: var(--hairline);
+}
+
+[data-service="academy"] .hold-hero-scroll__gallery-card-label {
+  color: var(--muted);
+}
+
+/* ─ HEROSCROLL · Redes: Section1 pasa a AZUL fuerte ────────────────── */
+[data-service="redes-sociales"] .hold-hero-scroll__intro {
+  background: var(--accent);
+  color: #fff;
+}
+
+[data-service="redes-sociales"] .hold-hero-scroll__grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+}
+
+[data-service="redes-sociales"] .hold-hero-scroll__intro-eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-service="redes-sociales"] .hold-hero-scroll__intro-eyebrow::before {
+  background: #fff;
+}
+
+[data-service="redes-sociales"] .hold-hero-scroll__intro-title,
+[data-service="redes-sociales"] .hold-hero-scroll__intro-title em {
+  color: #fff;
+}
+
+[data-service="redes-sociales"] .hold-hero-scroll__intro-sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ─ HEROSCROLL · Performance: Section1 pasa a NEGRO ────────────────── */
+[data-service="performance"] .hold-hero-scroll__intro {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-hero-scroll__grid {
+  background-image:
+    linear-gradient(to right, rgba(250, 255, 250, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(250, 255, 250, 0.1) 1px, transparent 1px);
+}
+
+[data-service="performance"] .hold-hero-scroll__intro-eyebrow {
+  color: rgba(250, 255, 250, 0.75);
+}
+
+[data-service="performance"] .hold-hero-scroll__intro-title {
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-hero-scroll__intro-title em {
+  color: var(--accent);
+}
+
+[data-service="performance"] .hold-hero-scroll__intro-sub {
+  color: rgba(250, 255, 250, 0.7);
+}
+
+/* ─ REDES (azul predominante) ─────────────────────────────────────── */
 
 /* ─ REDES (azul predominante) ─────────────────────────────────────── */
 /* El bloque "Cómo trabajamos" pasa a panel azul fuerte con texto blanco.
@@ -317,4 +424,25 @@ body {
 
 [data-service="performance"] .hold-service-process__desc {
   color: rgba(250, 255, 250, 0.65);
+}
+
+/* ─ CTABand · Redes pasa a AZUL ───────────────────────────────────── */
+[data-service="redes-sociales"] .hold-cta-band:not([data-variant="accent"]) {
+  background: var(--accent);
+  color: #fff;
+}
+
+[data-service="redes-sociales"] .hold-cta-band:not([data-variant="accent"]) .hold-btn--primary {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+[data-service="redes-sociales"] .hold-cta-band:not([data-variant="accent"]) .hold-btn--secondary {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+[data-service="redes-sociales"] .hold-cta-band:not([data-variant="accent"]) .hold-btn--secondary:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.08);
 }

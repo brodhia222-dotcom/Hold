@@ -15,12 +15,10 @@
   /* Compensa el padding-top del <main>. */
   margin-top: calc(-1 * var(--hold-header-h, 72px));
   padding-top: var(--hold-header-h, 72px);
-  /* Respiración horizontal más generosa que el gutter default — los
-     botones y el título no se ven pegados al borde. */
-  padding-inline: clamp(40px, 6vw, 96px);
+  padding-inline: clamp(48px, 6vw, 96px);
   padding-bottom: 0;
   display: grid;
-  place-items: center start;
+  place-items: center;
 }
 
 /* ── Softener: capa negra semi para atenuar saturación del shader ──── */
@@ -78,8 +76,12 @@
 .hold-hero-textured__content {
   position: relative;
   z-index: 4;
-  max-width: var(--max, 1440px);
+  /* max-width acotado (1180px en vez de 1440) + margin auto: el
+     content se centra horizontalmente y queda con espacio respiratorio
+     en pantallas grandes. */
+  max-width: 1180px;
   width: 100%;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: 22px;
