@@ -23,7 +23,7 @@ export default function AcademyPage() {
         eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
         titulo={
           <>
-            Todo lo que aprendimos haciendo,{" "}
+            Aprendimos haciendo,{" "}
             <em>ahora lo enseñamos.</em>
           </>
         }
