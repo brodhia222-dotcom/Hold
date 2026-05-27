@@ -27,10 +27,10 @@
   --surface:   rgba(29, 29, 27, 0.04);
   --surface-2: rgba(29, 29, 27, 0.07);
 
-  /* Acento global del sitio — controlado por <AccentSwitcher>.
-     Se cambia desde JS via document.documentElement.style.setProperty('--accent', value).
-     Por defecto: Coral 486 C (Pantone HOLD). */
-  --accent:    #E96951;
+  /* Acento global del sitio: Bright Blue 285 C (Pantone HOLD).
+     Las chicas de HOLD decidieron quedarse con un único acento azul,
+     así que toda la paleta del sitio se reduce a blanco / negro / azul. */
+  --accent:    #2B63FF;
   --accent-fg: #FFFFFF;
   /* Alpha helpers del acento — derivados via color-mix para tintes sutiles. */
   --accent-08: color-mix(in srgb, var(--accent) 8%, transparent);
@@ -218,27 +218,85 @@ body {
 }
 
 /* ─── SERVICE THEMING ──────────────────────────────────────────────────────
-   Cada página de servicio fuerza su --accent en el <main> (style inline) y
-   marca el data-service correspondiente. Acá agregamos overrides sutiles
-   para que cada servicio tenga su color predominante propio. */
+   Paleta única: blanco / negro / azul. Cada página de servicio tiene un
+   color predominante distinto para que se reconozca entre sí.
 
-/* — REDES (azul Pantone): tinte azul en el bloque "Cómo trabajamos" — */
+   - Academy → blanco predominante (default, sin overrides)
+   - Redes Sociales → azul predominante (ServiceProcess en azul fuerte)
+   - Performance → negro predominante (BentoTeach + ServiceProcess en negro) */
+
+/* ─ REDES (azul predominante) ─────────────────────────────────────── */
+/* El bloque "Cómo trabajamos" pasa a panel azul fuerte con texto blanco.
+   Es la sección más larga y le da identidad clara al servicio. */
 [data-service="redes-sociales"] .hold-service-process {
-  background: linear-gradient(
-    135deg,
-    var(--bg) 0%,
-    color-mix(in srgb, var(--accent) 6%, var(--bg)) 100%
-  );
-  border-color: color-mix(in srgb, var(--accent) 18%, var(--hairline));
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 [data-service="redes-sociales"] .hold-service-process__step {
-  background: transparent;
+  background: var(--accent);
+  color: #fff;
 }
 
-/* — PERFORMANCE (warm red + dominancia oscura): ServiceProcess se
-     invierte a panel oscuro con texto blanco. Refuerza el "feel" de
-     campaña/dashboard. */
+[data-service="redes-sociales"] .hold-service-process__num {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+[data-service="redes-sociales"] .hold-service-process__title {
+  color: #fff;
+}
+
+[data-service="redes-sociales"] .hold-service-process__desc {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* ─ PERFORMANCE (negro predominante) ──────────────────────────────── */
+/* BentoTeach invertido a panel oscuro (todas las celdas en bg fg con
+   texto blanco) — refuerza el feel de dashboard/data. */
+[data-service="performance"] .hold-bento-teach__cell {
+  background: var(--fg);
+  border-color: rgba(250, 255, 250, 0.1);
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-bento-teach__cell:hover {
+  border-color: var(--accent);
+}
+
+[data-service="performance"] .hold-bento-teach__media {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(250, 255, 250, 0.06) 0 8px,
+      transparent 8px 16px
+    ),
+    rgba(250, 255, 250, 0.03);
+}
+
+[data-service="performance"] .hold-bento-teach__content {
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-bento-teach__num {
+  color: rgba(250, 255, 250, 0.55);
+}
+
+[data-service="performance"] .hold-bento-teach__category {
+  background: transparent;
+  color: var(--bg);
+  border-color: rgba(250, 255, 250, 0.3);
+}
+
+[data-service="performance"] .hold-bento-teach__title {
+  color: var(--bg);
+}
+
+[data-service="performance"] .hold-bento-teach__desc {
+  color: rgba(250, 255, 250, 0.7);
+}
+
+/* ServiceProcess también invertido en Performance — todo el bloque
+   "Cómo trabajamos" va a panel oscuro con número en accent azul. */
 [data-service="performance"] .hold-service-process {
   background: var(--fg);
   border-color: rgba(250, 255, 250, 0.08);

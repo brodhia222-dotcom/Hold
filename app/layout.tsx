@@ -5,7 +5,6 @@ import { Footer } from "@/components/layout/Footer"
 import { SmoothScroll } from "@/components/effects/SmoothScroll"
 import { RevealOnScroll } from "@/components/effects/RevealOnScroll"
 import { PageTransition } from "@/components/effects/PageTransition"
-import { AccentSwitcher } from "@/components/effects/AccentSwitcher"
 import { FloatingWhatsApp } from "@/components/effects/FloatingWhatsApp"
 import "./globals.css"
 
@@ -57,7 +56,6 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </div>
         <Footer />
-        <AccentSwitcher />
         <FloatingWhatsApp />
       </body>
     </html>

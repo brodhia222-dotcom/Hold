@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react"
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
@@ -18,12 +17,6 @@ export const metadata: Metadata = {
 }
 
 const PERFORMANCE = servicios.find((s) => s.slug === "performance")!
-
-/* Color brand fijo: Warm Red C (Pantone HOLD · Performance). */
-const SERVICE_STYLE: CSSProperties = {
-  // @ts-expect-error CSS custom property
-  "--accent": "#F9423A",
-}
 
 const BENTO_ITEMS = [
   { title: "Meta Ads, Google Ads, TikTok Ads",         category: "Pauta" },
@@ -54,7 +47,7 @@ const PROCESO: readonly ProcessStep[] = [
 
 export default function PerformancePage() {
   return (
-    <main data-service="performance" style={SERVICE_STYLE}>
+    <main data-service="performance">
       <PageHeroTextured
         eyebrow={`${PERFORMANCE.eyebrow} · ${PERFORMANCE.numero}`}
         titulo={

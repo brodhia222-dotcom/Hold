@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react"
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
@@ -18,12 +17,6 @@ export const metadata: Metadata = {
 }
 
 const REDES = servicios.find((s) => s.slug === "redes-sociales")!
-
-/* Color brand fijo: Bright Blue 285 C (Pantone HOLD · Redes). */
-const SERVICE_STYLE: CSSProperties = {
-  // @ts-expect-error CSS custom property
-  "--accent": "#2B63FF",
-}
 
 const BENTO_ITEMS = [
   { title: "Estrategia y calendario mensual",     category: "Estrategia" },
@@ -54,7 +47,7 @@ const PROCESO: readonly ProcessStep[] = [
 
 export default function RedesSocialesPage() {
   return (
-    <main data-service="redes-sociales" style={SERVICE_STYLE}>
+    <main data-service="redes-sociales">
       <PageHeroTextured
         eyebrow={`${REDES.eyebrow} · ${REDES.numero}`}
         titulo={

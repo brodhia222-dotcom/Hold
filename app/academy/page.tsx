@@ -1,4 +1,3 @@
-import type { CSSProperties } from "react"
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/Button"
 import { PageHeroTextured } from "@/components/ui/PageHeroTextured"
@@ -17,17 +16,9 @@ export const metadata: Metadata = {
 
 const ACADEMY = servicios.find((s) => s.slug === "academy")!
 
-/* Color brand fijo: Coral 486 C (Pantone HOLD · Academy).
-   Override del AccentSwitcher para que la página tenga su predominio
-   propio (lo pidieron las chicas de HOLD). */
-const SERVICE_STYLE: CSSProperties = {
-  // @ts-expect-error CSS custom property
-  "--accent": ACADEMY.acento,
-}
-
 export default function AcademyPage() {
   return (
-    <main data-service="academy" style={SERVICE_STYLE}>
+    <main data-service="academy">
       <PageHeroTextured
         eyebrow={`${ACADEMY.eyebrow} · ${ACADEMY.numero}`}
         titulo={

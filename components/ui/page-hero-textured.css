@@ -15,7 +15,9 @@
   /* Compensa el padding-top del <main>. */
   margin-top: calc(-1 * var(--hold-header-h, 72px));
   padding-top: var(--hold-header-h, 72px);
-  padding-inline: var(--gutter, 48px);
+  /* Respiración horizontal más generosa que el gutter default — los
+     botones y el título no se ven pegados al borde. */
+  padding-inline: clamp(40px, 6vw, 96px);
   padding-bottom: 0;
   display: grid;
   place-items: center start;
