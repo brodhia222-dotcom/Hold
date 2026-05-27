@@ -24,13 +24,29 @@ export type CursoEstado = "Inscripción abierta" | "Próximamente" | "Cupo limit
 
 export interface Curso {
   id: string             // "ACA · 01"
+  slug: string           // URL slug — ej "claude", "meta", "mentorias"
   nombre: string
   formato: string        // "4 sesiones · Online"
   estado: CursoEstado
   /** Precio de referencia. Si se omite, se muestra solo el formato. */
   precio?: string        // "USD 250" · "USD 1.200" · "Consultar"
-  /** Descripción breve — visible solo en la celda hero del bento. */
+  /** Descripción breve — visible en la celda hero del bento y en el lead del detalle. */
   descripcion?: string
+
+  /* ─── Campos del detalle (solo página /academy/[curso]) ─────────────── */
+
+  /** "4 sesiones de 90 minutos" */
+  duracion?: string
+  /** "Online en vivo" · "Híbrido (online + presencial)" · "Presencial" */
+  modalidad?: string
+  /** "Próximo grupo: marzo 2026" — texto libre para mostrar fechas. */
+  proximaFecha?: string
+  /** "Creadores que quieren acelerar su proceso sin perder voz propia." */
+  destinatario?: string
+  /** Módulos / contenido — qué vas a aprender. */
+  modulos?: readonly string[]
+  /** Qué incluye (más detallado que el helper genérico de Servicio.incluye). */
+  incluye?: readonly string[]
 }
 
 export interface Testimonio {

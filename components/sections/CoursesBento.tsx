@@ -1,25 +1,23 @@
+import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { cursos, waUrlCurso } from "@/data/content"
+import { cursos } from "@/data/content"
 import "./courses-bento.css"
 
 /**
- * Bento de cursos para Academy. Fusiona el ex-BentoTeach (asimetría
- * editorial) con el ex-CoursesShowcase (info de curso + click a
- * WhatsApp). Cada celda muestra siempre: ID, status badge, nombre,
- * precio y formato. La celda hero (primera) muestra también la
- * descripción. Al hover: media scale + accent overlay + border accent.
+ * Bento de cursos para Academy. Cada celda linkea a /academy/{slug}
+ * (la única forma de acceder a las páginas de detalle de curso).
+ * Bento asimétrico 12-col: hero (col 1-7, row 1-2) + 5 celdas
+ * acompañando. La celda hero muestra además la descripción.
  */
 export function CoursesBento() {
   return (
     <div className="hold-courses-bento">
       {cursos.map((curso) => (
-        <a
+        <Link
           key={curso.id}
-          href={waUrlCurso(curso)}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={`/academy/${curso.slug}`}
           className="hold-courses-bento__card"
-          aria-label={`Consultar por WhatsApp el curso ${curso.id} ${curso.nombre}`}
+          aria-label={`Ver detalle del curso ${curso.id} ${curso.nombre}`}
         >
           <div className="hold-courses-bento__media" aria-hidden />
           <div className="hold-courses-bento__overlay" aria-hidden />
@@ -62,7 +60,7 @@ export function CoursesBento() {
               />
             </div>
           </div>
-        </a>
+        </Link>
       ))}
     </div>
   )
