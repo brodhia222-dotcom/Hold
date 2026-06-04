@@ -5,20 +5,10 @@ import { ClientesPreview } from "@/components/sections/ClientesPreview"
 import { MarqueeBand } from "@/components/effects/MarqueeBand"
 import { HeroScrollStack } from "@/components/effects/HeroScrollStack"
 
-const MARQUEE_TOP = [
-  "Estrategia",
-  "Contenido",
-  "Performance",
-  "Hold Academy",
-  "Comunidad",
-  "Resultados",
-] as const
-
-const MARQUEE_MID = [
-  "Sostener sin perder la esencia",
-  "Marcas con propósito",
-  "Equipo dedicado",
-] as const
+/* Marquees azules con frase + flecha en loop (referencia: lpm.community).
+   Un solo item se repite N veces para que se vea como un mantra. */
+const MARQUEE_TOP = ["Lo que hacemos ↓"] as const
+const MARQUEE_MID = ["¿Quiénes somos?"] as const
 
 export default function Home() {
   return (
@@ -27,13 +17,13 @@ export default function Home() {
         hero={<HeroShader />}
         next={
           <>
-            <MarqueeBand items={MARQUEE_TOP} durationSec={32} />
+            <MarqueeBand items={MARQUEE_TOP} accent durationSec={28} />
             <ServiciosPreview />
           </>
         }
       />
       <ClientesPreview />
-      <MarqueeBand items={MARQUEE_MID} invert italic durationSec={28} />
+      <MarqueeBand items={MARQUEE_MID} accent durationSec={28} />
       <NosotrosPreview />
     </>
   )

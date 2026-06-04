@@ -45,8 +45,12 @@ export function TestimonialCard({ testimonio }: Props) {
           {getInitials(testimonio.nombre)}
         </span>
         <span className="hold-testimonial__meta">
-          <span className="hold-testimonial__name">{testimonio.nombre}</span>
-          <span className="hold-testimonial__rol">{testimonio.rol}</span>
+          <span className="hold-testimonial__name">
+            {testimonio.marca && testimonio.marca !== testimonio.nombre
+              ? `${testimonio.nombre} · ${testimonio.marca}`
+              : testimonio.nombre}
+          </span>
+          <span className="hold-testimonial__rol">{testimonio.rubro}</span>
         </span>
       </div>
     </article>

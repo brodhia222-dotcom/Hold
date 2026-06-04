@@ -1,6 +1,5 @@
 import type {
   Curso,
-  EquipoArea,
   MiembroEquipo,
   NavLink,
   Servicio,
@@ -16,6 +15,18 @@ export const INSTAGRAM_URL = "https://instagram.com/hold.agencia"
 export const EMAIL = "holdagenciadigital@gmail.com"
 export const TEL_DISPLAY = "+54 9 11 2710 8165"
 export const TEL_HREF = "tel:+5491127108165"
+
+/* ─── OFICINA ──────────────────────────────────────────────────────────────
+   Sede física en CABA — visible en footer y /contacto. */
+export const OFICINA = {
+  calle: "Olazabal 4889",
+  barrio: "Villa Urquiza",
+  ciudad: "Buenos Aires",
+  pais: "Argentina",
+  /** Google Maps query string para el link. */
+  mapsHref:
+    "https://www.google.com/maps/search/?api=1&query=Olazabal+4889+Villa+Urquiza+Buenos+Aires",
+} as const
 
 /* Helper: arma URL de WhatsApp con mensaje pre-armado. */
 export function waUrl(mensaje: string): string {
@@ -292,97 +303,274 @@ export const cursos: readonly Curso[] = [
   },
 ] as const
 
-/* ─── TESTIMONIOS (placeholder · 3 por servicio) ──────────────────────────── */
+/* ─── TESTIMONIOS ──────────────────────────────────────────────────────────
+   Lista real de clientes (nombre + marca opcional + rubro). Los textos
+   son placeholder por ahora — se irán reemplazando con citas reales a
+   medida que las chicas las vayan recolectando. */
 
 export const testimonios: readonly Testimonio[] = [
-  // Academy
   {
-    texto: "Tenía ideas pero no sabía cómo estructurarlas. Después de la mentoría empecé a publicar con un criterio que antes no tenía.",
-    nombre: "Valentina G.",
-    rol: "Creadora de contenido",
-    servicio: "academy",
-  },
-  {
-    texto: "El módulo de Meta me cambió la forma de pensar la pauta. Dejé de boostear posts y empecé a hacer campañas de verdad.",
-    nombre: "Matías R.",
-    rol: "Emprendedor",
-    servicio: "academy",
-  },
-  {
-    texto: "La mentoría 1:1 fue lo mejor que hice para mi marca personal. Salí con un plan claro y sin el pánico habitual.",
-    nombre: "Camila D.",
-    rol: "Consultora independiente",
-    servicio: "academy",
-  },
-  // Redes Sociales
-  {
-    texto: "Teníamos contenido de sobra pero sin hilo. Hold nos ayudó a encontrar el tono y desde ahí todo fluyó.",
-    nombre: "Lucía F.",
-    rol: "Dueña de tienda online",
+    texto: "Tenían claro lo que necesitábamos antes de que pudiéramos explicarlo. Eso ahorra tiempo y discusiones.",
+    nombre: "Maxi López",
+    rubro: "Talent",
     servicio: "redes-sociales",
   },
   {
-    texto: "En tres meses de trabajar juntos duplicamos el alcance orgánico. Sin magia, con estrategia.",
-    nombre: "Tomás M.",
-    rol: "Marca de indumentaria",
+    texto: "Confiamos en ellas para sostener nuestra marca y no se equivocaron. Acompañan, no improvisan.",
+    nombre: "Grupo Legal",
+    marca: "GRUPO LEGAL",
+    rubro: "Estudio Jurídico",
     servicio: "redes-sociales",
   },
   {
-    texto: "Lo que más valoro es que no nos dieron una fórmula genérica. Entendieron nuestro negocio y lo comunicaron bien.",
-    nombre: "Sofía V.",
-    rol: "Estudio de diseño",
+    texto: "Mi voz en redes empezó a tener orden gracias al trabajo del equipo. Hoy comunico con criterio.",
+    nombre: "Dra. Eugenia Falcón",
+    rubro: "Marca Personal · Abogada laboral",
     servicio: "redes-sociales",
   },
-  // Performance
   {
-    texto: "Veníamos gastando en Meta sin resultados. Con Hold reorganizamos la estrategia y el ROAS mejoró notablemente en el primer mes.",
-    nombre: "Andrés P.",
-    rol: "E-commerce de accesorios",
+    texto: "Lo que más valoro es la lectura del negocio. No vienen con fórmulas armadas, leen tu caso primero.",
+    nombre: "Dr. Alejandro Cyrulnik",
+    rubro: "Marca Personal · Abogado corporativo",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Resultados reales en pocos meses. Pasamos de improvisar contenido a tener una estrategia clara.",
+    nombre: "Dr. Gustavo Falcón",
+    marca: "GRUPO LEGAL",
+    rubro: "Marca Personal · Abogado laboral",
     servicio: "performance",
   },
   {
-    texto: "Las creatividades para pauta que hicieron son las primeras que realmente convierten. Hay una lógica detrás de cada pieza.",
-    nombre: "Florencia K.",
-    rol: "Marca de bienestar",
+    texto: "Comunican con criterio y con foco en el negocio. No publican por publicar, todo tiene un porqué.",
+    nombre: "Dr. Ignacio Bascuas",
+    rubro: "Marca Personal · Abogado civil",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Lo difícil era encontrar mi voz como profesional independiente y al mismo tiempo arquitecta. Lo lograron.",
+    nombre: "Melanie Howlin",
+    rubro: "Marca Personal · Broker inmobiliaria y arquitecta",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Pasamos de una marca dispersa a una marca con identidad. El cambio se notó en consultas y en ventas.",
+    nombre: "Falcón Real Estate",
+    marca: "Falcón Real Estate",
+    rubro: "Real Estate",
     servicio: "performance",
   },
   {
-    texto: "El seguimiento mensual es lo que diferencia. No son solo campañas, es una estrategia en movimiento.",
-    nombre: "Rodrigo H.",
-    rol: "Servicios B2B",
+    texto: "Saben leer el rubro y traducirlo a contenido. Eso es lo que nos faltaba antes de trabajar con ellas.",
+    nombre: "Estudio MODO CASA",
+    marca: "MODO CASA",
+    rubro: "Interiorismo y Arquitectura",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "El acompañamiento mes a mes es lo que nos sostiene. No es un proyecto cerrado, es una operación viva.",
+    nombre: "Horizon Global",
+    marca: "HORIZON GLOBAL",
+    rubro: "Ecommerce",
     servicio: "performance",
+  },
+  {
+    texto: "Mi marca personal tomó otro nivel desde que trabajamos juntos. Hoy se siente coherente y propia.",
+    nombre: "Fabiana García Lago",
+    rubro: "Talent",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Acompañan con criterio y con honestidad. Si algo no conviene lo dicen, eso vale más que cualquier sí.",
+    nombre: "DINKA",
+    marca: "DINKA",
+    rubro: "Consultora de PYMES",
+    servicio: "academy",
+  },
+  {
+    texto: "El trabajo de pauta y CRM fue clave para escalar. La inversión empezó a tener un retorno medible.",
+    nombre: "RE/MAX Raíces",
+    marca: "RE/MAX Raíces",
+    rubro: "Real Estate",
+    servicio: "performance",
+  },
+  {
+    texto: "Marcaron la diferencia entre publicar contenido y construir marca. No es lo mismo, y se nota.",
+    nombre: "Coldwell Banker Lion Team",
+    marca: "Coldwell Banker Lion Team",
+    rubro: "Real Estate",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Lograron poner en palabras lo que yo no podía. Mi marca personal cambió desde la primera reunión.",
+    nombre: "Luna González",
+    rubro: "Marca Personal",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Entienden el negocio inmobiliario y lo traducen a una comunicación que vende. Eso es lo que buscábamos.",
+    nombre: "INCO Desarrollos",
+    marca: "INCO Desarrollos",
+    rubro: "Desarrollador Inmobiliario",
+    servicio: "performance",
+  },
+  {
+    texto: "Trabajamos con un equipo que se compromete con el resultado. Eso cambió cómo encaramos nuestra marca.",
+    nombre: "PATER",
+    marca: "PATER",
+    rubro: "Consultores inmobiliarios",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Sumamos contenido, estrategia y campañas con un solo equipo. La coherencia en todo se nota mucho.",
+    nombre: "Grupo Tercer Milenio",
+    marca: "Grupo Tercer Milenio",
+    rubro: "Mega librería",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Mi marca personal tomó forma con ellas. Ahora siento que comunico desde la honestidad y no desde la fórmula.",
+    nombre: "Anita La Torre",
+    rubro: "Marca Personal",
+    servicio: "academy",
+  },
+  {
+    texto: "El proceso de trabajo es claro y profesional. Saben qué pedirte y cuándo, no hay vueltas.",
+    nombre: "Fer Estevao Díaz",
+    rubro: "Marca Personal",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Pasamos de invertir sin saber a invertir con criterio. Las campañas tienen lógica y se ve en el ROAS.",
+    nombre: "RE/MAX Emblema",
+    marca: "RE/MAX Emblema",
+    rubro: "Real Estate",
+    servicio: "performance",
+  },
+  {
+    texto: "El equipo se hizo cargo del proyecto como si fuera propio. Ese nivel de compromiso es raro de encontrar.",
+    nombre: "MEADE 2 RE/MAX Estudio",
+    marca: "MEADE 2 RE/MAX Estudio",
+    rubro: "Real Estate",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Saben acompañar a una marca personal sin hacerla genérica. Eso para mí, como coach, era fundamental.",
+    nombre: "Ana Boucher",
+    rubro: "Marca Personal · Coach",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Lograron transmitir la confianza que necesita un paciente cuando elige un equipo médico. No es fácil.",
+    nombre: "Núcleo Bariátrico",
+    marca: "Núcleo Bariátrico",
+    rubro: "Grupo médico",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Trabajan con cuidado por la persona que está detrás de la marca. Eso para mí lo cambia todo.",
+    nombre: "Dra. Agustina López",
+    rubro: "Marca Personal · Cirujana",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "El proceso es ordenado, profesional y con resultados medibles. Eso me dio tranquilidad desde el inicio.",
+    nombre: "Dr. Sergio Sitta",
+    rubro: "Marca Personal · Cirujano",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Una mirada externa con criterio comercial nos vino bien para destrabar cómo nos comunicábamos.",
+    nombre: "Team Bazo C21 El Yar",
+    marca: "Team Bazo C21 El Yar",
+    rubro: "Real Estate",
+    servicio: "performance",
+  },
+  {
+    texto: "Crearon una identidad que se ve en todos los puntos de contacto. La marca tomó otra dimensión.",
+    nombre: "AYERZA Resto",
+    marca: "AYERZA Resto",
+    rubro: "Gastronomía",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Trabajamos pauta y creatividades con un mismo equipo. Eso evita el ida y vuelta y los resultados llegan más rápido.",
+    nombre: "E-MOTIVO",
+    marca: "E-MOTIVO",
+    rubro: "Indumentaria",
+    servicio: "performance",
+  },
+  {
+    texto: "Nos ayudaron a comunicar lo que hacemos sin caer en clichés de RRHH. Esa diferencia se nota en el día a día.",
+    nombre: "Magnetic",
+    marca: "Magnetic",
+    rubro: "Recursos Humanos",
+    servicio: "redes-sociales",
+  },
+  {
+    texto: "Confío en el equipo porque entendieron mi voz desde el inicio. No me cambiaron, me ordenaron.",
+    nombre: "Micaela Elías",
+    rubro: "Marca Personal",
+    servicio: "academy",
+  },
+  {
+    texto: "Acompañan con criterio, sin perder de vista lo que cada marca tiene de propio. Es lo que más valoro.",
+    nombre: "Sofía Stamateas",
+    rubro: "Marca Personal",
+    servicio: "redes-sociales",
   },
 ] as const
 
 /* ─── FOUNDERS ────────────────────────────────────────────────────────────── */
 
 export const founders: readonly MiembroEquipo[] = [
-  { nombre: "Victoria",   rol: "Co-fundadora",       iniciales: "V" },
-  { nombre: "Florentina", rol: "Co-fundadora",       iniciales: "F" },
+  {
+    nombre: "Victoria Timpanaro",
+    rol: "Co-founder & Directora",
+    iniciales: "V",
+    bio: [
+      "Licenciada en Comunicación y creativa por vocación. Se formó trabajando para empresas como IRSA, Elepants y Prüne, donde aprendió cómo viven las marcas desde sus equipos.",
+      "Empezó a emprender en social media como freelance y hoy lidera la creatividad, la dirección de contenido y los equipos de HOLD.",
+      "Después de cruzarse con Flor estudiando y con más de 6 años de experiencia trabajando con marcas, fundaron HOLD en el 2022.",
+    ],
+  },
+  {
+    nombre: "Florentina Ferrari",
+    rol: "Co-founder & Directora",
+    iniciales: "F",
+    bio: [
+      "Estratega con ojo comercial y obsesión por el detalle. Se forma en Diseño Gráfico después de dejar Arquitectura — donde entendió que el diseño era más amplio.",
+      "Pasó por dos agencias antes de armar la suya. Seis años aprendiendo a leer marcas, equipos y clientes — desde el contenido hasta la estrategia comercial. La definen la lectura del negocio, el ojo creativo y trabajar en el detalle.",
+      "Fundó HOLD junto a Vicky en 2022. Lidera la dirección creativa y el desarrollo comercial de la agencia.",
+    ],
+  },
 ] as const
 
 /* Alias retro-compatible — uso interno en NosotrosPreview de la home. */
 export const equipo = founders
 
-/* ─── EQUIPO EXTENDIDO (por áreas) ────────────────────────────────────────── */
+/* ─── EQUIPO EXTENDIDO ────────────────────────────────────────────────────────
+   Lista plana del equipo (sin dividir por áreas). El rol concreto de cada
+   una llega más adelante — por ahora va lorem genérico. */
 
-export const team: readonly EquipoArea[] = [
-  {
-    area: "Comunicación",
-    miembros: ["Soledad", "Maya", "Natalia", "Morena", "Katty"],
-  },
-  {
-    area: "Diseño",
-    miembros: ["Andrea", "Manuela", "Iara", "María", "Raquel"],
-  },
-  {
-    area: "Performance",
-    miembros: ["Gabriela", "Sofía"],
-  },
-  {
-    area: "Producción",
-    miembros: ["Valentina", "Josefina", "Camila", "Martina", "Coni"],
-  },
+export const team: readonly MiembroEquipo[] = [
+  { nombre: "Soledad",    rol: "Lorem ipsum dolor sit amet",  iniciales: "S" },
+  { nombre: "Maya",       rol: "Lorem ipsum dolor sit amet",  iniciales: "M" },
+  { nombre: "Natalia",    rol: "Lorem ipsum dolor sit amet",  iniciales: "N" },
+  { nombre: "Morena",     rol: "Lorem ipsum dolor sit amet",  iniciales: "M" },
+  { nombre: "Katty",      rol: "Lorem ipsum dolor sit amet",  iniciales: "K" },
+  { nombre: "Andrea",     rol: "Lorem ipsum dolor sit amet",  iniciales: "A" },
+  { nombre: "Manuela",    rol: "Lorem ipsum dolor sit amet",  iniciales: "M" },
+  { nombre: "Iara",       rol: "Lorem ipsum dolor sit amet",  iniciales: "I" },
+  { nombre: "María",      rol: "Lorem ipsum dolor sit amet",  iniciales: "M" },
+  { nombre: "Raquel",     rol: "Lorem ipsum dolor sit amet",  iniciales: "R" },
+  { nombre: "Gabriela",   rol: "Lorem ipsum dolor sit amet",  iniciales: "G" },
+  { nombre: "Sofía",      rol: "Lorem ipsum dolor sit amet",  iniciales: "S" },
+  { nombre: "Valentina",  rol: "Lorem ipsum dolor sit amet",  iniciales: "V" },
+  { nombre: "Josefina",   rol: "Lorem ipsum dolor sit amet",  iniciales: "J" },
+  { nombre: "Camila",     rol: "Lorem ipsum dolor sit amet",  iniciales: "C" },
+  { nombre: "Martina",    rol: "Lorem ipsum dolor sit amet",  iniciales: "M" },
+  { nombre: "Coni",       rol: "Lorem ipsum dolor sit amet",  iniciales: "C" },
 ] as const
 
 /* ─── STATS DECORATIVOS ───────────────────────────────────────────────────── */
@@ -395,6 +583,4 @@ export const STATS = [
 
 /* ─── COPY GENERAL ────────────────────────────────────────────────────────── */
 
-export const TAGLINE = "Sostener sin perder la esencia."
-export const SUBTAGLINE =
-  "Acá no te tiramos la posta: te acompañamos a crear la tuya."
+export const TAGLINE = "No solo hacemos contenido, construimos marcas."

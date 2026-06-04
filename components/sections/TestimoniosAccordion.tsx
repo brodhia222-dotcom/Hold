@@ -44,13 +44,17 @@ export function TestimoniosAccordion({ testimonios }: Props) {
       {testimonios.map((t, i) => {
         const initials = getInitials(t.nombre)
         const isActive = active === i
+        /* Label cerrado: marca si la hay, sino el nombre — junto al rubro.
+           Pedido explícito: "cuando las tarjetas están cerradas, mostrar
+           el nombre del cliente o la marca y rubro". */
+        const baseLabel = `${t.marca ?? t.nombre} · ${t.rubro}`
         return (
           <button
             type="button"
             key={`${t.servicio}-${i}`}
             className="hold-test-acc__card"
             data-active={isActive || undefined}
-            aria-label={`Testimonio de ${t.nombre}, ${t.rol}`}
+            aria-label={`Testimonio de ${t.nombre}, ${t.rubro}`}
             onMouseEnter={() => setActive(i)}
             onFocus={() => setActive(i)}
             onClick={() => setActive(i)}
@@ -58,9 +62,9 @@ export function TestimoniosAccordion({ testimonios }: Props) {
             <div className="hold-test-acc__media" aria-hidden />
             <div className="hold-test-acc__overlay" aria-hidden />
 
-            {/* Estado base: rotated label vertical con el nombre del servicio. */}
+            {/* Estado base: rotated label vertical con marca/nombre + rubro. */}
             <span className="hold-test-acc__base-label" aria-hidden>
-              {SERVICIO_NOMBRE[t.servicio]}
+              {baseLabel}
             </span>
 
             {/* Contenido completo (visible cuando active). */}
@@ -75,7 +79,7 @@ export function TestimoniosAccordion({ testimonios }: Props) {
                 </span>
                 <span className="hold-test-acc__person-meta">
                   <span className="hold-test-acc__name">{t.nombre}</span>
-                  <span className="hold-test-acc__rol">{t.rol}</span>
+                  <span className="hold-test-acc__rol">{t.rubro}</span>
                 </span>
               </div>
             </div>

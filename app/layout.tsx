@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "Acompañamos a marcas y creadores a comunicar con estrategia. Redes sociales, performance digital y formación. Buenos Aires, Argentina.",
   openGraph: {
     title: "Hold Agencia Creativa",
-    description: "Acá no te tiramos la posta: te acompañamos a crear la tuya.",
+    description: "No solo hacemos contenido, construimos marcas.",
     url: "https://holdagencia.com",
     siteName: "Hold Agencia Creativa",
     locale: "es_AR",

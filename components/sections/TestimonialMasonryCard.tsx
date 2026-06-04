@@ -49,7 +49,7 @@ export function TestimonialMasonryCard({ testimonio, index = 0 }: Props) {
         <div className="hold-test-card__bottom">
           <p className="hold-test-card__quote">{testimonio.texto}</p>
           <div className="hold-test-card__meta">
-            <span className="hold-test-card__rol">{testimonio.rol}</span>
+            <span className="hold-test-card__rol">{testimonio.rubro}</span>
             <span className="hold-test-card__chip">
               {SERVICIO_NOMBRE[testimonio.servicio]}
             </span>

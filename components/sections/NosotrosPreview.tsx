@@ -17,16 +17,16 @@ export function NosotrosPreview() {
           </span>
 
           <h2 className="hold-nosotros__title" data-reveal data-reveal-delay="0.1">
-            Equipo chico,
-            <br />
-            <em>comprometido.</em>
+            ¿Quiénes <em>somos?</em>
           </h2>
 
           <p className="hold-nosotros__body" data-reveal data-reveal-delay="0.2">
-            Antes de ser agencia, fuimos marcas que no encontraban lo que buscaban.
-            Entonces lo construimos. Hoy acompañamos negocios y creadores que quieren
-            comunicar con estrategia — no a los gritos, no con fórmulas genéricas,
-            sino con algo que realmente les pertenezca.
+            No somos la agencia que te dice que sí a todo. Somos una agencia
+            creativa con un equipo multidisciplinario que trabaja desde
+            adentro hacia afuera. No partimos de tendencias, partimos de tu
+            identidad: eso que ya tenés y que probablemente no estás sabiendo
+            decir. Ayudamos a marcas, equipos y creadores a encontrar su voz,
+            ordenarla y comunicar con estrategia.
           </p>
 
           <div className="hold-nosotros__signers" data-reveal data-reveal-delay="0.3">

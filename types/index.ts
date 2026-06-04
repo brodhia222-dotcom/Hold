@@ -52,7 +52,11 @@ export interface Curso {
 export interface Testimonio {
   texto: string
   nombre: string
-  rol: string
+  /** Marca / empresa asociada al testimonio. Si la persona testifica
+   *  como marca personal (sin empresa), se omite. */
+  marca?: string
+  /** Rubro / sector — "Estudio Jurídico", "Real Estate", etc. */
+  rubro: string
   servicio: ServicioSlug
 }
 
@@ -60,12 +64,8 @@ export interface MiembroEquipo {
   nombre: string
   rol: string
   iniciales: string
-}
-
-/** Área del equipo extendido (Comunicación, Diseño, Performance, Producción). */
-export interface EquipoArea {
-  area: string
-  miembros: readonly string[]
+  /** Bio larga (solo founders por ahora). */
+  bio?: readonly string[]
 }
 
 export interface NavLink {

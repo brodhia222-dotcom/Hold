@@ -3,6 +3,7 @@ import {
   EMAIL,
   INSTAGRAM_HANDLE,
   INSTAGRAM_URL,
+  OFICINA,
   TAGLINE,
   TEL_DISPLAY,
   TEL_HREF,
@@ -80,6 +81,16 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/trabaja-con-nosotros">Trabajá con nosotros</Link>
+              </li>
+              <li>
+                <a
+                  href={OFICINA.mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Oficina: ${OFICINA.calle}, ${OFICINA.barrio}`}
+                >
+                  {OFICINA.calle} · {OFICINA.barrio}
+                </a>
               </li>
             </ul>
           </div>

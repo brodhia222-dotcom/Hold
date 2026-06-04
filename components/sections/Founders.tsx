@@ -4,31 +4,27 @@ import "./founders.css"
 
 /**
  * Bloque editorial de fundadoras side-by-side: foto vertical 4/5 +
- * nombre grande + rol + bio. Lorem en las bios hasta que pasen el
- * copy real.
+ * nombre completo + rol + bio multi-párrafo desde data/content.ts.
  */
 export function Founders() {
   return (
     <div className="hold-founders">
-      {founders.map((f, i) => (
+      {founders.map((f) => (
         <article key={f.nombre} className="hold-founder">
           <div className="hold-founder__photo-wrap">
-            <Placeholder
-              ratio="4/5"
-              label={`Foto · ${f.nombre}`}
-            />
+            <Placeholder ratio="4/5" label={`Foto · ${f.nombre}`} />
           </div>
           <div className="hold-founder__meta">
-            <span className="hold-founder__num">
-              {`Founder · 0${i + 1}`}
-            </span>
+            <span className="hold-founder__num">co-founder</span>
             <h3 className="hold-founder__name">{f.nombre}</h3>
             <span className="hold-founder__role">{f.rol}</span>
-            <p className="hold-founder__bio">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi.
-            </p>
+            {f.bio ? (
+              <div className="hold-founder__bio">
+                {f.bio.map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+              </div>
+            ) : null}
           </div>
         </article>
       ))}

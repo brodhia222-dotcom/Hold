@@ -4,32 +4,34 @@ import { WHATSAPP_URL } from "@/data/content"
 import "./hero-shader.css"
 
 /**
- * Hero simple editorial: bg blanco, tipografía display negra centrada,
- * CTAs Hablemos + Servicios. Sin shader, sin decoraciones extra.
- * Pequeña animación de fade-up por palabra para sumar vida al cargar.
+ * Hero simple editorial: bg Star White, tipografía display, CTAs.
+ * El title nuevo: "No solo hacemos contenido, construimos marcas."
+ * — "solo" va en italic + color accent azul,
+ * — "construimos marcas." va en bold para cerrar fuerte.
+ * Animación de fade-up por palabra al cargar.
  */
 export function HeroShader() {
   return (
     <section className="hold-hero-shader" aria-label="Inicio">
-      <h1 className="hold-hero-shader__sr">Sostener sin perder la esencia.</h1>
+      <h1 className="hold-hero-shader__sr">
+        No solo hacemos contenido, construimos marcas.
+      </h1>
 
       <div className="hold-hero-shader__content">
         <h2 className="hold-hero-shader__title" aria-hidden>
           <span className="hold-hero-shader__word" style={{ "--i": 0 } as CSSProperties}>
-            Sostener
+            No <em>solo</em>
           </span>{" "}
           <span className="hold-hero-shader__word" style={{ "--i": 1 } as CSSProperties}>
-            sin perder
+            hacemos contenido,
           </span>{" "}
-          <span className="hold-hero-shader__word" style={{ "--i": 2 } as CSSProperties}>
-            la <em>esencia.</em>
+          <span
+            className="hold-hero-shader__word hold-hero-shader__word--strong"
+            style={{ "--i": 2 } as CSSProperties}
+          >
+            construimos marcas.
           </span>
         </h2>
-
-        <p className="hold-hero-shader__sub">
-          Acá no te tiramos la posta:{" "}
-          <em>te acompañamos a crear la tuya.</em>
-        </p>
 
         <div className="hold-hero-shader__cta">
           <Button

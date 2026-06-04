@@ -54,10 +54,17 @@
 
 .hold-founder__bio {
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--muted);
   max-width: 48ch;
   margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hold-founder__bio p {
+  margin: 0;
 }
 
 @media (max-width: 900px) {

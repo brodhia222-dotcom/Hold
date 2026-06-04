@@ -3,7 +3,9 @@ import { cn } from "@/lib/utils"
 import "./marquee.css"
 
 type Props = {
-  /** Items que se repiten en loop. */
+  /** Items que se repiten en loop. Para un loop "frase + flecha" usar
+   *  un solo item: ["Lo que hacemos ↓"] — la marquee se encarga de
+   *  repetirlo seamless. */
   items: readonly string[]
   /** Duración total de un loop completo. Default 22s. */
   durationSec?: number
@@ -11,6 +13,9 @@ type Props = {
   separatorColor?: string
   /** Variante invertida (fondo negro, texto blanco). */
   invert?: boolean
+  /** Variante "accent" (fondo --accent, texto blanco bold).
+   *  Pensado para frases tipo loop "Lo que hacemos ↓" / "¿Quiénes somos?". */
+  accent?: boolean
   /** Items en italic 400 — más editorial. */
   italic?: boolean
   className?: string
@@ -22,19 +27,17 @@ type Props = {
 const REPEATS = 6
 
 /**
- * Marquee infinita seamless. Truco:
- * - Cada item tiene `margin-right` (incluido el último). NO se usa flex `gap`.
- * - El total de la pista es 2N copias × (item + margin) = par exacto.
- * - `translate -50%` aterriza pixel-perfecto en el inicio de la copia espejo
- *   → al reiniciar la animación, lo que se ve es idéntico. Sin saltos.
- * - Repetimos los items 6 veces para que la pista siempre supere el viewport
- *   y nunca quede un hueco visible al final del cycle.
+ * Marquee infinita seamless. Tres variantes:
+ * - default: bg --bg, texto --fg, separator --accent
+ * - invert: bg --fg, texto --bg
+ * - accent: bg --accent, texto blanco bold (pensado para frases loop)
  */
 export function MarqueeBand({
   items,
   durationSec = 22,
   separatorColor,
   invert = false,
+  accent = false,
   italic = false,
   className,
 }: Props) {
@@ -48,7 +51,12 @@ export function MarqueeBand({
 
   return (
     <div
-      className={cn("hold-marquee", invert && "hold-marquee--invert", className)}
+      className={cn(
+        "hold-marquee",
+        invert && "hold-marquee--invert",
+        accent && "hold-marquee--accent",
+        className,
+      )}
       style={styleVars}
       aria-hidden
     >

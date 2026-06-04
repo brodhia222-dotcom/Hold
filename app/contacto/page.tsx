@@ -2,11 +2,12 @@ import type { Metadata } from "next"
 import { PageHero } from "@/components/ui/PageHero"
 import { SectionHeader } from "@/components/ui/SectionHeader"
 import { ContactMethods } from "@/components/sections/ContactMethods"
+import { OFICINA } from "@/data/content"
 
 export const metadata: Metadata = {
   title: "Contacto | HOLD",
   description:
-    "Hablemos. Escribinos por WhatsApp, mail o Instagram. Buenos Aires, Argentina.",
+    "Hablemos. Escribinos por WhatsApp, mail o Instagram. Oficina en Villa Urquiza, Buenos Aires.",
 }
 
 export default function ContactoPage() {
@@ -52,12 +53,20 @@ export default function ContactoPage() {
               className="t-micro"
               style={{ color: "var(--muted)", marginBottom: 12 }}
             >
-              Base
+              Oficina
             </p>
             <p className="t-h3" style={{ fontWeight: 400 }}>
-              Buenos Aires
-              <br />
-              Argentina
+              <a
+                href={OFICINA.mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--fg)", textDecoration: "none" }}
+                aria-label={`Ver ${OFICINA.calle} en Google Maps`}
+              >
+                {OFICINA.calle}
+                <br />
+                {OFICINA.barrio} · {OFICINA.ciudad}
+              </a>
             </p>
           </div>
           <div>

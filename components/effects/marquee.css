@@ -42,6 +42,39 @@
   );
 }
 
+/* Variante accent: bg azul brand, texto blanco bold, items grandes —
+   pensado para frases tipo loop ("Lo que hacemos ↓"). */
+.hold-marquee--accent {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.hold-marquee--accent::before {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0 8px,
+    transparent 8px 16px
+  );
+}
+
+.hold-marquee--accent .hold-marquee__viewport {
+  padding-block: clamp(18px, 2.4vh, 30px);
+}
+
+.hold-marquee--accent .hold-marquee__item {
+  font-size: clamp(20px, 2.4vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+
+.hold-marquee--accent .hold-marquee__sep {
+  background: rgba(255, 255, 255, 0.35);
+  width: 8px;
+  height: 8px;
+}
+
 .hold-marquee__viewport {
   position: relative;
   z-index: 1;
