@@ -4,10 +4,11 @@ import { WHATSAPP_URL } from "@/data/content"
 import "./hero-shader.css"
 
 /**
- * Hero simple editorial: bg Star White, tipografía display, CTAs.
- * El title nuevo: "No solo hacemos contenido, construimos marcas."
- * — "solo" va en italic + color accent azul,
- * — "construimos marcas." va en bold para cerrar fuerte.
+ * Hero simple editorial. Título en 2 renglones forzados (cada span es
+ * display:block):
+ * - Línea 1: "No solo hacemos contenido," — regular, "solo" en italic
+ *   (mismo color, sin accent azul)
+ * - Línea 2: "construimos marcas." — bold para cerrar fuerte
  * Animación de fade-up por palabra al cargar.
  */
 export function HeroShader() {
@@ -19,15 +20,15 @@ export function HeroShader() {
 
       <div className="hold-hero-shader__content">
         <h2 className="hold-hero-shader__title" aria-hidden>
-          <span className="hold-hero-shader__word" style={{ "--i": 0 } as CSSProperties}>
-            No <em>solo</em>
-          </span>{" "}
-          <span className="hold-hero-shader__word" style={{ "--i": 1 } as CSSProperties}>
-            hacemos contenido,
-          </span>{" "}
+          <span
+            className="hold-hero-shader__word"
+            style={{ "--i": 0 } as CSSProperties}
+          >
+            No <em>solo</em> hacemos contenido,
+          </span>
           <span
             className="hold-hero-shader__word hold-hero-shader__word--strong"
-            style={{ "--i": 2 } as CSSProperties}
+            style={{ "--i": 1 } as CSSProperties}
           >
             construimos marcas.
           </span>
