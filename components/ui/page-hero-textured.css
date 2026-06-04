@@ -125,6 +125,10 @@
 }
 
 .hold-hero-textured__title em {
+  /* display: block fuerza el em a línea nueva, garantizando que la
+     parte azul caiga siempre en su propio renglón (sin que palabras
+     azules queden colgadas arriba). */
+  display: block;
   font-style: italic;
   font-weight: 400;
   color: var(--accent);

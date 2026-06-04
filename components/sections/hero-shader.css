@@ -36,18 +36,25 @@
   justify-content: center;
   gap: clamp(20px, 3vh, 36px);
   padding-inline: clamp(24px, 5vw, 80px);
-  padding-top: var(--hold-header-h, 72px);
+  /* Padding-top más generoso (header + extra) para que el título no
+     pegue con la nav y respire arriba. */
+  padding-top: calc(var(--hold-header-h, 72px) + clamp(16px, 4vh, 56px));
   text-align: center;
 }
 
 .hold-hero-shader__title {
-  font-size: clamp(48px, 8.5vw, 132px);
-  line-height: 0.95;
+  /* Bajamos de 8.5vw/132px a 6vw/96px → el copy nuevo
+     "No solo hacemos contenido, construimos marcas." entra en menos
+     líneas y deja respirar la nav y los CTAs. */
+  font-size: clamp(40px, 6vw, 96px);
+  line-height: 0.96;
   font-weight: 300;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   color: var(--fg);
   margin: 0;
-  max-width: 16ch;
+  /* Más ancho que antes (16ch → 20ch) → cada span entra completo en
+     una línea (no se parte "construimos" / "marcas"). */
+  max-width: 20ch;
 }
 
 .hold-hero-shader__title em {
